@@ -2,7 +2,6 @@ author = "David Raab"
 description = "Me"
 avatar = ""
 menu_item_separator = " - "
-favicon = "/favicon.ico"
 
 baseURL = 'https://davidraab.github.io'
 languageCode = 'en-us'
