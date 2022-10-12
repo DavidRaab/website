@@ -1,3 +1,52 @@
-baseURL = 'http://example.org/'
+author = "David Raab"
+description = "Me"
+avatar = ""
+menu_item_separator = " - "
+favicon = "/favicon.ico"
+
+baseURL = 'https://davidraab.github.io'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'David Raab'
+
+theme = "m10c"
+
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences  = true
+    guessSyntax = false
+    hl_Lines    = ''
+    hl_inline   = false
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos     = true
+    lineNumbersInTable = true
+    noClasses   = true
+    noHl        = false
+    style       = 'monokai'
+    tabWidth    = 4
+
+[[menu.main]]
+  identifier = "Home"
+  name       = "Home"
+  url        = "/"
+  weight     = 1
+
+[[menu.main]]
+  identifier = "tags"
+  name       = "Tags"
+  url        = "/tags/"
+
+[[params.social]]
+  icon = "github"
+  name = "David Raab Github Profile"
+  url  = "https://github.com/DavidRaab"
+
+[params.style]
+#  darkestColor  = "#d35050"
+#  darkColor     = "#212121"
+#  lightColor    = "#f5e3e0"
+#  lightColor    = "#4d9cf0"
+#  lightestColor = "#f5f5f5"
+#  primaryColor  = "#ffffff"
+
