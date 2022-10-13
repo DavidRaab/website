@@ -2,8 +2,8 @@
 layout: post
 title: Introduction to F#
 slug: introduction-fsharp
-date: 2016-03-10 00:00:00
-tags: [F#,C#,intro]
+date: 2016-03-10
+tags: [FSharp,CSharp,intro]
 description: "Gives an introduction to F# for C# developers"
 keywords: f#, fsharp, c#, csharp, introduction, beginner
 ---

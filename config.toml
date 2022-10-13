@@ -22,7 +22,7 @@ theme = "m10c"
     lineNumbersInTable = true
     noClasses   = true
     noHl        = false
-    style       = 'monokai'
+    style       = 'github-dark'
     tabWidth    = 4
 
 [[menu.main]]

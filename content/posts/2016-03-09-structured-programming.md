@@ -2,7 +2,7 @@
 layout: post
 title: Structured Programming
 slug: structured-programming
-date: 2016-03-09 00:00:00
+date: 2016-03-09
 tags: [structured]
 description: "Explains the idea behind Structured Programming and how they apply to Functional Programming"
 keywords: programming, functional, structured, goto
