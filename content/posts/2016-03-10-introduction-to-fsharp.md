@@ -143,13 +143,13 @@ module MyOperations =
 ### Calling functions in C#
 
 ```csharp
- var result = MyOperations.Add(5, 10);
+var result = MyOperations.Add(5, 10);
 ```
 
 ### Calling functions in F#
 
 ```fsharp
- let result = MyOperations.add 5 10
+let result = MyOperations.add 5 10
 ```
 
 The only difference is that you don't use braces and commas to separate the arguments. You
@@ -173,7 +173,7 @@ public static T SomeFunction<T>(T input) {
 ### Generics in F#
 
 ```fsharp
- let someFunction (input:'a) = // Some code
+let someFunction (input:'a) = // Some code
 ```
 
 Generics in F# are just annotated like normal types. The only difference is that all of them start
@@ -184,7 +184,7 @@ As stated previously. You also don't need to annotate generics. If you have writ
 F# will automatically infer a generic type for you. So overall you also could just write.
 
 ```fsharp
- let someFunction input = // Some code
+let someFunction input = // Some code
 ```
 
 ## Data-Types
@@ -229,7 +229,7 @@ a `let` definition. This way you can easily create a function that return multip
 at once. Tuples don't must contain the same types.
 
 ```fsharp
- let someFunction x = x, x*2
+let someFunction x = x, x*2
 ```
 
 This function for example returns a Tuple with two elements. The input itself, and the input
@@ -243,7 +243,7 @@ let x, y   = result
 We also can write it in one line
 
 ```fsharp
- let x,y = someFunction 10
+let x,y = someFunction 10
 ```
 
 Other than C#, tuples have its own type signature. Instead of a Generic Class like `Tuple<int,int,int>`
@@ -388,21 +388,21 @@ This is comparable to just simple maths. `3 + 4 * 5` would yield in `23`. If we 
 if we have something like these.
 
 ```fsharp
- someFunction (Foo x) (Bar z)
+someFunction (Foo x) (Bar z)
 ```
 
 This would be a Function call with two arguments. The first argument is the result of `Foo x`, the
 second argument would be the Result of `Bar z`. Coming from a C-style language people often try to read it as
 
 ```csharp
- someFunction(Foo x)
+someFunction(Foo x)
 ```
 
 as a single function invocation with one argument, and they see a trailing `(Bar z)` and they don't know
 what it stands for. Actually converting such a function call to C# would result in something like this
 
 ```csharp
- someFunction(new Foo(x), new Bar(z));
+someFunction(new Foo(x), new Bar(z));
 ```
 
 The big advantage of Discriminated Unions is that each case can contain objects, tuples, records or
@@ -460,13 +460,13 @@ instead of `,`. This is often a source of confusion, because both styles are all
 different.
 
 ```fsharp
- let data = [1;2;3;4]
+let data = [1;2;3;4]
 ```
 
 This is a List of `int`. And it contains four elements.
 
 ```fsharp
- let data = [1,2,3,4]
+let data = [1,2,3,4]
 ```
 
 This is a List of a Tuple `int * int * int * int` and it contains a single element. Remember `,` is
@@ -484,7 +484,7 @@ let oneMore = 5 :: data
 `oneMore` is now
 
 ```fsharp
- [5;1;2;3;4]
+[5;1;2;3;4]
 ```
 
 note that `data` is unchanged and is still a four element list. The way how lists are build (*immutable*
@@ -502,7 +502,7 @@ Compose ability is actually pretty easy. Let's assume we have a function that ta
 and a `string` as its output. In C# we would usually define such a *method interface* in that way.
 
 ```csharp
- string SomeMethod(int x);
+string SomeMethod(int x);
 ```
 
 This could be for example part of an `interface` definition in C#. In F# we would define such an interface
@@ -587,7 +587,7 @@ we can compose those two into a new function
 So let's write a `compose` function that does that kind of stuff for us.
 
 ```fsharp
- let compose f g x = g (f x)
+let compose f g x = g (f x)
 ```
 
 So let's look at the implementation. We have a function `compose` with three arguments. `f`
@@ -615,7 +615,7 @@ But what kind of types do we have here? The answer is, they are generic. When we
 signature that the compiler created for us, it looks some kind of scary first. We have.
 
 ```fsharp
- val compose : f:('a -> 'b) -> g:('b -> 'c) -> x:'a -> 'c
+val compose : f:('a -> 'b) -> g:('b -> 'c) -> x:'a -> 'c
 ```
 
 Let's go over it step-by-step
@@ -637,7 +637,7 @@ Finally this returns a `'c` that the `compose` function then returns.
 We now could use `compose` like this.
 
 ```fsharp
- let sum = compose parseInts sumList "1,2,3,4,5" // 15
+let sum = compose parseInts sumList "1,2,3,4,5" // 15
 ```
 
 Here we now call `compose` with three arguments. We provide the `parseInts` function itself as a value.
@@ -690,25 +690,25 @@ that only shows the line that contains a `foo`. And that output is finally sorte
 So instead of
 
 ```fsharp
- strToSum "1,2,3,4,5"
+strToSum "1,2,3,4,5"
 ```
 
 We also could write
 
 ```fsharp
- "1,2,3,4,5" |> strToSum
+"1,2,3,4,5" |> strToSum
 ```
 
 Having this kind of Piping means we also could have written `strToSum` like this
 
 ```fsharp
- let strToStum x = x |> parseInts |> sumList
+let strToStum x = x |> parseInts |> sumList
 ```
 
 instead of
 
 ```fsharp
- let strToSum = parseInts >> sumList
+let strToSum = parseInts >> sumList
 ```
 
 Both styles means the same. In the `|>` we just provide the input argument explcitily. `x |> parseInts |> sumList`
