@@ -13,7 +13,7 @@ most people prefer is to throw an exception in the case of an error, or if we ca
 value from a function. The problem is, exceptions are not any kind better than `null`, and
 they don't solve any problem that `null` introduced.
 
-In my previous post [null is Evil]({% post_url 2016-03-20-null-is-evil %}) i mentioned seven
+In my previous post [null is Evil]({{< ref 2016-03-20-null-is-evil >}}) i mentioned seven
 problems that `null` introduced. So let's look if *exceptions* solve one of those problems.
 
 ## 1. You cannot see if a function throws an exception
@@ -110,7 +110,7 @@ if we choose to directly throw exceptions?
 We can't. Throwing *exceptions* as a solution of getting rid of *null* is just a Pyrrhic victory. Not only that.
 Exceptions in general share the same problems as `null`.
 
-So what is the alternative? My Post about [null is Evil]({% post_url 2016-03-20-null-is-evil %}) contains solution
+So what is the alternative? My Post about [null is Evil]({{< ref 2016-03-20-null-is-evil >}}) contains solution
 of getting rid of `null`. The thing is, the same solutions also works for *Exceptions*!
 
 ## Further Reading
