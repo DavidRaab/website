@@ -1,14 +1,14 @@
-author      = "David Raab"
-description = "Me"
-avatar      = ""
-menu_item_separator = " - "
-
+disqusShortname = 'davidraab'
+theme = "m10c"
 title        = 'David Raab'
 baseURL      = 'https://davidraab.github.io'
 languageCode = 'en-us'
 
-disqusShortname = 'davidraab'
-theme = "m10c"
+[params]
+author      = "David Raab"
+description = "My personal Blog. Writing about programming and other stuff."
+avatar      = "avatar.jpg"
+menu_item_separator = " - "
 
 [markup]
   [markup.highlight]
