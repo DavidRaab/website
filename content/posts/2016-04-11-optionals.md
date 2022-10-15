@@ -28,7 +28,7 @@ But let's imagine we write a function that returns a *Product*, and the requeste
 exists. What do we do in such a case?
 
 The usual approach, at least in OO programming, is to either return `null`, or throwing an
-*Exception*. But i [don't think that Exceptions are better compared to null]({% post_url 2016-03-25-exceptions-are-evil %}).
+*Exception*. But i [don't think that Exceptions are better compared to null]({{< ref 2016-03-25-exceptions-are-evil >}}).
 
 So, why is returning `null` bad? Because a client calling our function is not forced to check
 for `null`. And if he works with `null` as if he had a *Product*, the program will crash. What
