@@ -26,6 +26,10 @@ menu_item_separator = " - "
     style         = 'github-dark'
     tabWidth      = 4
 
+    [markup.goldmark.renderer]
+    unsafe = true
+
+
 [[menu.main]]
   identifier = "Home"
   name       = "Home"
