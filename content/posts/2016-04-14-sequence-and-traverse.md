@@ -109,9 +109,11 @@ let sequenceFold listOfOptions =
         | None _, Some _    -> None
         | None _, None _    -> None
     List.foldBack folder listOfOptions (Some [])
+```
 
-(** When we test our function it returns the right result *)
+When we test our function it returns the right result
 
+```fsharp
 List.map tryParseInt validInput |> sequenceFold
 // Some [1; 100; 12; 5789]
 
@@ -155,9 +157,11 @@ let retn x = Some x
 let sequence listOfOptions =
     let folder x xs = retn (fun x xs -> x :: xs) <*> x <*> xs
     List.foldBack folder listOfOptions (retn [])
+```
 
-(** We still get our expected results *)
+We still get our expected results
 
+```fsharp
 List.map tryParseInt validInput |> sequence
 // Some [1; 100; 12; 5789]
 
