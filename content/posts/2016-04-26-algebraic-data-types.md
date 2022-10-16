@@ -640,8 +640,7 @@ to compare those different types at all.
 Using primitive types like `string`, `float` throughout your code is also what we
 name [Primitive Obsession](http://enterprisecraftsmanship.com/2015/03/07/functional-c-primitive-obsession/).
 
-With DUs we can easily get rid of *Primitive Obsession* and
-[eliminate a lot of bugs](http://reidev275.azurewebsites.net/eliminating-bugs-with-single-case-discriminated-unions/).
+With DUs we can easily get rid of *Primitive Obsession* and eliminate a lot of bugs.
 
 <a name="units-of-measure"></a>
 ## Units of Measure
@@ -963,7 +962,7 @@ type Account = {
 ```
 
 Now Account always must have at least one single valid `PrimaryEmail`. This idea can be extended.
-In [Types + Properties = Software](https://channel9.msdn.com/Events/FSharp-Events/fsharpConf-2016/Types-Properties-Software)
+In [Types + Properties = Software](https://blog.ploeh.dk/2016/02/10/types-properties-software-designing-with-types/)
 Mark Seemann describes how we can embed the rules of Tennis in the Type System itself. For
 example in Tennis we have the Points *Love, 15, 30, 40*. You could go on and use just a
 `int` for that, and instead of `Love` you use `0`. But this is again error-prone. Because an
@@ -1006,15 +1005,11 @@ As Linus Torvalds once said, we should write our code around our data-structures
 ## Further Reading
 
 1. [[Video] Domain modelling with the F# type system](https://vimeo.com/97507575)
-1. [[Video] Types + Properties = Software](https://channel9.msdn.com/Events/FSharp-Events/fsharpConf-2016/Types-Properties-Software)
 1. [The "Designing with types" series](http://fsharpforfunandprofit.com/series/designing-with-types.html)
 1. [Types + Properties = Software](http://blog.ploeh.dk/2016/02/10/types-properties-software-designing-with-types/)
-1. [Eliminating Bugs with Single Case Discriminated Unions](http://reidev275.azurewebsites.net/eliminating-bugs-with-single-case-discriminated-unions/)
 1. [Avoiding Silly Mistakes with F# Unit of Measure](http://www.markheath.net/post/avoid-silly-mistakes-fsharp-units-of-measure)
 1. [Power of mathematics: Reasoning about functional types](http://tomasp.net/blog/types-and-math.aspx/)
-1. [Validation by types](http://www.myeyeson.net/validation-by-types/)
 1. [Units of Measure](https://fsharpforfunandprofit.com/posts/units-of-measure/)
-1. [Understanding Discriminated Unions from Enums](http://reidev275.azurewebsites.net/understainding-discriminated-unions-from-enums/)
 1. [Cardinality](https://en.wikipedia.org/wiki/Cardinality)
 1. [[C#] Primitive Obsession](http://enterprisecraftsmanship.com/2015/03/07/functional-c-primitive-obsession/)
 1. [[PHP] Type Safety and Money](http://verraes.net/2016/02/type-safety-and-money/)
