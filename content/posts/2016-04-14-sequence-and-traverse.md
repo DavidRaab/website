@@ -312,9 +312,11 @@ module Async =
     let traverse f list =
         let folder x xs = retn (fun x xs -> x :: xs) <*> f x <*> xs
         List.foldBack folder list (retn [])
+```
 
-(** We now can use `Async.traverse` in the following way *)
+We now can use `Async.traverse` in the following way
 
+```fsharp
 let uris = [Uri("http://www.google.com"); Uri("https://fsharpforfunandprofit.com")]
 let download uri =
     use wc = new System.Net.WebClient()
