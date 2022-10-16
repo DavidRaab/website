@@ -319,7 +319,6 @@ All of this is done for you by the `map` function!
 
 Currently F# don't have a built-in `Async.map` function. So let's create the `map` function
 for `Async` ourselves.
-*)
 
 ```fsharp
 module Async =

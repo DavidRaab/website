@@ -263,16 +263,20 @@ type Rank =
     | Jack | Queen | King
 
 type Card = Card of Suit * Rank
+```
 
-(** We now can generate all possible Cards by using. *)
+We now can generate all possible Cards by using.
 
+```fsharp
 let suits = [Club;Diamond;Heart;Spade]
 let ranks = [Ace;Two;Three;Four;Five;Six;Seven;Eight;Nine;Ten;Jack;Queen;King]
 
 let cards = [fun s r -> Card(s,r)] <*> suits <*> ranks
+```
 
-(** We now get a list of all 52 cards as a result. *)
+We now get a list of all 52 cards as a result.
 
+```fsharp
 let cards = [
     Card (Club,Ace); Card (Club,Two); Card (Club,Three); Card (Club,Four);
     Card (Club,Five); Card (Club,Six); Card (Club,Seven); Card (Club,Eight);
@@ -325,9 +329,11 @@ let likes = [
     Like.create 1 "Tea"
     Like.create 2 "Tea"
 ]
+```
 
-(** We now can create the *Cartesian Product* of those Data. And afterwards filter it. *)
+We now can create the *Cartesian Product* of those Data. And afterwards filter it.
 
+```fsharp
 let likesTea =
     [fun p l -> p,l] <*> persons <*> likes
     |> List.filter (fun (person,like) -> person.Id = like.PersonId)

@@ -289,14 +289,18 @@ an *immutable* way.
 ```fsharp
 let listOfNumbers = forLoop 0 10 [] (fun i list -> i :: list)
 // [9;8;7;6;5;4;3;2;1;0]
+```
 
-(** Or build a string *)
+Or build a string
 
+```fsharp
 let stringofNumbers = forLoop 0 10 "" (fun i str -> str + (string i))
 // "0123456789"
+```
 
-(** Or start with a value and just repeatedly call a function on it *)
+Or start with a value and just repeatedly call a function on it
 
+```fsharp
 let x = 100.0
 let y = forLoop 0 5 x (fun i x -> x / 2.0)
 // 3.125
