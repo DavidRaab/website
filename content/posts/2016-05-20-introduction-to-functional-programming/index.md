@@ -112,7 +112,7 @@ Otherwise the function name itself should give us enough information what it doe
 But we don't really care how a function work or how it exactly achieve the output
 it returns. South Park teaches this thinking already:
 
-![Underpants and Profit](/images/2016/south_park_profit.png)
+![Underpants and Profit](south_park_profit.png)
 
 A function is just something that takes some underpants, then do something, and
 we get some profit out of it. We just have:
