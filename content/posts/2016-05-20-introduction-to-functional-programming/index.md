@@ -790,8 +790,8 @@ already do that all over the place in an OO language.
 <div class="info">
 Some languages also have the ability to create whole classes/objects inline like you do
 with a lambda expression. In fact F# is such a language and supports
-<a href="https://msdn.microsoft.com/visualfsharpdocs/conceptual/object-expressions-%5bfsharp%5d">Object expressions</a>
-C# also supports <a href="https://msdn.microsoft.com/en-us/library/bb397696.aspx">Anonymous Types</a>,
+<a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/object-expressions">Object expressions</a>
+C# also supports <a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/anonymous-types">Anonymous Types</a>,
 but they are more limited. Java supports <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html">Anonymous classes</a>.
 </div>
 
