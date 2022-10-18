@@ -1,8 +1,8 @@
 disqusShortname = 'davidraab'
-theme = "m10c"
-title        = 'David Raab'
-baseURL      = 'https://davidraab.github.io'
-languageCode = 'en-us'
+theme           = "m10c"
+title           = 'David Raab'
+baseURL         = 'https://davidraab.github.io'
+languageCode    = 'en-us'
 
 [params]
 author      = "David Raab"
@@ -28,7 +28,6 @@ menu_item_separator = " - "
 
     [markup.goldmark.renderer]
     unsafe = true
-
 
 [[menu.main]]
   identifier = "Home"
