@@ -45,6 +45,12 @@ menu_item_separator = " - "
   name = "David Raab Github Profile"
   url  = "https://github.com/DavidRaab"
 
+[[params.social]]
+  icon = "rss"
+  name = "Atom Feed"
+  url  = "https://davidraab.github.io/index.xml"
+
+
 [params.style]
 #  darkestColor  = "#d35050"
 #  darkColor     = "#212121"
