@@ -54,3 +54,14 @@ pre {
     color: rgb(0, 191, 255);
   }
 }
+
+/* SVG formatting for F# code */
+.svg-code {
+  background: rgb(30,30,30);
+  border: 10px rgb(30,30,30) solid;
+  border-radius: 10px;
+}
+
+.svg-code img {
+  margin: 10px;
+}
