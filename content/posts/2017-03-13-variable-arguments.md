@@ -6,7 +6,6 @@ date: 2017-03-13
 tags: [FSharp]
 description: "This article explains how you can create functions with variable arguments, and why you should avoid them."
 keywords: f#, fsharp, functions, variable arguments, paramarray
-twitter-card: "summary"
 ---
 
 One question that appears in F# from time to time is: How do you create a
