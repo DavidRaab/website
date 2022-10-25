@@ -9,38 +9,37 @@ keywords: f#, fsharp, equality, generic
 ---
 
 Lately I implemented my own immutable Queue and came upon a problem
-implementing equality for it. The problem goes like this. You want
+implementing equality for it. The problem goes like this: You want
 a generic data-type that supports equality. But it only should support
 equality if the generic type also supports equality.
 
-Seems a little bit weird? But F# has this built-in probably without that
-you realize this. At least i did not.
+Seems a little bit weird? But this is actually a common problem in F# that is already solved
+without that you probably even noticed that this is a problem. At least I did not
+realize it until I tried to implement a Queue with equality myself.
 
-Here is an example with a list.
-
-You can write the following in F#.
+But to introduce the problem. Let's talk about `List` in F#. Currently you can write this.
 
 ```fsharp
 [1;2;3] = [1;2;3]
 ```
 
-In F# you can compare two lists. The above statement will return `true` as the list itself
-is equal. But equality depends on he types inside the list. Here it is `int`.
+In F# you can compare two lists (Something you cannot do in C# for example).
+The above statement will return `true` because both lists are equal. But if equality works or not
+depends on the type inside the list. In the above example it is `int`.
 
-When you use F# this doesn't look surprising. But you probably also know that list can also
-contain types that has no equality. This would be for example a function.
+But when you use a type that has now equality like a function.
 
 ```fsharp
 let double x = x * 2
 [id;double] = [id;double]
 ```
 
-When you write code like this, you get the compiler-error
+Then you get a compile-error
 
     The type '('a -> 'a)' does not support the 'equality' constraint because it is a function type
 
 Or in other words equality for a list depends on the generic type you use. Let's try to implement
-our own `List` to see the problem more clear and how we solve this.
+our own `List` to see the problem more clear and how to solve this.
 
 ## Our own List
 
@@ -97,9 +96,8 @@ but comparing them doesn't work
 equal fs fs
 ```
 
-But we now have a function named `equal` or in your code you probably have a module `MyList.equal`. But
-you also want to overload equality. So we can use `=` for our own type instead of writing `equal`. And then
-things start to get complicated.
+At this moment we only have a function named `equal` but maybe we also want to overload equality so we can use
+`=` in our code. Then things start to get complicated.
 
 ## Overloading Equality
 
@@ -130,12 +128,12 @@ type MyList<'a> =
 
 But the F# compiler will give the following errors for the highlighted lines.
 
-    1    -> The signature and implementation are not compatible because the declaration
+    2    -> The signature and implementation are not compatible because the declaration
             of the type parameter 'a' requires a constraint of the form 'a: equality
 
     6,14 -> A type parameter is missing a constraint 'when 'a: equality'
 
-You could fix this by adding the constraint.
+We can fix this by adding the constraint.
 
 ```fsharp {hl_lines=[2]}
 [<CustomEquality;NoComparison>]
