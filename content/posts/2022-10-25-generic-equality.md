@@ -5,7 +5,7 @@ slug: optional-generic-equality
 date: 2022-10-25
 tags: [FSharp,equality,generics]
 description: "Implementing an optional Generic Equality"
-keywords: f#, fsharp, equality, generic
+keywords: f#, fsharp, equality, generics
 ---
 
 Lately I implemented my own immutable Queue and came upon a problem
