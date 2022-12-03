@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Are dynamic-typed languages really faster to develop?"
+title: "Are dynamic-typed languages really faster to develop in?"
 slug: are-dynamic-typed-languages-really-faster-to-develop
 date: 2022-12-02
 tags: [dynamic-typed,static-typed]
