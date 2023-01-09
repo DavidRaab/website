@@ -8,14 +8,14 @@ description: "Shows how to do parsing with Perl and the g modifier"
 keywords: perl, parsing, parser, regex
 ---
 
-Perl regexes have the `/g` modificator that is worth knowing about. As you
-can do a lot of advanced things with this modificator. But here are the basics
+Perl regexes have the `/g` modifier that is worth knowing about, as you
+can do a lot of advanced things with this modifier. But here are the basics
 first.
 
 # Context
 
 First we need to understand that Perl has two different contexts and in both
-contexts the `/g` modificator works differently.
+contexts the `/g` modifier works differently.
 
 ## List context
 
@@ -28,7 +28,7 @@ my $str  = "1234 and 4567 and 8901";
 my @nums = $str =~ m/(\d+)/;  # 1234
 ```
 
-Here `@nums` will only contain a single value `1234`. But with the `/g` we can extract
+Here `@nums` will only contain a single value `1234`. But with  `/g` we can extract
 all matches at once.
 
 ```perl
@@ -41,11 +41,11 @@ to know that Perl will try to match everything and extract everything
 at once. So when we have a very large string we will get back an array with
 all matches at once. We will see later why this can matter.
 
-We get list context in Perl by either assigning to an array. Assigning to
-a list or by using a regex match inside a `for` loop or some other functions like
+We get list context in Perl by either assigning to an array, assigning to
+a list, by using a regex match inside a `for` loop, or some other functions like
 `map`, `grep` and so on.
 
-But when we assign to a list we only extract so much values as we have defined.
+But when we assign to a list we only extract as many values as we have defined.
 ```perl
 my ($first, $second) = $str =~ m/(\d+)/g; # 1234, 4567
 ```
@@ -58,7 +58,7 @@ for my $num ( $str =~ m/(\d+)/g ) {
 }
 ```
 
-Maybe you are used to use `$1, $2, $3, ...` for accessing the capture group.
+Maybe you are used to using `$1, $2, $3, ...` for accessing the capture group.
 But with a `for` loop like above, you will have an unexpected output.
 
 ```perl
@@ -68,8 +68,8 @@ for my $num ( $str =~ m/(\d+)/g ) {
 ```
 
 In this case you will see `8901` three times. This is because the regex, like
-said above, runs completly to the end before returning. Or in other words give
-the control to the `for` loop. In this case you will only have access to the
+said above, runs completly to the end before returning 
+control to the `for` loop. In this case you will only have access to the
 last match. And this was `8901`.
 
 Consider that using `if` or `while` is scalar context and it works a little bit
@@ -77,13 +77,13 @@ different in those.
 
 ## Scalar Context
 
-Different to a list context that returns all its matches at once, a regex
+Differing from a list context that returns all its matches at once, a regex
 that is used in scalar context just returns a value if the match
 was succesfull or not. So using a regex in a `if` statements does not return
 the match itself. You now must use `$1, $2, $3, ...` to extract this information.
 
-When you use a regex in scalar context on a string with the `/g` modificator
-it might be that you think nothing will happen. For example both of the
+When you use a regex in scalar context on a string with the `/g` modifier
+you might think nothing will happen. For example both of the
 code examples will return the exact same thing.
 
 ```perl
@@ -94,11 +94,10 @@ say $1 if $str =~ m/(\d+)/ # 1234
 say $1 if $str =~ m/(\d+)/g # 1234
 ```
 
-Both will print `1234` to the console. But with the `/g` modifcator there is a
-difference. Perl internally saves the position where the Regex engine stopped.
+Both will print `1234` to the console. But with the `/g` modifier there is a
+difference. Perl internally saves the position where the regex engine stopped.
 So when you do another new match against `$str` with a regex that has `/g`
-enabled it startes again where it stopped. Maybe code explains itself
-better.
+enabled, it startes again where it stopped. For example:
 
 ```perl
 say $1 if $str =~ m/(\d+)/; # prints 1234
@@ -115,7 +114,7 @@ say $1 if $str =~ m/(\d+)/g; # prints 8901
 ```
 
 In Perl you can get (or set) the position where the regex stopped with the
-`pos` function. Or where it will start when you use a new regex against the
+`pos` function. You can also get where it will start when you use a new regex against the
 same string.
 
 ```perl
@@ -126,8 +125,8 @@ say $1 if $str =~ m/(\d+)/g; # 4567
 say pos($str);               # 13
 ```
 
-To understand the position: The position of a string is between the characters
-of a string. It start with `0` before the first character of a string. So
+The value returned by `pos` is between the characters
+of a string, pointing to the next character to be considered. It start with `0` before the first character of a string. So
 position `4` means it is between `4` and the space character ` `.
 
 But it is also possible to set the starting position before you use a regex
@@ -139,7 +138,7 @@ pos($hello) = 7;
 say $1 if $hello =~ m/(\w+)/g; # prints "World"
 ```
 
-without the `/g` in this example, you would get `Hello` as the regex engine
+Without the `/g` in this example, you would get `Hello` as the regex engine
 would then start at the beginning and discards the previous position.
 
 So overall using `/g` on the same string in scalar context is like an *iterator*.
@@ -163,15 +162,15 @@ while ( $str =~ m/(\d+)/g ) {
 }
 ```
 
-Compared to the `for` loop it is now safe to use `$1` or better, you
+Compared to the `for` loop it is now safe to use `$1`. In fact, you
 must use `$1`. This becomes especially handy if you extract more than just one
 value per match. The loop will print all three numbers once and then finish.
 
 # different regexes
 
 Here is one interesting aspect. When you use `/g` on a string it saves
-the position where it stopped. But this information is stored in the string
-and is independed of the regex you use. This means you can use different
+the position where it stopped. But this information is relative to the string
+and is independent of the regex you use. This means you can use different
 regexes with `/g` on the same string.
 
 ```perl
@@ -185,16 +184,16 @@ say $1 if $str =~ m/(\d+)/g; # 8901
 
 This can help in parsing as you can parse with one regex, advance the
 regex engine some characters forward and use another regex. But it has one
-flaw, sadly it resets the position to `0` once it fails (But we can fix
+flaw; it resets the position to `0` once it fails (but we can fix
 that, as you will see in a moment).
 
 # \G anchor
 
 But first let's talk about the `\G` anchor. So far we have used `/g` succesfully
-on the string. But the way regexes works they usually skip characters to find
-a starting match. Consider you want to check if a string only contains digit
-then you must add anchors like `^`, `\A`, `$`, `\Z` and/or `\z`, otherwise
-you allow more than you want.
+on the string. But the way regexes work, they usually skip characters to find
+a starting match. For example, suppose you want to check if a string only contains digits.
+THen, you must add anchors like `^`, `\A`, `$`, `\Z` and/or `\z`. Otherwise
+you allow more matches than you want.
 
 ```perl
 my $only_digits = "hello 1234";
@@ -214,14 +213,14 @@ if ( $only_digits =~ m/\A (\d+) \z/xms ) {
 }
 ```
 
-in this example the if statement would not be executed as our string starts with
-`hello` and not with digits. In the same way we want to have the same kind of
+In this example the `if` statement would not be executed as our string starts with
+`hello` and not with digits. In the same way, we want to have the same kind of
 restriction when we use `/g`. We need a way to say: *Now check something, and
-it must start where the last regex stopped*. And this is what the `\G` anchor
+it must start where the last regex stopped*. This is what the `\G` anchor
 does in a regex.
 
-Consider we want to parse an alphanumeric followed by a number. When we don't
-use any anchor this will be sucessfull, even if it shouldn't.
+Consider the case in which we want to parse an alphanumeric followed by a number. When we don't
+use any anchor this will be sucessful, even if it shouldn't.
 
 ```perl
 my $str = "hello world 1234";
@@ -230,7 +229,7 @@ say $1 if $str =~ m/(\d+)/gxms; # 1234
 ```
 
 The first regex parses `hello`, but then the next line will search for the next
-digits. But we want it to be restricted that digits must follow. We get this
+digits. But we want it to be restricted that only digits must follow. We get this
 restriction by using `\G` as an anchor.
 
 ```perl
@@ -239,16 +238,16 @@ say $1 if $str =~ m/\G (\w+)/gxms; # hello
 say $1 if $str =~ m/\G (\d+)/gxms; # 1234
 ```
 
-Now, only `hello` will be printed. Because after `hello` the remaining string
-not yet consumed by the regex engine will be ` world 1234`. And it doesn't starts
-with digits! It starts with an space character.
+Now, only `hello` will be printed because after `hello`, the remaining string
+not yet consumed by the regex engine will be ` world 1234`. And that doesn't start
+with digits. It starts with an space character.
 
 So it seems that this way, we can split our parsing into multiple chunks
-(or tokens). But there is another problem. As we learned before. As soon
+(or tokens). But there is another problem. As we learned before, as soon
 a regex doesn't match on a string it will reset its position to `0`.
 
 This makes sense when we use a single regex with a `while` loop as otherwise
-we would have an infinite loop. But it would be cool if we can turn this off.
+we would have an infinite loop. But it would be cool if we could turn this off.
 
 # /c option
 
@@ -260,7 +259,7 @@ maximum = 1234
 verbose = true
 ```
 
-It seems like a configuration file that supports just key and value assignment.
+This seems like a configuration file that supports just key and value assignment.
 Sure, it would be very easy to just do it with a single regex. But it also
 can make sense to split it up into multiple statements and parse it step after
 step. The separation can be easier to read and understand, but also easier to
@@ -346,7 +345,7 @@ while ( $config !~ m/\G\z/gxmsc ) {
 ```
 
 This loop continues until `\G` that is the position of the regex engine has reached
-`\z`, the end of the string. Maybe we also want some error handling and create a hash
+`\z`, the end of the string. Maybe we also want some error handling and we want to create a hash
 instead of printing the result to the console. So finally we can write the following
 function.
 
@@ -398,8 +397,8 @@ sub parseConfig($config) {
 ```
 
 The good part of it is that we can easily expand the parsing. For example
-adding the ability for another type of value can become very easy. We just
+adding the ability for another type of value is very easy. We just
 need to add another `elsif` pattern for the value we want. We also
 can produce decent error messages as we always knew what must come
 next. With `pos` we have access to the current position of the regex engine
-and we can produce a meaningfull error message if needed.
+and we can produce a meaningful error message if needed.
