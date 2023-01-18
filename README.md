@@ -6,5 +6,5 @@ To run this code you need **Hugo extended**, not the normal version.
 The theme contains SCSS/SASS and this is not included in the normal
 version.
 
-run: `hugo server` to create a local webserver for the site.
+run: `hugo server` to create a local webserver for the site.  
 run: `hugo` to create the static site in the `public/` folder.
