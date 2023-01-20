@@ -1,0 +1,21 @@
+/* css for code toggle functionality */
+.code-toggle {
+  display: grid;
+  grid-template-rows: 2em auto;
+}
+
+.code-toggle > div.buttons {
+  display: flex;
+}
+
+.code-toggle > div {
+  display: none;
+}
+
+.code-toggle > div.active {
+  display: grid;
+}
+
+.code-toggle > .buttons .active {
+  background-color: rgb(126, 140, 140);
+}
