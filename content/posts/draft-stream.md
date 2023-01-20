@@ -10,12 +10,15 @@ programming techniques. The API will resemble the F# API.
 
 First, we need an iterator. In functional programming an *iterator* is just a
 function that returns the next element whenever you call the function. We achieve
-this by create a function that returns another function that contains some *state*.
+this by creating a function that returns a function that contains some *state*.
 This is named a *closure*.
 
 ```perl
 sub range($start, $stop) {
+    # This is the state
     my $current = $start;
+    # a function is returned, but every function has access to its own unique
+    # $current. This is called a closure.
     return sub {
         if ( $current <= $stop ) {
             return $current++;
