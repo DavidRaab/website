@@ -1,5 +1,5 @@
 disqusShortname = 'davidraab'
-theme           = "m10c"
+theme           = "own"
 title           = 'David Raab'
 baseURL         = 'https://davidraab.github.io'
 languageCode    = 'en-us'
