@@ -3,6 +3,7 @@ layout: post
 title: "Perl Regex Parsing with the g option"
 slug: perl-regex-parsing-with-g-option
 date: 2023-01-07
+lastmod: 2023-01-09
 tags: [perl,regex,parsing]
 description: "Shows how to do parsing with Perl and the g modifier"
 keywords: perl, parsing, parser, regex
@@ -68,7 +69,7 @@ for my $num ( $str =~ m/(\d+)/g ) {
 ```
 
 In this case you will see `8901` three times. This is because the regex, like
-said above, runs completly to the end before returning 
+said above, runs completly to the end before returning
 control to the `for` loop. In this case you will only have access to the
 last match. And this was `8901`.
 
