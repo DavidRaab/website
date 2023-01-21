@@ -18,11 +18,17 @@
     margin: 1em 0;
   }
 
-  & > pre,
+  & > pre {
+    padding: 1em;
+    border-left: 0.4em solid rgba($primary-color, .8);
+    background: #0d1117;
+  }
+
   .highlight > pre,
   .highlight > div {
     border-left: 0.4em solid rgba($primary-color, .8);
-    padding: 1em 1em;
+    padding: 1em 0em;
+    background: #0d1117;
   }
 
   blockquote {

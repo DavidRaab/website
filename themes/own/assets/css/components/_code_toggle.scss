@@ -2,20 +2,30 @@
 .code-toggle {
   display: grid;
   grid-template-rows: 2em auto;
-}
 
-.code-toggle > div.buttons {
-  display: flex;
-}
+  // By default don't show any div, only when .active is added
+  > div         { display: none; }
+  > div.active  { display: grid; }
+  > div.buttons { display: flex; }
 
-.code-toggle > div {
-  display: none;
-}
+  > .buttons button {
+    margin-bottom: 1px;
+    color: #333;
+    border-color: #ccc;
+    outline: none;
+    background-color: #fff;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0 0.5em;
+  }
 
-.code-toggle > div.active {
-  display: grid;
-}
+  > .buttons button.active {
+    background-color: #d5d5d5;
+  }
 
-.code-toggle > .buttons .active {
-  background-color: rgb(126, 140, 140);
+  // Remove margin only if inside of code-toggle
+  div.highlight { margin: 0; }
+
+  // Remove padding only if inside of code-toggle
+  .highlight > div { padding: 0; }
 }
