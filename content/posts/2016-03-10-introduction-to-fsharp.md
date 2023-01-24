@@ -24,9 +24,9 @@ and understand functional code.
 
 For better understanding I will provide some C# to F# code examples.
 
-## Variables
+# Variables
 
-### Definition C#
+## Definition C#
 
 Variables are an important concept, in C# you can define variables in two ways. First with an
 explicit type. You can optionally initialize it with a value.
@@ -46,7 +46,7 @@ var name   = "Hello";
 var person = new Person("foo");
 ```
 
-### Definition in F#
+## Definition in F#
 
 In F# we usually only use the second form of definition. But instead of `var` we write `let`.
 
@@ -69,9 +69,9 @@ let name   : string = "Hello"
 let person : Person = Person("foo")
 ```
 
-## (Im)mutability
+# (Im)mutability
 
-### (Im)mutability in C#
+## (Im)mutability in C#
 
 One important difference is that every variable in C# is *mutable* by default. This
 means you can change a variable at any time you want
@@ -85,7 +85,7 @@ person = new Person("bar");
 In C# you otherwise only can create immutable class fields with the `readonly` keyword.
 You cannot create immutable *local-variables*.
 
-### (Im)mutability in F#
+## (Im)mutability in F#
 
 In F# on the other hand, everything is immutable by default. You cannot change a variable by default.
 If you want to create a mutable variable you have to mark a variable as `mutable`
@@ -105,9 +105,9 @@ name   <- name + " World!"
 person <- Person("bar")
 ```
 
-## Functions / Static Methods
+# Functions / Static Methods
 
-### Definition in C#
+## Definition in C#
 In C# you define *static methods* as part of a *class*.
 
 ```csharp
@@ -118,7 +118,7 @@ public static class MyOperations {
 }
 ```
 
-### Definition in F#
+## Definition in F#
 In F# you put functions inside modules.
 
 ```fsharp
@@ -140,13 +140,13 @@ module MyOperations =
     let add (x:int) (y:int) : int = x + y
 ```
 
-### Calling functions in C#
+## Calling functions in C#
 
 ```csharp
 var result = MyOperations.Add(5, 10);
 ```
 
-### Calling functions in F#
+## Calling functions in F#
 
 ```fsharp
 let result = MyOperations.add 5 10
@@ -155,14 +155,14 @@ let result = MyOperations.add 5 10
 The only difference is that you don't use braces and commas to separate the arguments. You
 just provide the arguments as-is.
 
-## Generics
+# Generics
 
 One important concept that you will see more often in F# (compared to C#) is the usage of generics.
 Because *type-inference* also works with functions. F# often automatically generalize a function
 with generic arguments, instead of specific-types. And overall generics are more important in
 functional languages.
 
-### Generics in C#
+## Generics in C#
 
 ```csharp
 public static T SomeFunction<T>(T input) {
@@ -170,7 +170,7 @@ public static T SomeFunction<T>(T input) {
 }
 ```
 
-### Generics in F#
+## Generics in F#
 
 ```fsharp
 let someFunction (input:'a) = // Some code
@@ -187,7 +187,7 @@ F# will automatically infer a generic type for you. So overall you also could ju
 let someFunction input = // Some code
 ```
 
-## Data-Types
+# Data-Types
 
 Other than object-oriented languages the key concept of *functional programming* is a separation
 between *data* and *behaviour*. In *OO* programming we use *classes*. Classes can contain
@@ -199,7 +199,7 @@ as output. Because working with data is so important, a functional language offe
 classes to define data-types. Besides classes we can use *tuples*, *records* and
 *discriminated unions*.
 
-### Tuples in C#
+## Tuples in C#
 
 Tuples are also present in C#. There already exists as a `Tuple` class. But working with them
 is not so convenient as in F#. Anyway let's quickly look at how you use them.
@@ -215,7 +215,7 @@ Tuples are a good way for intermediate types. If you easily want to pass some va
 *one unit* to a function. But more often they are used as a result. So you can easily return
 multiple different values from a function.
 
-### Tuples in F#
+## Tuples in F#
 
 Working with Tuples is much easier in F#
 
@@ -251,7 +251,7 @@ a tuple is built into the language itself. They will be represented as `int * in
 `int * float * string * Person` would be a four element tuple (quadruple) that contains an `int` a `float`
 a `string` and a `Person` in that **exact** order.
 
-### Records in F#
+## Records in F#
 
 Working with tuples is good for intermediate function, for example if you create Pipelines like you
 see them with LINQ in C#. They are also good for grouping two or three elements, but as soon you have
@@ -329,7 +329,7 @@ let warrior = {
 printfn "%s was a Warrior with Strength of %d" warrior.Name warrior.Attribute.Strength
 ```
 
-### Discriminated Unions in F#
+## Discriminated Unions in F#
 
 A Discriminated Union (DU) also doesn't currently exists in C#, but they are also planed as a feature for C# 7.
 A DU is important as they provide a *OR* type. When you look at classes, tuples or records all of them are
@@ -451,7 +451,7 @@ Running the above code will produce us the following output
 So we can easily create hierarchical data-structures, and with Pattern Matching we can easily write recursive
 function to traverse them.
 
-### List in F#
+## List in F#
 
 The example above already introduced lists. Otherwise a list in F# is different to the C# `List<T>` type.
 In C# you create a mutable `List<T>` object and you can directly `Add` items to. In F# on the other hand you
@@ -494,7 +494,7 @@ There are various functions inside the `List` module to transform lists itself. 
 we also can create *mutable fixed-size array*. There also exists a `Array` Module with nearly the same
 functions as in the `List` module.
 
-## Composition and Piping
+# Composition and Piping
 
 The last concepts we look at in our introduction is the concept of *Composition* and *Piping*. Both
 are very important in functional languages, as more complex logic is achieved by composing of functions.
@@ -743,12 +743,12 @@ public static IEnumerable<int> Numbers(IEnumerable<int> xs) {
 var result = Numbers(Enumerable.Range(1,100));
 ```
 
-## Final Note
+# Final Note
 
 I covered quite a lot of topics. But I hope that now *functional languages* looks less scary to you. By understanding
 all of the topics you basically already made a big step in understanding F# in general.
 
-## Further Reading
+# Further Reading
 
  * [[Video] An Introduction to Microsoft F#](https://channel9.msdn.com/Blogs/pdc2008/TL11)
  * [Why use F#](http://fsharpforfunandprofit.com/why-use-fsharp/)

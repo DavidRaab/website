@@ -14,7 +14,7 @@ talked about that basic looping constructs `fold`. But this is still to powerful
 In the sense of readability we should try to eliminate them with more specific ones. In this post
 I go through a *toy example* to show the various ways on how to refactor some code.
 
-## The Toy Example
+# The Toy Example
 
 Recently I had some conversation about code in a game and providing some kind of
 *critical hit-chance* in a game. The typical way on how to achieve this is actually easy. Let's
@@ -26,7 +26,7 @@ and test if those number is a critical hit. And either increase a *critical hit*
 *normal hit* variable. After 1000 tries we just calculate the average and see if
 we really have around 16% or around 160 critical hits.
 
-## Solution 1
+# Solution 1
 
 Some very imperative code in F# could look like this.
 
@@ -74,7 +74,7 @@ beginning. It is a toy example, so we usually wouldn't waste any time in improvi
 function. But by going through a toy example it can help to get the general concept on
 how to improve code.
 
-## Solution 2
+# Solution 2
 
 In functional programming mutable variables are actually a little bit frowned upon. So let's try
 to eliminate our mutable variables by replacing our loop with recursion. Actually recursion is in that
@@ -128,7 +128,7 @@ the reason why functional programmers names such inner recursive functions just 
 
 So was our transformation into *Solution 2* wasteful? Not really, that now leads to *Solution 3*
 
-## Solution 3
+# Solution 3
 
 Once we have eliminated all kinds of mutable variables we end up with a recursive function that
 just loops. Our function takes some additional variables like `count`, `criticalHit` and `normalHit`
@@ -178,7 +178,7 @@ and we create our new state from it.
 But as stated before. `fold` is still something that we consider as *powerful*, is there a way to also
 eliminate `fold`?
 
-## Solution 4
+# Solution 4
 
 We actually can eliminate `fold`. But for that we need to go and look back at what we are actually
 doing. What we really was interested in was the percentage if we really get the right amount of
@@ -208,7 +208,7 @@ let calculateChance chance =
     |> Seq.averageBy (fun x -> if x < chance then 100.0 else 0.0)
 ```
 
-## Conclusion
+# Conclusion
 
 When we compare the final code with what we started I think we have reached a good refactoring.
 

@@ -41,7 +41,7 @@ for example the purpose of `Async.map`?
 
 To explain what `map` really is about, let's forget about what you already know and start from scratch again.
 
-## Some functions
+# Some functions
 
 Before we look at `map`, let's create some simple functions. These functions will be used throughout the article.
 
@@ -56,7 +56,7 @@ let add10 x = x + 10
 let length (str:string) = str.Length
 ```
 
-## List.map
+# List.map
 
 We now assume that we don't have most of the functions from the `List` module. Especially not `List.map`. Sooner
 or later you will encounter one problem. With our `square` function we can square an `int`. But our `square`
@@ -134,7 +134,7 @@ of our `mapList` function, and let's just remember the signature.
 
     ('a -> 'b) -> list<'a> -> list<'b>
 
-## Option.map
+# Option.map
 
 Suddenly later when we are programming, we face a new problem. We encounter a `option<int>` value. `option<int>`
 contains an `int`. So because it contains an int, we also could use our `square` function on the **inner** value.
@@ -188,7 +188,7 @@ Let's once again look at the type signature of our `mapOption`
 
 Does this already look familiar?
 
-## The commonalities between `List.map` and `Option.map`
+# The commonalities between `List.map` and `Option.map`
 
 Now let's reconsider with what we started. We started with functions like `square` and `add10`.
 But those function only could work with `int`. But while we were programming we faced values like
@@ -221,7 +221,7 @@ how a `map` function for `Result`, `Async` or `Whatever` should look like
     ('a -> 'b) -> Async<'a>    -> Async<'b>
     ('a -> 'b) -> Whatever<'a> -> Whatever<'b>
 
-## Currying and Partial Application
+# Currying and Partial Application
 
 At this point it is important to talk about Currying. Currying is the idea that there only
 exists functions with **one-argument** and they **always** have to return a value. F# is such
@@ -283,7 +283,7 @@ two reason on why this concept is important.
 1. Code-Reuse. If a type supports `map`, you just can upgrade a function to work with this type.
 2. In your own functions, you don't need to care about the layer itself.
 
-## Code Reuse
+# Code Reuse
 
 So let's look again at our starting functions and just use them with the already built-in `List.map`
 and `Option.map` functions.
@@ -302,7 +302,7 @@ So we just can reuse our three functions. We never have to write special functio
 through a list. Or that handles `option`, `Async`, `Result`, we just can **upgrade** any
 function we already have written.
 
-## You don't need to care for the layers
+# You don't need to care for the layers
 
 This is probably the biggest advantage, as you don't have to care for the *layers*. You want
 to convert a list of `int` to a list of `string`. Just write a function that does `int -> string`
@@ -315,7 +315,7 @@ match an option, or write code to handle asynchronicity.
 
 All of this is done for you by the `map` function!
 
-## Async.map
+# Async.map
 
 Currently F# don't have a built-in `Async.map` function. So let's create the `map` function
 for `Async` ourselves.
@@ -342,7 +342,7 @@ is telling us. We have to write a function with the signature
 1. We can pass that `'a` to our function `f` that converts `'a` to an `'b`.
 1. Once we have a `'b` we `return` it. `return` basically wraps the `'b` and adds the `Async<>` layer.
 
-## Stacking Layers
+# Stacking Layers
 
 The interesting idea is now. We are not restricted to adding a single layer. We can add as much layer
 we want and stack them. For example we could have `option` values that are wrapped inside a `list` returned
@@ -407,13 +407,13 @@ let squaring' input = async {
 }
 ```
 
-## Functors
+# Functors
 
 Whenever we have a type with a `map` function we call it a *Functor* if the implementation
 of `map` satisfies two laws. Those two laws ensures that `map` is predictable and don't do
 additional stuff we didn't expect.
 
-### 1. Law: Mapping `id`
+## 1. Law: Mapping `id`
 
 The first rule says that mapping over the `id` function must not change the input. The `id`
 function is just a function that returns its input as-is
@@ -429,7 +429,7 @@ let xs = List.map id [1;2;3;4;5]
 
 Then `xs` still must be `[1;2;3;4;5]`.
 
-### 2. Law: Function composition
+## 2. Law: Function composition
 
 The second rule says that composing two functions and then mapping, should be the same
 as mapping over both functions separately.
@@ -454,7 +454,7 @@ in one-step. Or if we go trough our list two times and do it in two separately s
 
 Because `List.map` satisfies both laws, we say that `List` is a *functor*.
 
-## Summary
+# Summary
 
 I hope it is now clear why `map` is such an important function. Implementing a `map` function
 just means you can **upgrade** already available functions. It opens up a lot of
@@ -467,6 +467,6 @@ then you are *probably* doing something wrong! The same goes for every other typ
 Not only is it easier to just write a function that don't contain any list/looping/recursion
 logic. Such a function is even more reusable.
 
-## Further Reading
+# Further Reading
 
  * [Understanding map and apply](http://fsharpforfunandprofit.com/posts/elevated-world/)

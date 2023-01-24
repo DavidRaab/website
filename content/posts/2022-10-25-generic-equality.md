@@ -41,7 +41,7 @@ Then you get a compile-error
 Or in other words equality for a list depends on the generic type you use. Let's try to implement
 our own `List` to see the problem more clear and how to solve this.
 
-## Our own List
+# Our own List
 
 We start with
 
@@ -99,7 +99,7 @@ equal fs fs
 At this moment we only have a function named `equal` but maybe we also want to overload equality so we can use
 `=` in our code. Then things start to get complicated.
 
-## Overloading Equality
+# Overloading Equality
 
 The first attempt would be
 
@@ -175,7 +175,7 @@ own List implementation can be compared otherwise not.
 
 Luckily F# already supports this.
 
-## EqualityConditionalOn
+# EqualityConditionalOn
 
 F# has the attributes `EqualityConditionalOn` and there is also a `ComparisonConditionalOn`
 that works the same way. But only adding those will still not solve the problem.
@@ -245,7 +245,7 @@ let double x = x * 2
 let fs = (cons id (cons double empty))
 ```
 
-## Summary
+# Summary
 
 Sometimes it is interesting how much pain a *simple* (whatever...) feature like **overloading**
 can cause.

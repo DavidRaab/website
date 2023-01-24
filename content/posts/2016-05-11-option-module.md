@@ -13,7 +13,7 @@ time I just used `Option.map` and `Option.bind` and ignored functions like `Opti
 `Option.filter`, `Option.fold` and so on. I spent some time with those functions to understand
 when those are useful.
 
-## defaultArg
+# defaultArg
 
 The first function i look at is actually not in the Option module. It is the `defaultArg`
 function. With `defaultArg` we can extract an option type and provide a default value
@@ -36,7 +36,7 @@ Some 10 |> Option.orElse 10 // 10
 None    |> Option.orElse 0  // 0
 ```
 
-## exists & forall
+# exists & forall
 
 I must admit, i never looked closer at those functions. It is obvious that those functions are
 *ported* from the List/Array/Seq module. But because an option never contains more than one element,
@@ -89,7 +89,7 @@ else printfn "input not valid"
 `Option.forall` is basically the same, only that `None` is threaten as `true` instead of `false`.
 But I must admit, I cannot come up with a useful example for `forall`.
 
-## filter
+# filter
 
 In my last example I added a second check. While two checks are still somehow okay in terms of
 readability it can become unhandy fast. Wouldn't it be better if we could chain the operations?
@@ -122,7 +122,7 @@ Some 1 |> Option.filter isEven // None
 Some 2 |> Option.filter isEven // Some 2
 ```
 
-## fold
+# fold
 
 I started with `defaultArg` and implemented `orElse`. But overall we could replace those with
 `fold`. Besides the option itself, `fold` expects two additional arguments. A function and an
@@ -168,7 +168,7 @@ Option.fold List.append [1;2;3] (None)           // [1;2;3]
 We either execute our function with two arguments, or if the second argument is a `None` we return
 the first argument as the default value. The arguments itself don't need to be of the same types.
 
-## Validation
+# Validation
 
 With very few helper functions we could built a small validation framework that uses the option type.
 Most of them are just other names instead of `map`, `filter` or `bind`.

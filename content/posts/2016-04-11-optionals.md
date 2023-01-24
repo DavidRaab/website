@@ -15,7 +15,7 @@ is bad, this time I want to focus why *Optionals* are good. For this purpose I a
 a small application that I will cover. But first, let's go over *Optionals* and see
 which benefits they have.
 
-## `null` is not the problem
+# `null` is not the problem
 
 At first, I will state that `null` itself is not even the problem.
 
@@ -55,7 +55,7 @@ and line where we forgot to handle such a case.
 
 It seems like a dream. But this is exactly what *Optionals* gives us!
 
-## Optionals
+# Optionals
 
 *Optionals* fixes that problem because it makes the idea of **No value** it's own type. The `option`
 type in F# is defined as followed:
@@ -132,7 +132,7 @@ let y = Option.map (fun x -> x + 5) x
 Now, we are forced to handle `option` values. But `option` itself is it's own type and we have
 a lot of functions that helps us working with `option` values.
 
-## The Application
+# The Application
 
 The best way to show the benefits and the difference is to go through a small example. For that
 purpose I created a small in-memory database and a CLI program with basic CRUD operations. You
@@ -247,7 +247,7 @@ function that has some `option` handling in it.
 Finally, on top we have the `CLI` module. The purpose of it is to provide the logic
 for the `CLI`. We parse our input string, interpret the commands and update the database.
 
-## DB
+# DB
 
 `Map` itself is an *immutable* type. So the general idea is that operations like
 `insert`, `delete`, `update` return the new state of `Map`.
@@ -326,7 +326,7 @@ even the fact that an `id` could not be presented, still don't return an `option
 we have an operation that cannot fail here. Either it updates an entry, or it does
 nothing. And you get that behaviour ensured by the type-system at compilation-time!
 
-### CLI
+## CLI
 
 The CLI handling is in general split into two parts. First I parse the input by the user
 and I use a *Discriminated Union* to save the different input commands. The type is just
@@ -486,13 +486,13 @@ main storage
 We create an *immutable* `Map` as our starting database. With `main storage` we finally
 start our whole application loop.
 
-## Further Reading
+# Further Reading
 
  * [The Option Type](http://fsharpforfunandprofit.com/posts/the-option-type/)
  * [Wikibook - Option Type](https://en.wikibooks.org/wiki/F_Sharp_Programming/Option_Types)
  * [[C#] Some optional, functional goodness in C#](http://www.davesquared.net/2012/12/optional-fp-in-csharp.html)
 
-## Full Code
+# Full Code
 
 ```fsharp
 open System

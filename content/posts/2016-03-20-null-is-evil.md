@@ -12,7 +12,7 @@ Tony Hoare once said: *I call it my billion-dollar mistake. It was the invention
 reference in 1965.* So, why did he added "null" in the first place? Why was it such a big
 mistake. And if it is such a big mistake, what are the alternatives?
 
-## The purpose of null
+# The purpose of null
 
 To understand why it was a mistake, let's look why it was even added in the first place. Let's
 assume we have a simple function expecting a `PersonId` that returns a `Person` object. We would
@@ -41,7 +41,7 @@ instead. Actually I leave the discussion for *exception* for another blog post. 
 is more that you could return a `null` in the error case. Some functions/libraries do that, and
 there is no way you can prevent that. You just have to deal with it, whether you like it or not.
 
-## The problems with null
+# The problems with null
 
 Now that we understand why we have null. Let's create a list of problems that the implementation
 of *null* causes.
@@ -130,7 +130,7 @@ So as a summary, we have the following problems with `null`.
 1. We also have to check every function argument for `null`
 1. It destroys *Happy Path-coding*
 
-## Optionals
+# Optionals
 
 Actually retro-fixing *null* in a language is nearly impossible. There exists often some kind of *hack-ish*
 ways on how to fix it. But it usually feels not natural, or it doesn't fix all problems. So let's look at
@@ -194,7 +194,7 @@ forget to add the checking. And you only have to really check those functions th
 Actually that eliminates all problems we have, but let's go over the problems once more to describe
 why they are eliminated.
 
-### 1: We can identify functions returning *Nothing*
+## 1: We can identify functions returning *Nothing*
 
 It is just part of the function signature.
 
@@ -206,7 +206,7 @@ it can return an `int` or not
 
 This will always return an `int`
 
-### 2: We must check
+## 2: We must check
 
 We cannot access a value directly. `option` is a type on its own. If we want to get the inner value
 we have to *Pattern Match* against an optional.
@@ -220,14 +220,14 @@ match person with
 
 Runtime `NullReferenceException` are not possible anymore
 
-### 3: Not every function returns `option`
+## 3: Not every function returns `option`
 
 That means we only need to *Pattern Match* those function that return an `option`. Functions
 that don't return `option` also cannot be Pattern Matched! If we would Pattern Match against
 a value that is not an `option` we get an error. Once again, everything happens already at
 compile-time. That means you can see the error already in your IDE.
 
-### 4: We can skip the checking
+## 4: We can skip the checking
 
 `option` is just a type like any other. That means you can return an option from your function.
 But you also can pass `option` as a value around. The important thing is, you only need to do
@@ -236,7 +236,7 @@ a `int option` to a function expecting a `int`. Both are different types. If a f
 `int` you must unwrap the value inside the `option`. Well that isn't quite correct, because
 you can automate this process, but we will look later at this in more detail.
 
-### 5 and 6: Passing `option`
+## 5 and 6: Passing `option`
 
 We can pass `option` as a valid value. But only to those function that expects a `option`. We
 cannot implicitly pass it. And a function expecting an `option` as a value also must *Pattern Match*
@@ -245,7 +245,7 @@ the argument.
 So it cannot happen that values sometimes are `option` or not. Either they are, and we must check. Or
 we don't have to check at all.
 
-## Happy Path-Coding
+# Happy Path-Coding
 
 Happy Path-Coding needs some further explanations. Previously i said that F# don't support `null`
 but this isn't quite right. F# runs on the .NET platform, and the runtime supports the concept
@@ -311,7 +311,7 @@ But at this point i will not show how to build the solution for yourself. And ac
 two solutions to solve it. Either way through a so called *Applicative Functor* or the *Maybe Monad*.
 So let's look how both solution would look like.
 
-### Applicative Functor
+## Applicative Functor
 
 The approach with an *applicative functor* works that we can *upgrade* any kind of functions. Let's
 first create a function that added our three variables together.
@@ -377,7 +377,7 @@ where it makes sense to check it. So instead of checking `x`, `y` and `z` direct
 with the values, directly add them but if you want to print the result of your `addThreeOptionals`
 function. You have to Pattern Match.
 
-### Maybe Monad
+## Maybe Monad
 
 Another solution is the so called *Maybe Monad*. F# supports a feature named *Computation Expression*
 that are syntactic sugar for this kind of computations. Let's just look how our code could look like
@@ -414,7 +414,7 @@ let resultWithMaybeB = maybe {
 `resultWithMaybeB` would be `None`. This is because `tryParse "hallo"` would result in `None`. And this
 will abort the `maybe` construct at this point, and it would overall just return `None`.
 
-## Summary
+# Summary
 
 `null` is evil, because you have to add a lot of checking to get it right, a language like C# don't
 support you in trying to find all places where you forgot or have to add checking to get a correct
@@ -428,7 +428,7 @@ want to add explicit checking, without losing the benefits of optionals.
 In some future blogs I will show you in more detail how *Applicative Functors* and the *Maybe Monad*
 works. So you can build your own constructs !
 
-## Further Reading
+# Further Reading
 
  * [Null has no type, but Maybe has](http://blog.ploeh.dk/2015/11/13/null-has-no-type-but-maybe-has/)
  * [The Option Type](http://fsharpforfunandprofit.com/posts/the-option-type/)

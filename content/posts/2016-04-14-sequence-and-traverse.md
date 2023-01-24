@@ -32,7 +32,7 @@ just `option`.
 
 This generalization is what we think of the `sequence` and `traverse` functions.
 
-## Sequence
+# Sequence
 
 We first start with the *monadic* `tryParseInt` function we already mentioned.
 
@@ -183,7 +183,7 @@ we define ourself. [We could fix it with Higher-Kinded Polymorphism]({{< ref 201
 but F# don't support this nicely, but there are ways around it. But i will not cover
 this topic here.
 
-## Traverse
+# Traverse
 
 So far we discussed `sequence` but in practice you will less likely implement `sequence`
 at all. Instead we will implement `traverse`. So how is `traverse` different from `sequence`?
@@ -230,7 +230,7 @@ traverse tryParseInt xs
 
 we get a `option<list<'b>>`.
 
-## Sequence defined through traverse
+# Sequence defined through traverse
 
 The primary reason why you less likely implement `sequence` is because `traverse` is
 basically the same implementation. You can enhance a `sequence` implementation easily
@@ -245,7 +245,7 @@ let sequence xs = traverse id xs
 
 You could even come to the conclusion to not provide a `sequence` implementation at all.
 
-## Finishing the Example
+# Finishing the Example
 
 With `traverse` we now can easily finish our example that we started.
 
@@ -269,7 +269,7 @@ This code now produces:
     Sum: 5902
     Error: Some inputs were not numbers!
 
-## Not limited to Option
+# Not limited to Option
 
 It is in general important to understand that this concept is not limited to `list`
 and `option`. The only thing we need is a data-structure that has a `fold` function,
@@ -337,7 +337,7 @@ As you can see from the implementation. `Async.traverse` is identical to the ver
 wrote for the `option` type. We just have to set `retn` and `<*>` to functions that work
 with `Async`.
 
-## Further Reading
+# Further Reading
 
  * [Understanding traverse and sequence](http://fsharpforfunandprofit.com/posts/elevated-world-4/)
  * [[Haskell] Traversable](https://en.wikibooks.org/wiki/Haskell/Traversable)

@@ -13,14 +13,14 @@ introduced the `map` function and described that implementing `map` and fulfilli
 we get what we call a *Functor*. In this Post we discuss the `apply` function that
 we can view as an extension to the `map` function.
 
-## Problem with `map`
+# Problem with `map`
 
 It might be that you have noticed one problem with `map`. `map` only can work with
 one-argument functions! The definition of `map` expects a function `'a -> 'b` as it's
 first argument. So we can **upgrade** one-argument functions but what happens
 if we want to upgrade two, three or four argument functions?
 
-## Some dummy functions
+# Some dummy functions
 
 Once again we will create some dummy functions with more than one argument to see
 how we can work with them.
@@ -40,7 +40,7 @@ mul 3 7        // 21
 repeat 3 "abc" // "abcabcabc"
 ```
 
-## Currying again
+# Currying again
 
 But wait, didn't we previously said that there doesn't really exists functions with more than
 one argument? Are not all functions just one argument functions, and that two/three/four... arguments
@@ -59,7 +59,7 @@ When we expect the signature of our `optionMul` function we now get a new functi
 
     option<int> -> option<(int -> int)>
 
-## What happened?
+# What happened?
 
 So what happened exactly? And why could we pass `mul` (`int -> int -> int`) anyway to `map` that expected
 a `'a -> 'b`? The big answer is, it's all because of currying. As said once before. A definition like
@@ -81,7 +81,7 @@ That's why we get back
 
     option<int> -> option<(int -> int)>
 
-## What does `option<(int -> int)>` mean?
+# What does `option<(int -> int)>` mean?
 
 The question that really starts to beg is. What the hell does `option<int -> int>` anyway mean? And how
 do we work with such a construct anyway?
@@ -106,7 +106,7 @@ The bigger problem is that all of this question and answers are currently *unhel
 their are the wrong question. We really have to start at the beginning and rethink:
 **Which result do we expect after upgrading a two-argument function?**
 
-## Which result do we expect?
+# Which result do we expect?
 
 Let's rethink the purpose of `map`. `map` is the idea that we can just **upgrade** an existing
 function and add the `option` handling for us. It just turns a
@@ -132,7 +132,7 @@ can get harder and harder to write a function that handles three, four or more `
 same time. On top of that, it doesn't really feel so much flexible, isn't there some better way
 so we can handle functions with arbitrary arguments? Sure there is!
 
-## Introducing `apply`
+# Introducing `apply`
 
 The solution to our problem is that we just write a function that can handle the output of
 our `map` function. Let's work with the `repeat` function this time, and let's also pass in the
@@ -274,7 +274,7 @@ Currently we **upgrade** `mul` and execute `mul` in one step, because we provide
 how can we just **upgrade** `mul` without executing it? Before we do that, let's look in how we can
 make the execution more readable.
 
-## Defining your own Operators
+# Defining your own Operators
 
 In F# we can define our own operators. Operators are basically just two argument function. But instead of
 writing `f x y` an operator is written between (infix) two arguments `x f y`. The value
@@ -383,7 +383,7 @@ arguments, without *Partial Applying* functions. And we still can create easily 
 
 Some note if it is not obvious. Usually we don't implement a `lift1` because that is what `map` does!
 
-## The `return` function
+# The `return` function
 
 Currently we always created all **lifted** values directly. For example if we needed an `option<int>`
 we directly wrote `Some 7` to create it. Let's rethink this process. Let's assume we just
@@ -458,7 +458,7 @@ type you have. But yes, `retn` is often a very easy implementation. On top of it
 also can happen that `apply` is sometimes easier to implement as `map`. So it is quite
 good to know different ways to implement the same function.
 
-## What can we do with all of this?
+# What can we do with all of this?
 
 Currently we only have written the Applicative Functor for the `option` type. But you can think
 of this extension for every type that you usually also can write a `map` function for. This
@@ -481,7 +481,7 @@ we either have to:
 Both solutions are very tedious and can become very annoying. Like `null` checking is always
 annoying. So you end up with either.
 
-### 1. Unwrap all optionals beforehand
+## 1. Unwrap all optionals beforehand
 
 ```fsharp
 // Assume we have two optionals from somewhere else
@@ -498,7 +498,7 @@ match x with
         printfn "Result: %d" (mul x y)
 ```
 
-### 2. Rewrite a `optionMul` function
+## 2. Rewrite a `optionMul` function
 
 ```fsharp
 let optionMul x y =
@@ -562,14 +562,14 @@ forget the checks, but the real advantage is that they are values on it's own, a
 can write such an *Applicative Functor* around `option` that supports upgrading any function
 to the `option` world and do all the checking for you. That's the real benefit of using `option`.
 
-## Applicative Functor Laws
+# Applicative Functor Laws
 
 In [Understanding map]({{< ref 2016-03-27-understanding-map >}}) we already came across
 two laws that `map` should satisfy. As we now introduced two new functions `return` (retn)
 and `apply` there also exists some laws they have to satisfy until we can call it a
 *Applicative Functor*.
 
-### 1. Rule: Identity
+## 1. Rule: Identity
 
 This basically refers to the first law of a functor. We said that mapping over the `id`
 function should not change the value. Because `map` can be implemented in terms of
@@ -581,7 +581,7 @@ let y = retn id <*> x
 x = y // comparing must be true -- here it will be (Some 10)
 ```
 
-### 2. Rule: Order of **upgrading**
+## 2. Rule: Order of **upgrading**
 
 It shouldn't matter if we first calculate `f x` and then `retn`. Or if we `retn` `f`
 and `x` separately, and then do the calculation
@@ -592,7 +592,7 @@ let y = retn mul <*> retn 7 <*> retn 3
 x = y // Both must be the same -- here it will be (Some 21)
 ```
 
-### 3. Rule: Partial Applying
+## 3. Rule: Partial Applying
 
 That one probably needs some more explanation. Usually we can *Partial Apply* a function
 by just omitting values. For example `repeat 3`. But what is if you want to *Partial Apply*
@@ -617,7 +617,7 @@ let  y = ay <*> retn 3
 x = y // Both must be the same -- Here it will be -- Some "abcabcabc"
 ```
 
-### 4.Rule: Composition
+## 4.Rule: Composition
 
 This rule comes from normal function composition. Let's say we have two functions. One adds "1"
 to a value, another one adds "2" to a value. Function Composition says that it doesn't matter
@@ -677,7 +677,7 @@ let oy = (retn (>>) <*> oadd1 <*> oadd2) <*> retn 3 // Some 6
 ox = oy // Both must be the same
 ```
 
-## Summary
+# Summary
 
 We started with `map` as a general function to *upgrade/lift/box* normal functions into
 some other types. But `map` only handles one argument functions in a way we would expect.
@@ -698,7 +698,7 @@ idea works also for other types. While the technique how to implement an *Applic
 is the same. The meaning of it changes between types. Currently with `option` we basically
 have written a solution to the [null is Evil]({{< ref 2016-03-20-null-is-evil >}}) problem.
 
-## Further Reading
+# Further Reading
 
  * [Understanding map and apply](http://fsharpforfunandprofit.com/posts/elevated-world/)
  * [The Apply Pattern](http://www.davesquared.net/2015/07/apply-pattern.html)

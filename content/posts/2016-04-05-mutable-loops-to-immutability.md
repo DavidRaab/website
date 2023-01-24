@@ -14,7 +14,7 @@ languages you will probably find a lot of reason for that one, but why are recur
 functions so important? The short answer is, because of Immutability! To understand the connection
 between those, let's start with some code that uses loops with mutation.
 
-## ResizeArray
+# ResizeArray
 
 Let's start with `ResizeArray`, and let's implement a `map` for it. The interesting idea,
 even if we have a *mutable data-structures* we still can write functions that behaves as
@@ -89,7 +89,7 @@ without accessing a *mutable variable*?
 
 The answer is: Through recursion!
 
-## Looping with recursion
+# Looping with recursion
 
 To understand how we can replace loops through recursion, let's start with something simple. We
 start with a typical `for` loop as you can see with `C#`.
@@ -306,7 +306,7 @@ let y = forLoop 0 5 x (fun i x -> x / 2.0)
 // 3.125
 ```
 
-## Creating an immutable `foreach`
+# Creating an immutable `foreach`
 
 So far we only looped over numbers. But usually we want to loop over whole *data-structures*.
 In C# we have `foreach` for this kind of idea. For example we can loop over a list in this way.
@@ -380,7 +380,7 @@ return the new state that will be used for the next recursive call.
 Your *accumulator* will be returned as a result once you traversed all elements of
 your data-structure.
 
-## Creating `map`
+# Creating `map`
 
 Now that we abstracted the recursive looping in it's own function, we don't need to write a
 recursive loop function anymore to traverse a list! We just can use `fold` for this purpose.
@@ -463,7 +463,7 @@ let sum = foldBack (fun x acc -> x + acc) [1..5] 0
 That's why we use `acc x` in `fold` and `x acc` in `foldBack`. For summing numbers this
 doesn't make any difference, but for other operations like `map` it does!
 
-## `length`, `filter`, `iter`, `append`, `concat` and `collect`
+# `length`, `filter`, `iter`, `append`, `concat` and `collect`
 
 Let's create some more functions. As an exercise you also can try to first implement
 those functions yourself.
@@ -517,7 +517,7 @@ one.
 
 And once you have `concat`, it is also pretty easy to implement `collect` through `map` and `concat`.
 
-## Summary
+# Summary
 
 We first started with some loops that modifies *mutable variables*. In order to get rid of *mutable*
 variables or to work with *immutable data-structures* we need recursion. Without *recursion*
@@ -532,7 +532,7 @@ While *recursion* is indeed an important aspect of functional programming, as we
 work with *immutable data*. It doesn't mean we should use *recursion* all over the place. The use
 of *recursion* is often a sign that we lack abstraction.
 
-## Further Reading
+# Further Reading
 
  * [Catamorphisms](https://lorgonblog.wordpress.com/2008/04/05/catamorphisms-part-one/)
  * [Recursive Types and Folds](http://fsharpforfunandprofit.com/series/recursive-types-and-folds.html)

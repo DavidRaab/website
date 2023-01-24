@@ -14,7 +14,7 @@ Polymorphism* (aka Generics) is often used. Haskell was the first language that 
 "Higher-kinded polymorphism". Sadly, F# don't support this kind of polymorphism directly. Actually it
 only has partial support for it. So let's look in what it is, and why you want it.
 
-## Polymorphism
+# Polymorphism
 
 Before we go deeper let's recap what polymorphism is about. Polymorphism is the idea
 that you can write code that looks the same. But it can do different things depending on the
@@ -45,7 +45,7 @@ So if you want to add a `string` you need yet again another operator/function. S
 greatly help, because we can create the general concept of *add two things*. And we can use this
 operation with different types.
 
-## Higher-kinded polymorphism
+# Higher-kinded polymorphism
 
 Now let's assume we want to write a function that just adds two `int` together. We could just write
 
@@ -249,7 +249,7 @@ to implement `fold` for your type, and you would get hundreds of functions for f
 
 So the big advantage of "higher-kinded polymorphism" is that you get a ton of code reuse.
 
-## Can we solve it with interfaces?
+# Can we solve it with interfaces?
 
 Probably you will ask: *Can we not solve it with an interfaces*? The answer is no. You can achieve
 something similar, but not the same. Actually there already exists a solution for the `fold`
@@ -280,7 +280,7 @@ only expects `IFace` objects you now can use all of them.
 But that isn't really so special. Sure, after i converted something to a `List` i also can use all
 of the `List` functions inside the `List` module, what a surprise!
 
-## Summary
+# Summary
 
 F# doesn't support higher-kinded polymorphism directly. It has the features to create this kind
 of code with re-usability. You also don't need to implement the `average` function, as F# already
@@ -292,7 +292,7 @@ But it is a really important concept, and I think programing languages should tr
 more on this kind of polymorphic behaviour. If you are aware of this feature, probably you see the
 chance of creating your own polymorphic functions and you gain a lot more code reuse.
 
-## Further Reading
+# Further Reading
 
  * [Ad-hoc Polymorphism in F#](http://withouttheloop.com/articles/2014-10-21-fsharp-adhoc-polymorphism/)
  * [Constraints in F#](http://blog.2mas.xyz/constraints-in-fsharp/)

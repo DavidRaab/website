@@ -13,7 +13,7 @@ a `map` function is what we call a *Functor*. In [Applicative Functors]({{< ref 
 we extended that idea with the `return` and `apply` function and we call the result an *Applicative Functor*.
 The next important function in our toolset is the `bind` function.
 
-## Monads
+# Monads
 
 The combination of `return` and `bind` is what we call a Monad. But currently
 I will not consider this as an introduction to Monads at all. If you heard the *Monad* term and
@@ -23,7 +23,7 @@ can help to understand the concept. Otherwise if you just try to understand what
 I recommend the following link to understand the problem:
 [The what are Monads Fallacy](http://two-wrongs.com/the-what-are-monads-fallacy)
 
-## The Problem
+# The Problem
 
 I think it is always good to start with a problem. If we understand a problem first, we usually
 have it easier to understand why we are doing something. Currently we have `map` to upgrade functions with
@@ -76,12 +76,12 @@ always have the *type-signature*
     ('a -> list<'b>)   -> list<'a>   -> list<'b>
     ('a -> Async<'b>)  -> Async<'a>  -> Async<'b>
 
-## `return` once again
+# `return` once again
 
 The `bind` function don't stands on it's own. We also need a `return` function. But we
 already covered this function in [Applicative Functors]({{< ref 2016-03-31-applicative-functors >}}).
 
-## Implementing `bind`
+# Implementing `bind`
 
 We can implement `bind` in two different ways. It is good to know both as depending on which type we
 have, sometimes the one or the other can be easier.
@@ -96,7 +96,7 @@ have, sometimes the one or the other can be easier.
 The `option` type has the advantage that both implementations are easy, so let's look at how we could
 implement `bind` for `Option` in both ways.
 
-### The direct way
+## The direct way
 
 The *direct* way can sometimes be nearly identical to `map`. Let's look at the `map` and `bind`
 implementation side-by-side.
@@ -117,7 +117,7 @@ As you can see, both functions are nearly identical. The only difference is that
 of `Some (f x)`. We don't need to wrap the output in a `Some` because our function `f` already returns
 an `option`. So we just return it's output directly.
 
-### The `join` way
+## The `join` way
 
 The other way is to first implement a new function that can turn a `option<option<'a>>` just into a
 `option<'a>`. That's also quite easy. We first check our outer-most `option`. If it is `None`
@@ -136,7 +136,7 @@ Now we create `bind` by just using `map` and `join` the result.
 let bindOption2 f opt = joinOption (mapOption f opt)
 ```
 
-### Simple usage
+## Simple usage
 
 Let's test both functions and compare it with a `map` call.
 
@@ -152,7 +152,7 @@ instead of `option<option<float>>` that a `map` will return us.
 The `Option` module already contains `Option.map` and `Option.bind`, so we don't have to
 rewrite those ourselves. As another exercise, let's look at a `bind` implementation for `list`.
 
-## `bind` for `list`
+# `bind` for `list`
 
 Creating a `bind` for a `list` is a case where the first-approach is usually really hard. Let's look
 at a `map` implementation for `list` first.
@@ -196,7 +196,7 @@ for every input of our starting list, but we still get a single list, not a list
 
 F# also provides an implementation for this function. But it is named `List.collect` instead of `List.bind`.
 
-## An operator for `bind`
+# An operator for `bind`
 
 In [Applicative Functors]({{< ref 2016-03-31-applicative-functors >}}) we used `<!>` for the `map` function.
 And `<*>` for the `apply` function. We use `>>=` as an operator for the `bind` function. But on top of it.
@@ -207,7 +207,7 @@ left-side and the function on the right-side.
 let (>>=) m f = Option.bind f m
 ```
 
-## Continuation-passing Style
+# Continuation-passing Style
 
 The reason for this change is that we think of `bind` as some kind of
 [Continuation-passing Style](https://en.wikipedia.org/wiki/Continuation-passing_style) programming.
@@ -381,7 +381,7 @@ But the more important difference is the result (our variable). In a normal `let
 will get `option<float>`. But with `bind`, we just get `float`. `bind` decides whether our
 continuation function should be called or not.
 
-## Computation Expressions
+# Computation Expressions
 
 The idea of this kind of continuation-passing style is actually really powerful. So powerful that F#
 provides a language construct to let it look like normal code. At first, we just create a class
@@ -440,7 +440,7 @@ write your own handling.
 What you see here is a basic implementation of the **Maybe Monad**. And it is the implementation of
 the second solution I showed in the [null is Evil]({{< ref 2016-03-20-null-is-evil >}}) post.
 
-## Defining `map` and `apply` through `bind`
+# Defining `map` and `apply` through `bind`
 
 The combination of `return` and `bind` is really powerful. In
 [Understanding apply]({{< ref 2016-03-31-applicative-functors >}}) we already saw that we can
@@ -477,7 +477,7 @@ let apply fo xo = maybe {
 
 Because of this we always have an *Applicative Functor* when we have a *Monad*.
 
-## Kleisli Composition
+# Kleisli Composition
 
 Function composition is the idea to create a new function out of two smaller functions. It
 usually works as long we have two function with a matching output and input type.
@@ -510,7 +510,7 @@ the result is a new *Monadic function*.
 
     'a -> option<'c>
 
-## Laws
+# Laws
 
 We already saw Laws for *Functors* and *Applicative Functors*. The combination of `return`
 and `bind` (a Monad) also must satisfy three laws. In the following description I use
@@ -525,7 +525,7 @@ let m   = retn "10"       // option<string> -- a boxed value
 But sure, all laws have to work with any function or value combination. But seeing some actual
 values makes it easier to understand the laws.
 
-### 1. Law: Left identity
+## 1. Law: Left identity
 
 When we `return` (box) a value and then use `bind` (that unbox the value) and pass it to a function.
 It is the same as directly passing the value to a function.
@@ -534,7 +534,7 @@ It is the same as directly passing the value to a function.
 retn x >>= f  =  f x  // (Some 10.0) = (Some 10.0) -> true
 ```
 
-### 2. Law: Right identity
+## 2. Law: Right identity
 
 Binding a boxed value and returning it, is the same as the boxed value
 
@@ -542,7 +542,7 @@ Binding a boxed value and returning it, is the same as the boxed value
 m >>= retn  =  m
 ```
 
-### 3. Law: Associative
+## 3. Law: Associative
 
 Order of composing don't play a role. We can pass a value to `f` and the result to `g` and
 it has to be the same as if we compose `f` and `g` first, and pass our value to the composed
@@ -555,14 +555,14 @@ let ay =  m >>= (f >=> g)  // Compose f and g first, then pass it m
 ax = ay // Must be the same
 ```
 
-## Summary
+# Summary
 
 With `map`, `retn`, `apply` and `bind` we have four general functions that simplifies working
 with *boxed* types like `option`, `list`, `Async` and so on. Whenever you create a new type you
 should consider implementing those functions too. Here is a quick overview of those
 functions and when to use them.
 
-### `map`
+## `map`
 
     ('a -> 'b) -> M<'a> -> M<'b>
 
@@ -572,7 +572,7 @@ output of a function.
 Interpreted as a "two-argument" function we can use a boxed value `M<'a>` directly with a function
 that can work with the wrapped type `'a`.
 
-### `apply`
+## `apply`
 
     M<'a -> 'b> -> M<'a> -> M<'b>
 
@@ -584,14 +584,14 @@ to a boxed value. A function like `int -> string -> float -> int` can thus be tu
 
     M<int> -> M<string> -> M<float> -> M<int>
 
-### `return` or `retn`
+## `return` or `retn`
 
     'a -> M<'a>
 
 It just boxes a `'a`
 
 
-### `bind`
+## `bind`
 
     ('a -> M<'b>) -> M<'a> -> M<'b>
 
@@ -618,14 +618,14 @@ we must return *boxed* values we usually use `return` to return/box an unboxed v
 
 The syntax of this kind of continuation-passing style can be improved with a *Computation Expression*.
 
-### Implementations
+## Implementations
 
 * `map` can be implemented through `return` and `apply`
 * `map` can be implemented through `return` and `bind`
 * `apply` can be implemented through `return` and `bind`
 * `bind` can be implemented through `map` and some kind of `concat` operation
 
-## Further Reading
+# Further Reading
 
  * [Understanding bind](http://fsharpforfunandprofit.com/posts/elevated-world-2/)
  * [Functors, Applicatives, And Monads In Pictures](http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)

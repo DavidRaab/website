@@ -12,13 +12,13 @@ In [From mutable loops to immutable folds]({{< ref 2016-04-05-mutable-loops-to-i
 we implemented `foldBack` through `rev` and `fold`. In this post I show you how you can implement
 `foldBack` by using a *continuation function*.
 
-## Functions
+# Functions
 
 Before we see how to implement `foldBack`, I want to give you analogy first. This analogy helped
 me in a lot of cases. I hope that this analogy will also help you in better understanding
 the further post, or probably even in other areas in programming in general.
 
-### Back to the Future
+## Back to the Future
 
 One idea how you can view functions is, that you can do stuff now, with things you not
 have yet, but you know you will get them in the future. Sounds weird? Let's go over an
@@ -90,7 +90,7 @@ The general idea is. You already can compose behaviour or functions together wit
 executing anything. You first compose everything, and you delay the execution as far as possible
 to the future.
 
-## Rethinking the problem
+# Rethinking the problem
 
 With that idea in-place. Let's look again at `foldBack` and if we somehow can rethink that
 problem. Let's first focus on the behaviour of `foldBack` and how it should work *logically*.
@@ -138,7 +138,7 @@ function that we don't have at that point in time!
 Uhm wait! Isn't that exactly what we discussed previously? What do we do if we expect to work
 with a value that we don't have yet? We create a function!
 
-## Functions as accumulator
+# Functions as accumulator
 
 The basic idea to solve our problem is by using a function that we use as our *accumulator*.
 We use a function because we need to work with values we don't have yet. Because we have a
@@ -162,7 +162,7 @@ So the question we have are.
 1. What do we do after we looped through our list?
 1. With what kind of value do we start our loop?
 
-### What do we do for every element?
+## What do we do for every element?
 
 At first, we reconsider what we are supposed to do. Our task is to execute the *folder*
 function that the caller provided us as `f`. We pass this function the *current value* and the
@@ -241,7 +241,7 @@ in our example now looks like this:
 
 But we are not done yet, we still have to fill out two missing parts.
 
-### What do we do after we looped through the list?
+## What do we do after we looped through the list?
 
 One remaining part is the logic we have to do once we finished our looping. Let's actually try to
 understand what we exactly build. In every step we create a new function
@@ -305,7 +305,7 @@ the *initial-accumulator*. Our *empty-list case* now looks something like that:
 | [] -> cont acc
 ```
 
-### With what kind of value do we start our loop?
+## With what kind of value do we start our loop?
 
 The last remaining part is how we start our loop. Or put in other words. What do we provide
 as our `initCont` value? To understand this part better, let's assume we started our loop.
@@ -351,7 +351,7 @@ Now `initCont` also must be a *function*. But what do we expect it to do? Well n
 We just expect it to return it's input as-is. In other words. Our *starting function* is `id`. So
 we start our `loop` with `loop id list`.
 
-### All pieces together
+## All pieces together
 
 Now let's put all pieces together, our final `foldBack` function now looks like this.
 
@@ -375,7 +375,7 @@ foldBack (fun x acc -> (string x) + acc) [1..10] ""
 // "1234568910"
 ```
 
-## Conclusion
+# Conclusion
 
 Continuation functions in general are powerful and we can do a lot with them, solving `foldBack`
 without reversing a list first is just one example. But in this case i have to admit that

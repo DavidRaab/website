@@ -14,7 +14,7 @@ But the concept also works for any other type. This time I want to show
 you the idea of an *Applicative* with a list, what it means, what you can do
 with it and how `apply` works.
 
-## Implementing `apply`
+# Implementing `apply`
 
 Currently the `List` module don't offer a `apply` function. So we must write it on our own.
 As we learned in [Understanding bind]({{< ref 2016-04-03-understanding-bind >}}) we
@@ -63,7 +63,7 @@ let apply lf lx = [
 let (<*>) = apply
 ```
 
-## Working with `apply`
+# Working with `apply`
 
 We keep it easy, so we just create two to four arguments functions that just adds its
 inputs together.
@@ -106,7 +106,7 @@ expands to:
 ]
 ```
 
-## How `apply` works
+# How `apply` works
 
 At this point it is interesting to see how `apply` actually works to get a better understanding
 why we get those results. First we should remember how the operator `<*>` works. Our
@@ -245,7 +245,7 @@ The last call executes the functions, so we get the result.
 [116; 216; 126; 226; 117; 217; 127; 227; 118; 218; 128; 228]
 ```
 
-## Using `apply`
+# Using `apply`
 
 In general what we can do with an *Applicative* for a list is that we can get the result
 of all possible input combinations for a function, no matter how many arguments that

@@ -24,7 +24,7 @@ changing things. Immutability sounds not practical at all!*
 
 So let's see what immutability really means.
 
-## Immutability in a Nutshell
+# Immutability in a Nutshell
 
 A much more useful explanation is to say that *immutability* is not about *forbidding change*
 at all. Instead *immutability* is more on **how** to *handle change*. Immutability
@@ -39,7 +39,7 @@ change applied.
 Once you understand it is more about creating *new* things with your changes applied,
 the question that arise is more: *Why should that be better?*
 
-## About OO
+# About OO
 
 Before we go into all kinds of explanations we first have to address OO programming. At first,
 talking about immutability and OO at the same time is actually a bad idea. The problem is
@@ -58,13 +58,13 @@ to create methods instead of providing access to data. This and other things are
 why it is hard to *get* the concept of immutability especially as an OO programmer. We will later
 talk about this problem in more depth. For the moment we will put objects aside.
 
-## Immutability is about data
+# Immutability is about data
 
 So Immutability really means that data itself cannot be changed. But as stated previously, instead
 of modifying data itself we call functions that then can return new immutable data. Let's look at
 some immutable data-structures.
 
-### `int` is immutable
+## `int` is immutable
 
 ```fsharp
 let x = 5
@@ -80,7 +80,7 @@ operations take some number, do some kind of operation with it and return someth
 treat `+` just as a function that takes two `int` and produces a whole new `int`. As a result
 we get `z` that is `15`. We wouldn't expect that `x` or `y` also get modified at all.
 
-### `string` is immutable
+## `string` is immutable
 
 Using `int` to get the feeling of the concept is easy, but it is sometimes hard how this concept
 works with more complex types. Additional `int` is in most languages some kind of special *primitive*
@@ -106,7 +106,7 @@ two strings together we don't modify a string. Instead we create a whole new str
 We can observe the same with our method calls. Calling `foo1.Replace('1', '2')` doesn't change `foo1`
 instead we get a new string back with our change applied.
 
-### `list` is immutable
+## `list` is immutable
 
 So let's look into a more advanced immutable data-type a `list` in F#. (This is not
 `System.Collections.Generic.List<T>`).
@@ -153,7 +153,7 @@ let data2 = List.map (fun x -> x * 2) data
 After executing we once again have two lists. `data` that still contains `[1;2;3;4;5]` and
 `data2` that now contains `[2;4;6;8;10]`.
 
-### Records are immutable
+## Records are immutable
 
 Let's create another more advanced example. Let's create a `Person` type that represents a Person
 in a database.
@@ -271,7 +271,7 @@ you can chain methods. You also can get a *fluent-interface* by just returning *
 each modification. It would look the same. But in the end `me` and `me2` would be references
 to the same object, and `me` would be changed.
 
-## Pure functions
+# Pure functions
 
 In a *functional-only* language we could probably stop at this point. *Data* and *functions*
 are clearly separated, immutability is only about *data* that does not change. The big problem
@@ -280,7 +280,7 @@ and additionally contains *functions*, it introduces a lot of complexity. To und
 the reason of this complexity, we first need to talk about *pure* and *impure* functions on
 its own.
 
-### Side-effects
+## Side-effects
 
 *Pure* functions are only those functions that don't have any kind of side-effects. So
 what exactly is a *side-effect*? A simple explanation would be: *A function only can
@@ -348,7 +348,7 @@ So how do we do that? We first assume that impure functions do as little as poss
 nearly no logic at all, second we just assume that they return some immutable data! Those
 immutable data then can be used/transformed and so on by pure functions.
 
-### (Im)mutability and (im)pure functions
+## (Im)mutability and (im)pure functions
 
 One interesting aspect is that both concepts are completely orthogonal. That means, we can have
 any combination of those. We can have pure functions that take mutable or immutable data, and return
@@ -367,7 +367,7 @@ again at the above impure functions.
 At this point, I cannot stress further how important it is to understand that immutability
 is all about data, not about functions or behaviour. We will see later why this is so important!
 
-### Pure functions with side-effects
+## Pure functions with side-effects
 
 The last important point is that we can have pure-functions even if they have some kind of
 side-effects. A typical example of this is a function that has internal caching with a mutable
@@ -392,7 +392,7 @@ of the functions from the `List` module turn a List into a mutable array, do som
 turn it back into an immutable list. And overall we don't care that it does that. As long as we
 use a function and it behaves like a pure function returning immutable data, we are fine with it.
 
-## Benefits of Immutability
+# Benefits of Immutability
 
 To shorten the example. Let's assume everything is mutable and a *reference-type* and it also
 applies to numbers. Saying that, lets look at the following code.
@@ -454,7 +454,7 @@ overall can make code easier to read and maintain.
 We also can gain other benefits out of it, like easy do/undo systems, backtracking in recursive
 functions for free, and a lot of other stuff.
 
-## Disadvantages of Immutability
+# Disadvantages of Immutability
 
 Nothing in the world really just have only benefits. Everything in the world has its advantages and
 its disadvantages. So what are the disadvantages of immutability?
@@ -499,7 +499,7 @@ operation, and convert it back to a immutable data-type.
 So it is still important to understand that not everything is shiny and automatically better.
 Immutability can sometime have it's own problems, but there exists solutions for it.
 
-## Immutability and OO
+# Immutability and OO
 
 Finally, we now have every knowledge to talk about immutability in object-oriented programming
 and why it is so damn hard. First, let's reconsider what an object is.
@@ -632,7 +632,7 @@ for impure functions. In this way you can separate impure functions from pure fu
 and an object could be considered as pure/immutable as long it only has pure methods.
 So let's consider how a good immutable object should look like.
 
-## How to Design immutable objects
+# How to Design immutable objects
 
 1. An immutable class don't have *hidden* (`private`) fields. `private` in the sense of hidden fields
 not exposed to the user. Sure a class can have `private` fields for its data. But a class always
@@ -700,7 +700,7 @@ let site = SiteImmutable.Download("http://example.org");
 let updatedSite = SiteImmutable.Update(site)
 ```
 
-## Conclusion
+# Conclusion
 
 Immutability itself is actually an easy concept. The problem starts when we don't separate
 data and functions clearly from each other like OO programming does it. To really embrace
@@ -716,7 +716,7 @@ is a good example for an mutable object that fixes the performance problems for 
 complex strings. Once you are done you convert a `StringBuilder` instance to an
 immutable `string`.
 
-## Further Reading
+# Further Reading
 
  * [The Case for Controlled Side Effects](http://two-wrongs.com/the-case-for-controlled-side-effects)
  * [Is your language unreasonable](http://fsharpforfunandprofit.com/posts/is-your-language-unreasonable/)

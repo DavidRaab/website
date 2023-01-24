@@ -34,7 +34,7 @@ The first thing you have to realize is. That `map` is actually not about a `list
 While you must implement it for the different types, it really is about the function you pass as the first
 argument. `map` really is about transforming a function. So let's get started.
 
-## `map` as a two argument function
+# `map` as a two argument function
 
 The type of `List.map` looks like this
 
@@ -60,7 +60,7 @@ even harder to understand.
 I got enlightenment when I throw away what I already knew (I emptied my glass) and looked at `map` as a
 one-argument function.
 
-## `map` as a one-argument function
+# `map` as a one-argument function
 
 One important thing in F# is that every function is just a one argument function. There doesn't exists
 functions with multiple arguments. We can think of the `map` function as a one-argument function that returns
@@ -92,7 +92,7 @@ into a `Result<'a> -> Result<'b>` function.
     Input:         'a  ->        'b
     Output: Result<'a> -> Result<'b>
 
-## map transformer
+# map transformer
 
 Because of this you always can think of `map` as a function transformer. So when you have a function
 that squares an int.
@@ -186,7 +186,7 @@ expect `list` values. You would just delete the `List.map6`
 let r = func a b c d e f
 ```
 
-## map on inner-type
+# map on inner-type
 
 You also can think of `map` as a function that lets you work on the inner-type. This is more
 appropiate with the two-argument version. For example when you have a `list<int>` and a
@@ -211,7 +211,7 @@ List.map2 String.replicate [1;2;3] ["A";"B";"C"]
 
 So the function you pass to `map` always just sees one of the inner type of `xs` and `ys`.
 
-## Conclusion
+# Conclusion
 
 Think of `F.map` as either **upgrading** a function that puts wrappers around the
 input and output types of whatever `F` is.

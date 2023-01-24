@@ -3,7 +3,7 @@ layout: post
 title: Structured Programming
 slug: structured-programming
 date: 2016-03-09
-tags: [structured]
+tags: [structured, goto]
 description: "Explains the idea behind Structured Programming and how they apply to Functional Programming"
 keywords: programming, functional, structured, goto
 ---
@@ -19,7 +19,7 @@ harmful, what was the alternative to `goto`? And why exactly is `goto` harmful, 
 I think that looking at this questions and their answers is still a very important step forward in understanding programming and
 raise the awareness on how we achieve a more clean way of coding.
 
-## Why "goto" was considered harmful
+# Why "goto" was considered harmful
 
 At first we have to understand the time in which these statement was published. It was a time in that nearly every programmer
 actually used a language with such a control statement. Not only that, it usually often was the only way to provide any
@@ -44,7 +44,7 @@ But by giving all of them direct labels we give all of our programs more structu
 our programs. Or in other words the idea was that we should eliminate powerful construct like `goto` and yet use a lot more
 weaker but specific constructs.
 
-## Structured Programming
+# Structured Programming
 
 That overall leads to another important realization. Nearly all programming languages that we use today are basically some kind
 of Structured Programming. Whether we are talking about object-oriented language, functional languages or other paradigms.
@@ -67,7 +67,7 @@ are basically Structured Programming brought to an extreme. Because the importan
 the introduction of `if`, `while`, `for`, functions or blocks. The important idea was the general concept of eliminating
 something powerful and provide more declarative and specific control structures instead.
 
-## Powerful vs. Specific
+# Powerful vs. Specific
 
 So let's reconsider, why was `goto` harmful? `goto` was a very powerful concept. It was so powerful that we basically don't need
 any concepts of looping constructs, functions and so on. The problem that it raised was that we ended up with programs that was
@@ -94,7 +94,7 @@ have even further separated the idea of looping. We have `List.min`, `List.max`,
 and so one just to name a few. All of those constructs are still basically just *looping* constructs. But they are specialized looping
 constructs that just do one specific thing.
 
-## So having powerful things is bad?
+# So having powerful things is bad?
 
 If we follow this thinking then it can lead to the idea that a programming language itself should not have any powerful concepts at all.
 The less powerful a language is, the better. But actually it cannot be further from the truth. In fact it is quite the opposite, a language
@@ -113,7 +113,7 @@ but we only need to provide the logic for filtering. We have less code when we u
 Reading a `List.filter` is easier as to basically try to understand filtering through a series of commands expressed within a `foreach`
 loop.
 
-## Using the least powerful thing
+# Using the least powerful thing
 
 When we follow these rule and thinking what Structured Programming is about, I think it leads to more readable code with all of
 the benefit this usually have. Like higher maintainability, less bugs, in general less code because of reusable constructs. The
@@ -123,6 +123,6 @@ only thing we have todo is to identify our powerful constructs and try to come u
 an accumulator. Watch out for them and either try to replace them with more specific constructs. Or build your own control
 structures!
 
-## Further Reading
+# Further Reading
 
 [Uncle Bob - A Little Structure](https://blog.8thlight.com/uncle-bob/2015/09/23/a-little-structure.html)

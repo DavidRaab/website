@@ -19,7 +19,7 @@ But you probably don't want to use this and look for an alternative.
 First we should look at the difference between an F# function and a (static)
 method.
 
-## F# Functions vs. (static) methods
+# F# Functions vs. (static) methods
 
 Usually I don't distinguish between those two as both just execute
 some code and return some value. But in this case we must differentiate
@@ -84,7 +84,7 @@ So, why is any of this important?
 1. In F# you usually want to work with curried functions.
 2. Variable Arguments are only supported with tupled (static) methods.
 
-## Variable Arguments
+# Variable Arguments
 
 First lets focus on the second point. So we only can use variable
 arguments if we create a class, and use tupled syntax. As a light
@@ -105,7 +105,7 @@ argument and add the attribute `[<System.ParamArray>]` to it. Only the
 last argument can be flagged with the attribute. And finally, you receive all
 arguments as an array.
 
-## Why you should avoid variable arguments
+# Why you should avoid variable arguments
 
 Previously I said that when you use parenthesis and separate values with
 comma it is a tuple. In fact this kind of consistency is broken with `ParamArray`.
@@ -237,7 +237,7 @@ Currying is the reason we can choose to write `func a b` or `b |> func a`.
 With tupled-syntax we really lose this advantage, and we also must write
 more parenthesis and commas.
 
-## The Alternative
+# The Alternative
 
 So, instead of variable arguments, what should we do instead? We should just
 expect a collection as an argument! If you expect `Seq` then a user also can
@@ -260,7 +260,7 @@ replicate 3 [|1;2;3|]      // seq [1;1;1;2;2;2;3;3;3]
 replicate 3 (seq {1 .. 3}) // seq [1;1;1;2;2;2;3;3;3]
 ```
 
-## Summary
+# Summary
 
 Instead of variable arguments you should just expect a `Seq` as an argument
 to a function. It's very easy to create `List` or `Array` in F# and you can

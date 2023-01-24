@@ -16,7 +16,7 @@ they don't solve any problem that `null` introduced.
 In my previous post [null is Evil]({{< ref 2016-03-20-null-is-evil >}}) i mentioned seven
 problems that `null` introduced. So let's look if *exceptions* solve one of those problems.
 
-## 1. You cannot see if a function throws an exception
+# 1. You cannot see if a function throws an exception
 
 When you look at the type signature of any function, you just see something like
 
@@ -25,14 +25,14 @@ When you look at the type signature of any function, you just see something like
 The same way that you cannot see that `null` could be returned. The same way you don't know
 if an exception could be thrown or not.
 
-## 2. We are not forced to try/catch
+# 2. We are not forced to try/catch
 
 You are not forced to add any kind of `try/catch`, the same way you are not forced to add
 a `null` check. If you forgot to add your `null` checks, you end up getting `NullReferenceException`.
 If you forgot to adding `try/catch` you end up with `XYZException`. Replacing a `NullReferenceException`
 just with another kind of `Exception` isn't anyway better.
 
-## 3. Every function could throw an Exception
+# 3. Every function could throw an Exception
 
 The big problem of 1. and 2. combined is that you defensively start to check all return values
 from a function if it contains `null`. And you also have to check every argument if it contains
@@ -63,7 +63,7 @@ with
     | exn -> // Error condition on Exception
 ```
 
-## 4. We cannot skip the checking
+# 4. We cannot skip the checking
 
 Probably you would assume that exceptions solve it, but actually, they don't really provide an improvement.
 Sure, you don't have to wrap a try/catch block around your code. Exactly the same as you don't have
@@ -78,7 +78,7 @@ at some later point where it makes sense. That doesn't mean only "further up the
 pass the whole error as a value around, as you can do with `Optional`, and additional you are forced
 to check the condition of your `Optional` at compile-time.
 
-## 5. and 6. We can pass functions/objects that throws exception around
+# 5. and 6. We can pass functions/objects that throws exception around
 
 At default you don't pass `Exception` types as values around. You wrap your code in a `try/catch` and that's
 it. You also cannot implicitly pass an `Exception` as a valid value to a function that expects a `Person`. With
@@ -91,7 +91,7 @@ With `null` you have to check every argument if it is `null`. With *exceptions* 
 try/catch blocks if you call a method on an object. Because you pass objects around, and objects have *methods*
 that could throw exceptions when invoked. You end up with the same problem.
 
-## 7. Happy Path Coding
+# 7. Happy Path Coding
 
 It seems *Exceptions* solve the problem of Happy-Path coding. But it really does not. Yes, you are not forced to add
 a `try/catch` around every function directly. You just can use one `try/catch` around the whole code and catch
@@ -100,7 +100,7 @@ a `try/catch` around every function directly. You just can use one `try/catch` a
 Absolutely, and the thing is. **Any exception** also includes `NullReferenceException`. So if you like to have
 *exceptions*. No problem, just return `null` from your functions and don't add any `null` checks.
 
-## Summary
+# Summary
 
 It seems many people forget about why `null` is bad. `null` is bad because **they throw exceptions** when
 you try to use them. So using *exceptions* instead of using `null` makes nothing better at all. The reason
@@ -113,7 +113,7 @@ Exceptions in general share the same problems as `null`.
 So what is the alternative? My Post about [null is Evil]({{< ref 2016-03-20-null-is-evil >}}) contains solution
 of getting rid of `null`. The thing is, the same solutions also works for *Exceptions*!
 
-## Further Reading
+# Further Reading
 
  * [Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/)
  * [Composition with an Either computation expression](http://blog.ploeh.dk/2016/03/21/composition-with-an-either-computation-expression/)

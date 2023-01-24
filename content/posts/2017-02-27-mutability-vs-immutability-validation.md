@@ -23,7 +23,7 @@ part really is.
 Because of this, first I show all the things you have to keep in mind if you work
 with mutability. Then we see how immutability helps us.
 
-## About this article
+# About this article
 
 Throughout this article I will use C# and F#. I use C# for the mutable examples
 and F# for the immutable example. There are multiple reasons for this decision:
@@ -62,7 +62,7 @@ immutable object in C# and get the same benefits as in the F# examples. Or
 you can create mutable classes in F# and get the same disadvantages as in
 the C# examples.
 
-## Mutability: The MinMax example
+# Mutability: The MinMax example
 
 We start with a really small and simple example. A `MinMax` class that only has
 the purpose to keep a *current* value between a defined *minimum* and *maximum*.
@@ -416,7 +416,7 @@ Also this is worth its own article I will write about in the near future.
 Let's get an overview of all rules we have to follow so we can be sure state
 will always be valid.
 
-## All Rules to ensure a valid State
+# All Rules to ensure a valid State
 
 1. **First Rule:** Always re-validate every rule to ensure the correctness of an object.
 1. **Second Rule:** You always must validate before mutating.
@@ -452,7 +452,7 @@ requirements when you should/can use them.
 This overall makes mutability pretty hard. Now that we covered the mutability
 part lets see how immutability helps us.
 
-## Designing with Immutability
+# Designing with Immutability
 
 Our MinMax class can be easily represented by a record in F#. Records in F#
 are immutable by default and can group data together like classes do.
@@ -813,7 +813,7 @@ this cases so you hopefully don't forget them. With immutability you cannot forg
 anything that later on can invalidate anything. Your code only has those
 features you also implemented!
 
-## Conclusion
+# Conclusion
 
 Working with immutability sure is different. I guess some people will also claim
 that updating with immutability is harder. With mutability you just need to
