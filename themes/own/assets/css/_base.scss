@@ -7,10 +7,29 @@ html {
 }
 
 body {
+  width: 100%;
   margin: 0;
   font-family: sans-serif;
   background: $dark-color;
   color: $light-color;
+}
+
+@media (max-width: 960px) {
+  body {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 32rem 1fr;
+    grid-template-areas: "grid-header" "grid-main";
+  }
+}
+
+@media (min-width: 960px) {
+  body {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20rem 2fr 1fr;
+    grid-template-areas: "grid-header grid-main grid-side";
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {

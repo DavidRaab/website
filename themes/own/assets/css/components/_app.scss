@@ -1,18 +1,37 @@
 .app-header {
-  padding: 2.5em;
+  grid-area: grid-header;
+  width: 20rem;
+  padding: 0;
   background: $darkest-color;
   text-align: center;
 }
 
+.app-container {
+  grid-area: grid-main;
+  padding: 2.5rem;
+  min-width: 600px;
+  max-width: 960px;
+}
+
+@media (max-width: 940px) {
+  .app-container {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 940px) {
+  .app-header {
+    min-height: 100vh;
+  }
+}
+
 .app-header-avatar {
+  top: 1rem;
+  position: relative;
   width: 15rem;
   height: 15rem;
   border-radius: 100%;
   border: 0.5rem solid $primary-color;
-}
-
-.app-container {
-  padding: 2.5rem;
 }
 
 .app-header-social {
@@ -35,17 +54,12 @@
   font-weight: bold;
 }
 
-@media (min-width: 940px) {
-  .app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 20rem;
-    min-height: 100vh;
-  }
+aside {
+  grid-area: grid-side;
+}
 
-  .app-container {
-    max-width: 65rem;
-    margin-left: 20rem;
+@media (max-width: 940px) {
+  aside {
+    display: none;
   }
 }
