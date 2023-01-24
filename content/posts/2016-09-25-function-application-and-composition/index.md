@@ -29,7 +29,7 @@ programming the correct term is that we apply the value `2.0` to the function `s
 you will ask how I can write a whole article about this topic, but there are some topics
 associated with it.
 
-## Partial Application
+# Partial Application
 
 Partial application is one of those topics. If we pass all arguments to a function we name it
 *function application*. But if we only pass some arguments to a function we name it
@@ -59,7 +59,7 @@ add1 1  // 2
 add1 10 // 11
 ```
 
-## Immutability
+# Immutability
 
 Another big topic in functional programming is immutability. Immutability is a fairly easy
 concept. It just means data cannot be changed after creation. If you are new to functional
@@ -147,7 +147,7 @@ right to left. Every function call returns a new result that is directly used as
 input of another function. With nesting we have once again a simple chain of execution.
 No *jumping around* anymore to understand the code.
 
-## Piping with |>
+# Piping with |>
 
 Up so far I only discussed the first property that a variable was only used once. But we
 also had another property that the output of one function is the input of the
@@ -209,7 +209,7 @@ You often see this style in List manipulations:
 We start with the data, and every new command is put on a new line. This way we easily
 can create longer chains that are still readable and extensible.
 
-## Never use <|
+# Never use <|
 
 We can summarize `|>` as an operator that swaps the function and the input of a function. Usually
 the input is on the right and the function on the left, and we say we read it from right-to-left.
@@ -409,7 +409,7 @@ then returns another new anonymous function that expects the last argument `z`. 
 we finally apply `3 + 3` to it what then executes everything.
 </div>
 
-## Nesting again
+# Nesting again
 
 Writing code in a piping style with left-piping is probably the most common and most used
 way you see in F#. Its not that this is in general a bad idea, but it can be bad if people
@@ -619,7 +619,7 @@ that representing things as trees is easier. Trying to fit everything into a pip
 can limit the view in how to solve problems in general. This is best described with
 an example.
 
-## Binary Converter
+# Binary Converter
 
 In our example we want to write a function that can convert any number into a binary string
 representation. Before we start coding we actually need to know an algorithm that
@@ -804,7 +804,7 @@ not a good approach to represent tree structures. If you want to try to solve ev
 some kind of piping even before you determined if the problem is even solvable in a sequential
 manner, you will only run into problems and will have a hard time to solve these kind of problems.
 
-## Composition
+# Composition
 
 What we have seen so far is function application. Function application means to apply a value to
 a function, or in other words. Execute a function to get the result of a function. Function
@@ -875,7 +875,7 @@ With function composition on the other hand we can shorten this example to:
 List.map (square << add10 << sqrt) [1.0 .. 100.0]
 ```
 
-## Best Practices
+# Best Practices
 
 At the end I just want to gather some best practices. Those are best practices from me and
 like always, every person usually disagree with another 10%.
@@ -894,7 +894,7 @@ like always, every person usually disagree with another 10%.
    piping. Refactor the code with piping.
 8. If possible, use function composition if you pass functions as arguments instead of lambda functions.
 
-## Summary
+# Summary
 
 Overall we covered function application and composition. We saw function application with nesting
 or piping with operators like `|>` or `<|`. We also can use function composition with `<<` or

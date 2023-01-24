@@ -42,7 +42,7 @@ We visualze a list like `[1;2;3;4;5]` like that:
 We don't directly jump to `List.fold`, instead we work towards `List.fold` by
 first looking at `List.map` and then `List.reduce`.
 
-## List.map
+# List.map
 
 We could visualize a call like `List.map times2 [1;2;3;4;5]` with the technique
 we have seen so far. Draw a box with two inputs and a list as output. But we
@@ -62,7 +62,7 @@ of powerful, it is a very specific function that only can manipulate one element
 of a list at a time. For example we cannot add all values of a list together, filter a
 list and do other kind of things with a list.
 
-## List.reduce
+# List.reduce
 
 To understand `List.reduce` I use an example that is often used by others.
 First let me say that I don't think this is the best way to explain `List.reduce`
@@ -176,7 +176,7 @@ we end up with a single value that is then returned.
 The first visualization we have seen is more accurate, but also this
 kind of idea leads you to the correct result of any `List.reduce` call.
 
-## List.fold
+# List.fold
 
 Finally we are at `List.fold`. The way how `List.fold` works is pretty much
 the exact same as `List.reduce`! The only difference is that we pass an
@@ -294,7 +294,7 @@ we use a Tuple with two values. In the mutation based code we don't need an
 *else* branch as nothing happens with an odd number. In the `List.fold`
 example we must explicitly return the unchanged state.
 
-## List.foldBack
+# List.foldBack
 
 As `List.fold` is basically just a for-loop it should now become clear why it
 is so powerful, yet some task are harder as it seems. As an example we want
@@ -359,7 +359,7 @@ Also the folder function receives the accumulator as the second argument
 (right argument) in `List.foldback` while `List.fold` receives it as the first
 argument (left argument).
 
-## Exercises
+# Exercises
 
 If you truly want to understand those function you should do some exercises.
 As an exercise you should re-create the following List functions with either
@@ -373,7 +373,7 @@ As an exercise you should re-create the following List functions with either
 | filter predicate xs | Only keep those elements that predicate returns true for |
 | forAll predicate xs | Returns true if all elements of the list return true for the predicate |
 
-## Summary
+# Summary
 
 Other languages use different namens for these operations, but the logic
 stays the same.

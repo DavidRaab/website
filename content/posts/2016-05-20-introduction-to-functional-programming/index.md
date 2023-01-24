@@ -24,7 +24,7 @@ Overall I show why functional programming and object-oriented programming are
 orthogonal. I hope that by the end of the article you learned something about
 functional programming, but also widen your view on object-oriented programming.
 
-## Table of Content
+# Table of Content
 
 <ul class="toc">
   <li>Functional Programming</li>
@@ -52,7 +52,7 @@ functional programming, but also widen your view on object-oriented programming.
 </ul>
 
 <a name="fp-data"></a>
-## Functions as data
+# Functions as data
 
 One important concept in functional programming is the ability to use functions just
 as data. This means you can create functions and store them in variables.
@@ -69,7 +69,7 @@ yourself if that idea really makes sense, or what useful thinks you can
 do with that idea.
 
 <a name="fp-function"></a>
-## What is a function?
+# What is a function?
 
 Before we go deeper we have to ask ourself: What is a function anyway? Depending
 on the language there are also multiple terms for the word function. Terms
@@ -123,7 +123,7 @@ What happens between those steps? We don't know, but we also don't care. The onl
 thing that matters is that we can somehow turn underpants into profit.
 
 <a name="fp-exp-functions"></a>
-## Exploiting functions
+# Exploiting functions
 
 The idea that only the input and output of a function matters is quite interesting.
 We could take that idea further and for example rewrite our `square` function
@@ -277,7 +277,7 @@ that only calculates those things we truly need.
 </div>
 
 <a name="fp-retn-functions"></a>
-## Functions as return values
+# Functions as return values
 
 Let's consider the following function.
 
@@ -334,7 +334,7 @@ As you can see, both versions with a data-structure or the functions are quite s
 But the last version still contains some interesting things that are worth to talk about.
 
 <a name="fp-lambda"></a>
-## There is only lambda
+# There is only lambda
 
 When we want to create an `int`. How do we do that? Well we just write it. For example `5` is
 just `5`. We can work with `5` however we want. We can pass it to a function, use it in
@@ -446,7 +446,7 @@ It just shows that the second `let` definition that already includes the functio
 is only a shortcut to the more explicit lambda expression.
 
 <a name="fp-currying"></a>
-## Currying
+# Currying
 
 In fact the simplification don't stop here. We don't even have functions with more than one
 argument. There only exists functions with one arguments. So what do you do when you for
@@ -530,7 +530,7 @@ would expect that it is a partial applied function with the first argument set t
 </div>
 
 <a name="fp-closures"></a>
-## Closures
+# Closures
 
 Previously I said that when you call a function then some kind of substitution happens.
 When you call `add 10` in the last example then `x` gets substituted by `10` and it returns
@@ -582,7 +582,7 @@ Whenever we *remember* a variable or refer to a variable from a lambda expressio
 we call it a *Closure*.
 
 <a name="fp-example"></a>
-## Example: Currying and Closures
+# Example: Currying and Closures
 
 I want to give a small example that shows functions as value and return values,
 currying and closures all in action. In F# we have an option type. An option type can have
@@ -745,7 +745,7 @@ programming we directly work with functions and we even write our own combinator
 to compose functions.
 
 <a name="oo"></a>
-## Object-Oriented programming
+# Object-Oriented programming
 
 At the start of the article i said we can achieve the same ideas in Object-Oriented programming
 or that you probably already know these things. I want to show you some C# code to achieve the
@@ -754,7 +754,7 @@ really no point in showing C# code that uses functional features as an example t
 and functional programming are orthogonal. Because of this i will only use classes.
 
 <a name="oo-class"></a>
-## What is a class?
+# What is a class?
 
 We start with the same idea. What is actually a class anyway? A class is actually some
 kind of compose-able type. It always has at least one constructor, beyond that it can contain
@@ -767,7 +767,7 @@ data or no functions. There is also no restriction that tells you how many data 
 functions you must implement.
 
 <a name="oo-function"></a>
-## Function as data
+# Function as data
 
 I started with the idea of functions as data. I created a `square` function and passed the function
 around. We wrote our own `map` function that showed that we could replace a function by data.
@@ -854,7 +854,7 @@ functional concepts with functional features in an OO language to prove that the
 </div>
 
 <a name="oo-curry-partial-closure"></a>
-## Currying, Partial Application and Closures
+# Currying, Partial Application and Closures
 
 All three things are somehow connected to each other. In the functional code I first introduced
 currying, but I primarily used it to show Partial Application (only providing some arguments
@@ -995,7 +995,7 @@ code uses immutability. With immutable data you don't really need a class at all
 the ability to hide *mutable data* so you only have specific functions that can manipulate those.
 
 <a name="oo-currying"></a>
-## Currying
+# Currying
 
 F# does automatic currying by default, but it doesn't mean just because your language doesn't do
 currying you can't have it. While most modern functional languages usually do it by default some
@@ -1183,7 +1183,7 @@ class MainClass {
 </div>
 
 <a name="oo-exercise"></a>
-## Exercise
+# Exercise
 
 Previously I provided a small exercise with validation, but I leave the task to implement it
 in your favourite language. Up to this point you should know enough about currying and
@@ -1281,7 +1281,7 @@ When you create a solution in your favourite language, you can leave a message i
 chat, or sent me a notification via Twitter, I add a link to your solution here.
 
 <a name="summary"></a>
-## Summary
+# Summary
 
 I started with the idea of functions as data and why it makes sense that we can pass functions
 as arguments or return functions from other functions. A lambda expression is a way to
@@ -1300,7 +1300,7 @@ I overall hope that this introduction helped you not only in understanding funct
 better, but also widen your view on object-oriented programming.
 
 <a name="reading"></a>
-## Further Reading
+# Further Reading
 
 * [What's Functional Programming All About?](http://www.lihaoyi.com/post/WhatsFunctionalProgrammingAllAbout.html)
 * [So You Want to be a Functional Programmer (Part 1)](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536)
