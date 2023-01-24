@@ -76,6 +76,22 @@ pre {
   }
 }
 
+// Table style
+table { border: 1px solid; }
+th {
+  border-bottom: 1px solid;
+  border-right:  1px solid;
+}
+td {
+  border-bottom: 1px solid;
+  border-right:  1px solid;
+}
+tr td:last-child, tr th:last-child { border-right: 0; }
+tr:last-child td {
+  border-bottom: 0;
+}
+
+// user selection
 ::selection {
   background: rgba($light-color, .25);
 }
