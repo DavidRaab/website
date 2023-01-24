@@ -29,6 +29,12 @@ menu_item_separator = " - "
     [markup.goldmark.renderer]
     unsafe = true
 
+    [markup.tableOfContents]
+    endLevel   = 3
+    ordered    = false
+    startLevel = 1
+
+
 [[menu.main]]
   identifier = "Home"
   name       = "Home"
