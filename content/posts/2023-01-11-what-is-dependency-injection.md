@@ -55,7 +55,7 @@ problem first.
 And this is what i'm doing now. I introduce you to a problem that is common
 to software development.
 
-## The problem
+# The problem
 
 Consider you are writing an application. The application should have a common
 configuration file. In your first attempt you just consider to read
