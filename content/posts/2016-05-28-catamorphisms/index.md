@@ -13,31 +13,7 @@ also created a category named **Fold (Catamorphisms)** but up till now I didn't 
 how this articles related to each other, or what *Catamorphisms* mean. In this article
 I want to talk about the remaining parts.
 
-## Table of Content
-
-<ul class="toc">
-  <li><a href="#TheLists">The List</a></li>
-    <ul>
-      <li><a href="#cata">Introducing Cata</a></li>
-      <li><a href="#tail-recursion">Tail Recursion with FoldBack</a></li>
-    </ul>
-  <li><a href="#binary-trees">Binary Trees</a></li>
-    <ul>
-      <li><a href="#tree-cata">Cata for Tree</a></li>
-      <li><a href="#fold-vs-foldback">Fold vs. FoldBack</a></li>
-      <li><a href="#tree-foldback">FoldBack for Tree</a></li>
-      <li><a href="#tree-foldback-examples">FoldBack examples</a></li>
-      <li><a href="#tree-fold">Fold for Tree</a></li>
-      <li><a href="#benchmarking">Some Benchmarking</a></li>
-    </ul>
-  <li><a href="#markdown">Markdown</a></li>
-  <li><a href="#summary">Summary</a></li>
-  <li><a href="#further">Further Reading</a></li>
-  <li><a href="#comments">Comments</a></li>
-</ul>
-
-<a name="TheLists"></a>
-## The List
+# The List
 
 Catamorphisms is a generalization that emerged from the list data-structure. The list
 data-structure, how it is found in functional programming, is usually build as a single
@@ -187,7 +163,6 @@ kind of transformation for it. But there can be two problems with this approach:
 
 Let's address those problems separately.
 
-<a name="cata"></a>
 ## Introducing Cata
 
 We already identified our Pattern, so what we usually do is to create a `cata` function
@@ -370,7 +345,6 @@ Let's summarize what we have done so far:
 1. The behaviour of `cata` is the same as `foldBack`.
 1. `cata` is not tail-recursive.
 
-<a name="tail-recursion"></a>
 ## Tail Recursion with FoldBack
 
 At this point we should ask ourselves if we really need tail-recursion. The answer is
@@ -455,8 +429,7 @@ let listMap f  list = listFoldBack (fun x acc -> cons (f x) acc) list empty
 let listSnoc x list = listFoldBack (fun x acc -> cons x acc) list (cons x empty)
 ```
 
-<a name="binary-trees"></a>
-## Binary Trees
+# Binary Trees
 
 Up so far we explored the concept of the `cata` function only with the list and when we make that
 function tail-recursive we call it `foldBack`. But as said before, Catamorphisms are a generalization.
@@ -496,7 +469,6 @@ The only difference between a list and a binary tree is that every element in a 
 child, while a binary tree has two child's. Those child's are often named *Left* and *Right*.
 That's also the reason why I named the variables `l` and `r` in the functions.
 
-<a name="tree-cata"></a>
 ## Cata for Tree
 
 So, let's start by creating a `cata` function for our tree.
@@ -576,7 +548,6 @@ treeMap (fun x -> x * x) tree
 //   (node 36 (endNode 25) (endNode 49)))
 ```
 
-<a name="fold-vs-foldback"></a>
 ## Fold vs. FoldBack
 
 Before we talk about how to turn `cata` into a tail-recursive function we should talk
@@ -733,7 +704,6 @@ But if you need the additional information of the structure and somehow work wit
 full tree, then you must use `foldBack`. Because of that, `foldBack` is more powerful than
 `fold` as you always can use `foldBack` instead of `fold`. But the reverse is not true.
 
-<a name="tree-foldback"></a>
 ## FoldBack for Tree
 
 I will implement `foldBack` with the Continuation approach, but I don't go into
@@ -825,7 +795,6 @@ and pass it the result. *Callback* or *Continuation* really means the same.
 But in this case we call `loop` that is in tail position. So we end up with a
 tail-recursive function.
 
-<a name="tree-foldback-examples"></a>
 ## FoldBack examples
 
 Instead let's focus on things we can do with `foldBack` but not with `fold`. As `foldBack`
@@ -931,7 +900,6 @@ node above prepend either `"Left"` or `"Right"` to the list. As an example, when
 
 ![Tree with path to 5](tree_path_5.svg)
 
-<a name="tree-fold"></a>
 ## Fold for Tree
 
 At last we want to look at `fold`. As we learned so far, we don't need to implement a particular
@@ -1037,7 +1005,6 @@ And if you noticed, this kind of tree-traversal is a pre-order tree traversal. B
 traversal by accident. I just thought of an easy way to traverse so we need to put as few things as possible
 onto the `stack` variable. Someone should not expect a specific tree traversal order for `fold`.
 
-<a name="benchmarking"></a>
 ## Some Benchmarking
 
 I think some simple benchmarks are quite good. At first, we always talk about tail-recursion and
@@ -1224,8 +1191,7 @@ When you create balanced trees this is quite uncommon that you run into problems
 But with a type like a list that has linear recursion, where every element increases the stack depth
 by one, you should consider more time in writing tail-recursive functions.
 
-<a name="markdown"></a>
-## Markdown
+# Markdown
 
 Up so far I only talked about lists and binary trees, but both types basically contain everything
 you need to know. Any other type is basically just repetition of what was said so far. As a last
@@ -1298,8 +1264,7 @@ produceHtml document
 //  <p>This is the end with some &lt;html&gt;that should be escaped&lt;/html&gt;</p></p>"
 ```
 
-<a name="summary"></a>
-## Summary
+# Summary
 
 We have seen how to create a `cata` function, and we learned that `foldBack` is just `cata`
 written tail-recursive. For the `fold` implementation of the tree, i choosed another way to
@@ -1313,7 +1278,7 @@ But overall we have seen that `cata` is very fast and it doesn't mean that tail-
 is automatically better or faster.
 
 <a name="further"></a>
-## Further Reading
+# Further Reading
 
 * [Recursive types and folds][scott-fold]
 * [Catamorphisms, part one][cata-one]
