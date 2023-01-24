@@ -1,4 +1,5 @@
 {{ define "main" }}
+<main class="app-container">
     <article>
         <h1>{{ .Title }}</h1>
         <ul class="posts-list">
@@ -17,4 +18,5 @@
         </ul>
         {{ partial "pagination.html" $ }}
     </article>
+</main>
 {{ end }}

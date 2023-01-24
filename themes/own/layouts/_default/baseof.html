@@ -42,10 +42,8 @@
             </div>
             {{- end }}
         </header>
-        <main class="app-container">
-            {{ block "main" . }}
-                {{ .Content }}
-            {{ end }}
-        </main>
+        {{ block "main" . }}
+            {{ .Content }}
+        {{ end }}
     </body>
 </html>
