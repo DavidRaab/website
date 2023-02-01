@@ -12,6 +12,34 @@ them from functions.
 Whenever this is done we have to think about the life-time of variables. Usually
 all variables are lexical scoped. Consider the following example.
 
+<div class="code-toggle">
+<div class="buttons">
+<button data-lang="fsharp">F#</button>
+<button data-lang="csharp">C#</button>
+<button data-lang="perl">Perl</button>
+<button data-lang="js">JavaScript</button>
+<button data-lang="racket">Racket</button>
+</div>
+
+<div class="code-fsharp">
+
+```fsharp
+let add10 x =
+    let y = 10
+    x + y
+```
+
+</div><div class="code-csharp">
+
+```csharp
+public static int Add10(int x) {
+    var y = 10;
+    return x + y;
+}
+```
+
+</div><div class="code-perl">
+
 ```perl
 sub add10($x) {
     my $y = 10;
@@ -19,18 +47,90 @@ sub add10($x) {
 }
 ```
 
+</div><div class="code-js">
+
+```js
+function add10(x) {
+    const y = 10;
+    return x + y;
+}
+```
+
+</div><div class="code-racket">
+
+```racket
+(define (add10 x)
+  (define y 10)
+  (+ x y))
+```
+
+</div>
+</div>
+
 In the above example the variable `y` is created only temporary when the function
 is being executed. Once the function is finished, the memory holding the value
 `10` is freed. This can change when we return a function.
 
+<div class="code-toggle">
+<div class="buttons">
+<button data-lang="fsharp">F#</button>
+<button data-lang="csharp">C#</button>
+<button data-lang="perl">Perl</button>
+<button data-lang="js">JavaScript</button>
+<button data-lang="racket">Racket</button>
+</div>
+
+<div class="code-fsharp">
+
+```fsharp
+let add10 () =
+    let y = 10
+    fun x -> x + y
+```
+
+You use it this way:
+
+```fsharp
+let f = add10 ()
+let g = add10 ()
+
+let a = f 20 // 30
+let b = g 20 // 30
+```
+
+</div><div class="code-csharp">
+
+```csharp
+public static Func<int,int> Add10() {
+    var y = 10;
+    return (int x) => x + y;
+}
+```
+
+You use it this way:
+
+```csharp
+var f = add10();
+var g = add10();
+
+var a = f(20); // 30
+var b = g(20); // 30
+```
+
+</div><div class="code-perl">
+
 ```perl
 sub add10() {
-    my $c = 10;
+    my $y = 10;
     return sub($x) {
-        return $x + $c;
+        return $x + $y;
     }
 }
+```
 
+You use it this way:
+
+```perl
 my $f = add10();
 my $g = add10();
 
@@ -38,11 +138,53 @@ my $a = $f->(20); # 30
 my $b = $g->(20); # 30
 ```
 
+</div><div class="code-js">
+
+```js
+function add10(x) {
+    const y = 10
+    return x => x + y;
+}
+```
+
+You use it this way:
+
+```js
+const f = add10();
+const g = add10();
+
+const a = f(20); // 30
+const b = g(20); // 30
+```
+
+</div><div class="code-racket">
+
+```racket
+(define (add10)
+  (define y 10)
+  (lambda (x) (+ x y)))
+```
+
+You use it this way:
+
+```racket
+(define f (add10))
+(define g (add10))
+
+(define a (f 20)) ; 30
+(define b (g 20)) ; 30
+```
+
+</div>
+</div>
+
+
 In the above example `add10` returns a function instead of doing a calculation.
-But the function that is being returned still access the variable `c`. Because
+But the function that is being returned still access the variable `y`. Because
 of this when we create the two functions `f` and `g` both of them will have
-its own copy of `c`. In this example it seems useless to create `c` in the
-function, and this is right, but we can change the example to being more useful.
+its own copy of `y`. In seems useless to create `y` in the
+function, and this is right, but we can change the example being
+more useful.
 
 ```perl
 sub add($x) {
@@ -180,7 +322,57 @@ while( defined($x = $s->()) ) {
 object-oriented language and want to achieve the same. How do *closures* translate
 to object-oriented programming?
 
-Answer: They are just classes with fields.
+Answer: They are just classes with fields. A closure is the same as an object that contains data with a single method you can call.
+
+This is how you implement `add10`.
+
+```csharp
+public class Add10 {
+    private int c;
+    public Add10() {
+        this.c = 10;
+    }
+    public int Call(int x) {
+        return x + this.c;
+    }
+}
+
+var f = new Add10();
+var g = new Add10();
+
+var a = f.Call(20); // 30
+var b = f.Call(20); // 30
+```
+
+This is `add`.
+
+```csharp
+public class Add {
+    private int x;
+    public Add(int x) {
+        this.x = x;
+    }
+    public Call(int y) {
+        return this.x + y;
+    }
+}
+
+var add1  = new Add(1);
+var add10 = new Add(10);
+
+var a = add1.Call(10);  // 11
+var b = add10.Call(10); // 20
+```
+
+And finally `range`.
+
+<div class="code-toggle">
+<div class="buttons">
+<button data-lang="perl">Perl</button>
+<button data-lang="csharp">C#</button>
+</div>
+
+<div class="code-perl">
 
 ```perl
 package Range;
@@ -208,6 +400,8 @@ while ( defined(my $x = $r->next) ) {
 }
 ```
 
+</div><div class="code-csharp">
+
 ```csharp
 public class Range {
     private int? current;
@@ -234,3 +428,6 @@ while ( n != null ) {
     n = r.Next();
 }
 ```
+
+</div>
+</div>
