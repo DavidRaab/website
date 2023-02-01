@@ -2,6 +2,7 @@
 title: "Draft Closures"
 date: 2023-01-20T19:14:16+01:00
 draft: true
+tags: [fsharp,csharp,perl,js,racket,fp,oo,closure,iterator]
 ---
 
 Today, more and more languages supports functions as first-class values. This
@@ -24,16 +25,16 @@ all variables are lexical scoped. Consider the following example.
 <div class="code-fsharp">
 
 ```fsharp
-let add10 x =
-    let y = 10
+let add10 y =
+    let x = 10
     x + y
 ```
 
 </div><div class="code-csharp">
 
 ```csharp
-public static int Add10(int x) {
-    var y = 10;
+public static int Add10(int y) {
+    var x = 10;
     return x + y;
 }
 ```
@@ -41,8 +42,8 @@ public static int Add10(int x) {
 </div><div class="code-perl">
 
 ```perl
-sub add10($x) {
-    my $y = 10;
+sub add10($y) {
+    my $x = 10;
     return $x + $y;
 }
 ```
@@ -50,8 +51,8 @@ sub add10($x) {
 </div><div class="code-js">
 
 ```js
-function add10(x) {
-    const y = 10;
+function add10(y) {
+    const x = 10;
     return x + y;
 }
 ```
@@ -59,17 +60,17 @@ function add10(x) {
 </div><div class="code-racket">
 
 ```racket
-(define (add10 x)
-  (define y 10)
+(define (add10 y)
+  (define x 10)
   (+ x y))
 ```
 
 </div>
 </div>
 
-In the above example the variable `y` is created only temporary when the function
-is being executed. Once the function is finished, the memory holding the value
-`10` is freed. This can change when we return a function.
+In the example the variable `x` is created only temporary when the function
+is being executed. Once the function is finished the variable `x` is freed
+from memory. But this can change when we return a function.
 
 <div class="code-toggle">
 <div class="buttons">
@@ -84,11 +85,11 @@ is being executed. Once the function is finished, the memory holding the value
 
 ```fsharp
 let add10 () =
-    let y = 10
-    fun x -> x + y
+    let x = 10
+    fun y -> x + y
 ```
 
-You use it this way:
+Now we can create multiple functions by calling `add10`.
 
 ```fsharp
 let f = add10 ()
@@ -102,12 +103,12 @@ let b = g 20 // 30
 
 ```csharp
 public static Func<int,int> Add10() {
-    var y = 10;
-    return (int x) => x + y;
+    var x = 10;
+    return (int y) => x + y;
 }
 ```
 
-You use it this way:
+Now we can create multiple functions by calling `add10`.
 
 ```csharp
 var f = add10();
@@ -121,14 +122,14 @@ var b = g(20); // 30
 
 ```perl
 sub add10() {
-    my $y = 10;
-    return sub($x) {
+    my $x = 10;
+    return sub($y) {
         return $x + $y;
     }
 }
 ```
 
-You use it this way:
+Now we can create multiple functions by calling `add10`.
 
 ```perl
 my $f = add10();
@@ -142,12 +143,12 @@ my $b = $g->(20); # 30
 
 ```js
 function add10(x) {
-    const y = 10
-    return x => x + y;
+    const x = 10;
+    return y => x + y;
 }
 ```
 
-You use it this way:
+Now we can create multiple functions by calling `add10`.
 
 ```js
 const f = add10();
@@ -161,11 +162,11 @@ const b = g(20); // 30
 
 ```racket
 (define (add10)
-  (define y 10)
-  (lambda (x) (+ x y)))
+  (define x 10)
+  (lambda (y) (+ x y)))
 ```
 
-You use it this way:
+Now we can create multiple functions by calling `add10`.
 
 ```racket
 (define f (add10))
@@ -178,12 +179,14 @@ You use it this way:
 </div>
 </div>
 
-In the above example `add10` returns a function instead of doing a calculation.
-But the function that is being returned still access the variable `y`. Because
-of this when we create the two functions `f` and `g` both of them will have
-its own copy of `y`. It seems useless to create `y` in the
-function, and this is right, but we can change the example being
-more useful.
+`add10` returns a function instead of doing a calculation. Because the
+function that is returned still access the variable `x` it means the
+variable is still not freed from memory. In the cases above the new functions
+`f` and `g` have access to its own `x` variable. Both functions
+have there own copy of `x` that is not shared between them.
+
+This seems not so useful because `x` is always `10`. But we can change the
+example to be more useful.
 
 <div class="code-toggle">
 <div class="buttons">
@@ -201,8 +204,9 @@ let add x y = x + y
 let add x   = fun y -> x + y
 ```
 
-Both definitions of `add` are the same in F# because of currying. You use
-it this way:
+Both definitions of `add` are the same in F# because of currying. Because
+`x` is now passed as an argument we can now create multiple different
+`add` functions where each function has access to a different `x`.
 
 ```fsharp
 let add1  = add 1
@@ -220,7 +224,8 @@ public static Func<int,int> Add(int x) {
 }
 ```
 
-You use it this way:
+Because `x` is now passed as an argument we can now create multiple different
+`add` functions where each function has access to a different `x`.
 
 ```csharp
 var add1  = add(1);
@@ -240,7 +245,8 @@ sub add($x) {
 }
 ```
 
-You use it this way:
+Because `x` is now passed as an argument we can now create multiple different
+`add` functions where each function has access to a different `x`.
 
 ```perl
 my $add1  = add(1);
@@ -258,7 +264,8 @@ function add(x) {
 }
 ```
 
-You use it this way:
+Because `x` is now passed as an argument we can now create multiple different
+`add` functions where each function has access to a different `x`.
 
 ```js
 const add1  = add(1);
@@ -275,7 +282,8 @@ const b = add10(10); // 20
   (lambda (y) (+ x y)))
 ```
 
-You use it this way:
+Because `x` is now passed as an argument we can now create multiple different
+`add` functions where each function has access to a different `x`.
 
 ```racket
 (define add1  (add 1))
@@ -288,9 +296,9 @@ You use it this way:
 </div>
 </div>
 
-Now the `add` function returns a function, but each time we call `add` it keeps
-holding a copy of the argument `x`. So we can create two distinct `add` functions
-that either add `1` or `10` to its argument `y`.
+Every time the `add` function is called, it returns a new function expecting
+`y` to be passed. But every of those functions have access to its own `x`
+that was passed to `add`. This way we can create multiple distinct `add` functions.
 
 <div class="info">
 This style is related to <strong>currying</strong>. We do <strong>currying</strong>
@@ -319,19 +327,18 @@ With both definitions you can write:
 let add10 = add 4 6
 ```
 
-The above call will return a function *accepting*
-argument `z`. Passing fewer arguments as needed to execute
-a function is called **Partial Application**.
+`add10` now *accepts* the missing argument `z`. Passing fewer arguments
+as needed to execute a function is called **Partial Application**.
 </div>
 
 While being more usefull I guess you will still wonder why
-you ever want to do this kind of trasformation. So here comes a more
+you ever want to do this kind of transformation. So here comes a more
 advanced example.
 
 Consider we want to create a `range` function accepting a `start` and
 `stop` value. But instead of returning a List/Array or other kind
-of data return a function. Whenever we call the function it returns
-the next value starting with `start` upto `stop`.
+of data, we want to return a function instead. Whenever this function
+is called it returns the next value starting with `start` upto `stop`.
 
 This concept is also called an **iterator** and we can implement it easily
 with just a **closure**.
@@ -339,6 +346,7 @@ with just a **closure**.
 <div class="code-toggle">
 <div class="buttons">
 <button data-lang="fsharp">F#</button>
+<button data-lang="csharp">C#</button>
 <button data-lang="perl">Perl</button>
 <button data-lang="js">JavaScript</button>
 <button data-lang="racket">Racket</button>
@@ -360,6 +368,21 @@ let range start stop =
             Some tmp
         else
             None
+```
+
+</div><div class="code-csharp">
+
+```csharp
+public delegate int? RangeDelegate();
+public static RangeDelegate Range(int start, int stop) {
+    int? current = start;
+    return () => {
+        if ( current <= stop ) {
+            return current++;
+        }
+        return null;
+    };
+}
 ```
 
 </div><div class="code-perl">
@@ -415,7 +438,7 @@ function range(start, stop) {
        (set! current (add1 current))
        tmp
        ]
-      [else null])))
+      [else #f])))
 ```
 
 </div>
@@ -425,6 +448,75 @@ The `range` function defines `current` and uses `start` as the initial value.
 Every function created by `range` has its own copy of `current`. So whenever
 we call the function that is returned by `range`, it just iterates from `start`
 to `stop`.
+
+<div class="code-toggle">
+<div class="buttons">
+<button data-lang="fsharp">F#</button>
+<button data-lang="csharp">C#</button>
+<button data-lang="perl">Perl</button>
+<button data-lang="js">JavaScript</button>
+<button data-lang="racket">Racket</button>
+</div>
+
+<div class="code-fsharp">
+
+```fsharp
+let r = range 1 10
+
+let mutable x = r ()
+while Option.isSome n do
+    printfn "%d" x.Value
+    x <- r ()
+```
+
+</div><div class="code-csharp">
+
+```csharp
+var r = Range(1, 10);
+
+var x = r();
+while ( x != null ) {
+    Console.WriteLine(x.Value);
+    x = r();
+}
+```
+
+</div><div class="code-perl">
+
+```perl
+my $r = range(1, 10);
+
+while ( defined(my $x = $r->()) ) {
+    say $x;
+}
+```
+
+</div><div class="code-js">
+
+```js
+const r = range(1,10);
+
+let x = r();
+while ( x !== undefined ) {
+    console.log(x);
+    x = r();
+}
+```
+
+</div><div class="code-racket">
+
+```racket
+(define (iter f)
+  (define x (f))
+  (cond
+    [x (displayln x ) (iter f)]))
+
+(define r (range 1 10))
+(iter r)
+```
+
+</div>
+</div>
 
 ```perl
 my $r = range(1,10);
