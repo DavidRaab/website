@@ -23,6 +23,11 @@
     background-color: #d5d5d5;
   }
 
+  > .code {
+  border: 2px solid grey;
+  border-top: none;
+}
+
   // Remove margin only if inside of code-toggle
   div.highlight { margin: 0; }
 
