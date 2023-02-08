@@ -22,7 +22,7 @@ all variables are lexical scoped. Consider the following example.
 <button data-lang="racket">Racket</button>
 </div>
 
-<div class="code-fsharp">
+<div class="code fsharp">
 
 ```fsharp
 let add10 y =
@@ -30,7 +30,7 @@ let add10 y =
     x + y
 ```
 
-</div><div class="code-csharp">
+</div><div class="code csharp">
 
 ```csharp
 public static int Add10(int y) {
@@ -39,7 +39,7 @@ public static int Add10(int y) {
 }
 ```
 
-</div><div class="code-perl">
+</div><div class="code perl">
 
 ```perl
 sub add10($y) {
@@ -48,7 +48,7 @@ sub add10($y) {
 }
 ```
 
-</div><div class="code-js">
+</div><div class="code js">
 
 ```js
 function add10(y) {
@@ -57,7 +57,7 @@ function add10(y) {
 }
 ```
 
-</div><div class="code-racket">
+</div><div class="code racket">
 
 ```racket
 (define (add10 y)
@@ -81,7 +81,7 @@ from memory. But this can change when we return a function.
 <button data-lang="racket">Racket</button>
 </div>
 
-<div class="code-fsharp">
+<div class="code fsharp">
 
 ```fsharp
 let add10 () =
@@ -99,7 +99,7 @@ let a = f 20 // 30
 let b = g 20 // 30
 ```
 
-</div><div class="code-csharp">
+</div><div class="code csharp">
 
 ```csharp
 public static Func<int,int> Add10() {
@@ -118,7 +118,7 @@ var a = f(20); // 30
 var b = g(20); // 30
 ```
 
-</div><div class="code-perl">
+</div><div class="code perl">
 
 ```perl
 sub add10() {
@@ -139,7 +139,7 @@ my $a = $f->(20); # 30
 my $b = $g->(20); # 30
 ```
 
-</div><div class="code-js">
+</div><div class="code js">
 
 ```js
 function add10(x) {
@@ -158,7 +158,7 @@ const a = f(20); // 30
 const b = g(20); // 30
 ```
 
-</div><div class="code-racket">
+</div><div class="code racket">
 
 ```racket
 (define (add10)
@@ -197,7 +197,7 @@ example to be more useful.
 <button data-lang="racket">Racket</button>
 </div>
 
-<div class="code-fsharp">
+<div class="code fsharp">
 
 ```fsharp
 let add x y = x + y
@@ -216,7 +216,7 @@ let a = add1  10 // 11
 let b = add10 10 // 20
 ```
 
-</div><div class="code-csharp">
+</div><div class="code csharp">
 
 ```csharp
 public static Func<int,int> Add(int x) {
@@ -235,7 +235,7 @@ var a = add1(10);  // 11
 var b = add10(10); // 20
 ```
 
-</div><div class="code-perl">
+</div><div class="code perl">
 
 ```perl
 sub add($x) {
@@ -256,7 +256,7 @@ my $a = $add1->(10);  # 11
 my $b = $add10->(10); # 20
 ```
 
-</div><div class="code-js">
+</div><div class="code js">
 
 ```js
 function add(x) {
@@ -275,7 +275,7 @@ const a = add1(10);  // 11
 const b = add10(10); // 20
 ```
 
-</div><div class="code-racket">
+</div><div class="code racket">
 
 ```racket
 (define (add x)
@@ -352,7 +352,7 @@ with just a **closure**.
 <button data-lang="racket">Racket</button>
 </div>
 
-<div class="code-fsharp">
+<div class="code fsharp">
 
 ```fsharp
 // range : int -> int -> (unit -> option<int>)
@@ -370,7 +370,7 @@ let range start stop =
             None
 ```
 
-</div><div class="code-csharp">
+</div><div class="code csharp">
 
 ```csharp
 public delegate int? RangeDelegate();
@@ -385,7 +385,7 @@ public static RangeDelegate Range(int start, int stop) {
 }
 ```
 
-</div><div class="code-perl">
+</div><div class="code perl">
 
 ```perl
 sub range($start, $stop) {
@@ -404,7 +404,7 @@ sub range($start, $stop) {
 }
 ```
 
-</div><div class="code-js">
+</div><div class="code js">
 
 ```js
 function range(start, stop) {
@@ -423,7 +423,7 @@ function range(start, stop) {
 }
 ```
 
-</div><div class="code-racket">
+</div><div class="code racket">
 
 ```racket
 (define (range start stop)
@@ -449,6 +449,12 @@ Every function created by `range` has its own copy of `current`. So whenever
 we call the function that is returned by `range`, it just iterates from `start`
 to `stop`.
 
+First we will create a higher-order function that iterates through an iterator
+that just passes every value to the user-passed function. This way we
+don't need to write the logic for iteration every single time. Even if the
+code is short for iteration we can easily make mistakes.
+
+
 <div class="code-toggle">
 <div class="buttons">
 <button data-lang="fsharp">F#</button>
@@ -458,100 +464,152 @@ to `stop`.
 <button data-lang="racket">Racket</button>
 </div>
 
-<div class="code-fsharp">
+<div class="code fsharp">
 
 ```fsharp
-let r = range 1 10
-
-let mutable x = r ()
-while Option.isSome n do
-    printfn "%d" x.Value
-    x <- r ()
+let rec iter f i =
+    match i() with
+    | Some value ->
+        f value
+        iter f i
+    | None ->
+        ()
 ```
 
-</div><div class="code-csharp">
+With this function we can easily create multiple iterators and iterate
+through them.
+
+```fsharp
+let a = range  1 10
+let b = range 20 80
+
+a |> iter (fun x -> printfn "%d" x) // prints 1 to 10
+b |> iter (fun x -> printfn "%d" x) // prints 20 to 80
+```
+
+</div><div class="code csharp">
 
 ```csharp
-var r = Range(1, 10);
-
-var x = r();
-while ( x != null ) {
-    Console.WriteLine(x.Value);
-    x = r();
+public static void Iter(RangeDelegate i, Action<int> f) {
+    var x = i();
+    while ( x != null ) {
+        Console.WriteLine(x.Value);
+        x = i();
+    }
 }
 ```
 
-</div><div class="code-perl">
+With this function we can easily create multiple iterators and iterate
+through them.
+
+```csharp
+var a = Range( 1,10);
+var b = Range(20,80);
+
+Iter(a, x => Console.WriteLine(x));
+Iter(b, x => Console.WriteLine(x));
+```
+
+</div><div class="code perl">
 
 ```perl
-my $r = range(1, 10);
-
-while ( defined(my $x = $r->()) ) {
-    say $x;
+sub iter($iter, $f) {
+    while ( defined(my $x = $iter->()) ) {
+        $f->($x);
+    }
+    return;
 }
 ```
 
-</div><div class="code-js">
-
-```js
-const r = range(1,10);
-
-let x = r();
-while ( x !== undefined ) {
-    console.log(x);
-    x = r();
-}
-```
-
-</div><div class="code-racket">
-
-```racket
-(define (iter f)
-  (define x (f))
-  (cond
-    [x (displayln x ) (iter f)]))
-
-(define r (range 1 10))
-(iter r)
-```
-
-</div>
-</div>
+With this function we can easily create multiple iterators and iterate
+through them.
 
 ```perl
-my $r = range(1,10);
-my $s = range(20,100);
+my $a = range( 1, 10);
+my $b = range(20, 80);
 
 # prints 1 to 10
-while( defined($x = $r->()) ) {
-    say $x;
-}
+iter($a, sub($x) {
+    printf "%d\n", $x;
+});
 
-# prints 20 to 100
-while( defined($x = $s->()) ) {
-    say $x;
+# prints 20 to 80
+iter($b, sub($x) {
+    printf "%d\n", $x;
+});
+```
+
+</div><div class="code js">
+
+```js
+function iter(i, f) {
+    let x = i();
+    while ( x !== undefined ) {
+        f(x);
+        x = r();
+    }
 }
 ```
+
+With this function we can easily create multiple iterators and iterate
+through them.
+
+```js
+const a = range( 1,10);
+const b = range(20,80);
+
+iter(a, x => console.log(x)); // prints 1 to 10
+iter(b, x => console.log(x)); // prints 20 to 80
+```
+
+</div><div class="code racket">
+
+```racket
+(define (iter i f)
+  (define x (i))
+  (cond
+    [x (f x) (iter i f)]))
+```
+
+With this function we can easily create multiple iterators and iterate
+through them.
+
+```racket
+(define a (range  1 10))
+(define b (range 20 80))
+
+(iter a (lambda (x) (displayln x))) ; prints 1 to 10
+(iter b (lambda (x) (displayln x))) ; prints 20 to 80
+```
+
+</div>
+</div>
 
 *Closures* are tied to *functional programming*. But let's assume you have an
 object-oriented language and want to achieve the same. How do *closures* translate
 to object-oriented programming?
 
-Answer: They are just classes with fields. A closure is the same as an object that contains data with a single method you can call.
+Answer: They are just classes with fields. A closure is the same as an object
+that contains data with a single method you can call.
 
 This is how you implement `add10`.
 
 ```csharp
 public class Add10 {
-    private int c;
+    private int x;
     public Add10() {
-        this.c = 10;
+        this.x = 10;
     }
-    public int Call(int x) {
-        return x + this.c;
+    public int Call(int y) {
+        return x + this.x;
     }
 }
+```
 
+In the class example we now have `f` and `g` and both objects will have its
+own `x` field with the value of `10` like the closure had.
+
+```csharp
 var f = new Add10();
 var g = new Add10();
 
@@ -559,7 +617,7 @@ var a = f.Call(20); // 30
 var b = f.Call(20); // 30
 ```
 
-This is `add`.
+We also can make `x` configurable by the user. This is `add`.
 
 ```csharp
 public class Add {
@@ -571,7 +629,11 @@ public class Add {
         return this.x + y;
     }
 }
+```
 
+It doesn't really matter how that one-method is named. Usually `Run`, `Execute`, `Invoke`, `Call` or other synonyms for saying *function* is used.
+
+```
 var add1  = new Add(1);
 var add10 = new Add(10);
 
@@ -587,7 +649,7 @@ And finally `range`.
 <button data-lang="csharp">C#</button>
 </div>
 
-<div class="code-perl">
+<div class="code perl">
 
 ```perl
 package Range;
@@ -615,7 +677,7 @@ while ( defined(my $x = $r->next) ) {
 }
 ```
 
-</div><div class="code-csharp">
+</div><div class="code csharp">
 
 ```csharp
 public class Range {
