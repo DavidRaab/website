@@ -3,7 +3,7 @@ layout: post
 title: "Introduction to Functional Programming"
 slug: introduction-to-functional-programming
 date: 2016-05-11
-tags: [FSharp,CSharp,intro,data,oop,currying,closure]
+tags: [FSharp,CSharp,intro,data,FPvsOO,currying,closure]
 description: "Gives an introduction to functional programming and shows how the ideas relates to object-oriented programming"
 keywords: f#, fsharp, introduction, functional, programming, oop, closures, currying, combinators
 ---
@@ -24,35 +24,9 @@ Overall I show why functional programming and object-oriented programming are
 orthogonal. I hope that by the end of the article you learned something about
 functional programming, but also widen your view on object-oriented programming.
 
-# Table of Content
+# Functional Programming
 
-<ul class="toc">
-  <li>Functional Programming</li>
-  <ul>
-    <li><a href="#fp-data">Functions as Data</a></li>
-    <li><a href="#fp-function">What is a function?</a></li>
-    <li><a href="#fp-exp-functions">Exploiting Functions</a></li>
-    <li><a href="#fp-retn-functions">Functions as return values</a></li>
-    <li><a href="#fp-lambda">There is only lambda</a></li>
-    <li><a href="#fp-currying">Currying</a></li>
-    <li><a href="#fp-closures">Closures</a></li>
-    <li><a href="#fp-example">Example: Currying and Closures</a></li>
-  </ul>
-  <li><a href="#oo">Object-Oriented Programming</a></li>
-  <ul>
-    <li><a href="#oo-class">What is a Class?</a></li>
-    <li><a href="#oo-function">Functions as Data</a></li>
-    <li><a href="#oo-curry-partial-closure">Currying, Partial Application and Closures</a></li>
-    <li><a href="#oo-currying">Currying</a></li>
-    <li><a href="#oo-exercise">Exercise</a></li>
-  </ul>
-  <li><a href="#summary">Summary</a></li>
-  <li><a href="#reading">Further Reading</a></li>
-  <li><a href="#comments">Comments</a></li>
-</ul>
-
-<a name="fp-data"></a>
-# Functions as data
+## Functions as data
 
 One important concept in functional programming is the ability to use functions just
 as data. This means you can create functions and store them in variables.
@@ -68,8 +42,7 @@ But even if you don't see the connection at the moment, you still could ask
 yourself if that idea really makes sense, or what useful thinks you can
 do with that idea.
 
-<a name="fp-function"></a>
-# What is a function?
+## What is a function?
 
 Before we go deeper we have to ask ourself: What is a function anyway? Depending
 on the language there are also multiple terms for the word function. Terms
@@ -122,8 +95,7 @@ we get some profit out of it. We just have:
 What happens between those steps? We don't know, but we also don't care. The only
 thing that matters is that we can somehow turn underpants into profit.
 
-<a name="fp-exp-functions"></a>
-# Exploiting functions
+## Exploiting functions
 
 The idea that only the input and output of a function matters is quite interesting.
 We could take that idea further and for example rewrite our `square` function
@@ -276,8 +248,7 @@ data to represent a function is so huge, it is even more important that we can p
 that only calculates those things we truly need.
 </div>
 
-<a name="fp-retn-functions"></a>
-# Functions as return values
+## Functions as return values
 
 Let's consider the following function.
 
@@ -333,8 +304,7 @@ can turn any input `int` into an output `int` where we added `10` to it.
 As you can see, both versions with a data-structure or the functions are quite similar.
 But the last version still contains some interesting things that are worth to talk about.
 
-<a name="fp-lambda"></a>
-# There is only lambda
+## There is only lambda
 
 When we want to create an `int`. How do we do that? Well we just write it. For example `5` is
 just `5`. We can work with `5` however we want. We can pass it to a function, use it in
@@ -445,8 +415,7 @@ squareB 5 // 25
 It just shows that the second `let` definition that already includes the function arguments
 is only a shortcut to the more explicit lambda expression.
 
-<a name="fp-currying"></a>
-# Currying
+## Currying
 
 In fact the simplification don't stop here. We don't even have functions with more than one
 argument. There only exists functions with one arguments. So what do you do when you for
@@ -529,8 +498,7 @@ But this creates conflict with Partial Applied functions. When i write <code>add
 would expect that it is a partial applied function with the first argument set to <code>3</code>.
 </div>
 
-<a name="fp-closures"></a>
-# Closures
+## Closures
 
 Previously I said that when you call a function then some kind of substitution happens.
 When you call `add 10` in the last example then `x` gets substituted by `10` and it returns
@@ -581,8 +549,7 @@ is probably not a good practical decision.
 Whenever we *remember* a variable or refer to a variable from a lambda expression,
 we call it a *Closure*.
 
-<a name="fp-example"></a>
-# Example: Currying and Closures
+## Example: Currying and Closures
 
 I want to give a small example that shows functions as value and return values,
 currying and closures all in action. In F# we have an option type. An option type can have
@@ -744,7 +711,6 @@ then composing them into bigger functions is the heart of functional programming
 programming we directly work with functions and we even write our own combinators
 to compose functions.
 
-<a name="oo"></a>
 # Object-Oriented programming
 
 At the start of the article i said we can achieve the same ideas in Object-Oriented programming
@@ -753,8 +719,7 @@ same things. C# already has some functional features like lambda-expressions. Bu
 really no point in showing C# code that uses functional features as an example that OO
 and functional programming are orthogonal. Because of this i will only use classes.
 
-<a name="oo-class"></a>
-# What is a class?
+## What is a class?
 
 We start with the same idea. What is actually a class anyway? A class is actually some
 kind of compose-able type. It always has at least one constructor, beyond that it can contain
@@ -766,8 +731,7 @@ But one important aspect is that there is no technical restriction to create cla
 data or no functions. There is also no restriction that tells you how many data fields or
 functions you must implement.
 
-<a name="oo-function"></a>
-# Function as data
+## Function as data
 
 I started with the idea of functions as data. I created a `square` function and passed the function
 around. We wrote our own `map` function that showed that we could replace a function by data.
@@ -788,15 +752,15 @@ but actually passing a single function or returning it shouldn't be hard to unde
 already do that all over the place in an OO language.
 
 <div class="info">
-Some languages also have the ability to create whole classes/objects inline like you do
-with a lambda expression. In fact F# is such a language and supports
+
+Some languages also have the ability to create whole classes/objects inline like you do with a lambda expression. In fact F# is such a language and supports
 <a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/object-expressions">Object expressions</a>
 C# also supports <a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/anonymous-types">Anonymous Types</a>,
 but they are more limited. Java supports <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html">Anonymous classes</a>.
 </div>
 
-So, how do we create a `List.map` function in C# just with classes and how do we pass it
-a function like `square`?
+So, how do we create a `List.map` function in C# just with classes and how do
+we pass it a function like `square`?
 
 ```csharp
 public interface IFunction<A,B> {
@@ -853,8 +817,7 @@ But those are the functional features that were added with C# 3. There is no poi
 functional concepts with functional features in an OO language to prove that they are orthogonal.
 </div>
 
-<a name="oo-curry-partial-closure"></a>
-# Currying, Partial Application and Closures
+## Currying, Partial Application and Closures
 
 All three things are somehow connected to each other. In the functional code I first introduced
 currying, but I primarily used it to show Partial Application (only providing some arguments
@@ -994,8 +957,7 @@ But as a final note. Writing things like this is anyway not idiomatic functional
 code uses immutability. With immutable data you don't really need a class at all. A class gives you
 the ability to hide *mutable data* so you only have specific functions that can manipulate those.
 
-<a name="oo-currying"></a>
-# Currying
+## Currying
 
 F# does automatic currying by default, but it doesn't mean just because your language doesn't do
 currying you can't have it. While most modern functional languages usually do it by default some
@@ -1182,8 +1144,7 @@ class MainClass {
 ```
 </div>
 
-<a name="oo-exercise"></a>
-# Exercise
+## Exercise
 
 Previously I provided a small exercise with validation, but I leave the task to implement it
 in your favourite language. Up to this point you should know enough about currying and
@@ -1280,7 +1241,6 @@ like `smaller`, `greater` and so on should never be part of the validation class
 When you create a solution in your favourite language, you can leave a message in the Disqus
 chat, or sent me a notification via Twitter, I add a link to your solution here.
 
-<a name="summary"></a>
 # Summary
 
 I started with the idea of functions as data and why it makes sense that we can pass functions
@@ -1299,10 +1259,8 @@ to Object-Oriented programming and why closures and objects are the same.
 I overall hope that this introduction helped you not only in understanding functional programming
 better, but also widen your view on object-oriented programming.
 
-<a name="reading"></a>
 # Further Reading
 
 * [What's Functional Programming All About?](http://www.lihaoyi.com/post/WhatsFunctionalProgrammingAllAbout.html)
 * [So You Want to be a Functional Programmer (Part 1)](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536)
 
-<a name="comments"></a>
