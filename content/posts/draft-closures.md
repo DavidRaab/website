@@ -2,7 +2,7 @@
 title: "Draft Closures"
 date: 2023-01-20T19:14:16+01:00
 draft: true
-tags: [fsharp,csharp,perl,js,racket,fp,oo,closure,iterator]
+tags: [fsharp,csharp,perl,js,racket,FPvsOO,closure,iterator]
 ---
 
 Today, more and more languages supports functions as first-class values. This
