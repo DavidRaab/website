@@ -61,8 +61,9 @@ function add10(y) {
 
 ```racket
 (define (add10 y)
-  (define x 10)
-  (+ x y))
+    (define x 10)
+    (+ x y)
+)
 ```
 
 </div>
@@ -123,9 +124,7 @@ var b = g(20); // 30
 ```perl
 sub add10() {
     my $x = 10;
-    return sub($y) {
-        return $x + $y;
-    }
+    return sub($y) { $x + $y };
 }
 ```
 
@@ -162,8 +161,9 @@ const b = g(20); // 30
 
 ```racket
 (define (add10)
-  (define x 10)
-  (lambda (y) (+ x y)))
+    (define x 10)
+    (lambda (y) (+ x y))
+)
 ```
 
 Now we can create multiple functions by calling `add10`.
@@ -239,9 +239,7 @@ var b = add10(10); // 20
 
 ```perl
 sub add($x) {
-    return sub($y) {
-        return $x + $y;
-    }
+    return sub($y) { $x + $y };
 }
 ```
 
@@ -279,7 +277,8 @@ const b = add10(10); // 20
 
 ```racket
 (define (add x)
-  (lambda (y) (+ x y)))
+    (lambda (y) (+ x y))
+)
 ```
 
 Because `x` is now passed as an argument we can now create multiple different
@@ -328,7 +327,114 @@ let add10 = add 4 6
 ```
 
 `add10` now *accepts* the missing argument `z`. Passing fewer arguments
-as needed to execute a function is called **Partial Application**.
+as needed to execute a function is called **Partial Application**. In
+C#, Perl, JavaScript and Racket you must do this kind of transformation
+explicitly.
+
+<div class="code-toggle">
+<div class="buttons">
+<button data-lang="csharp">C#</button>
+<button data-lang="perl">Perl</button>
+<button data-lang="js">JavaScript</button>
+<button data-lang="racket">Racket</button>
+<button data-lang="fsharp">F#</button>
+</div>
+
+<div class="code csharp">
+
+```csharp
+public static Func<int,Func<int,int>> Add(int x) {
+    return (y) => {
+        return (z) => {
+            return x + y + z;
+        };
+    };
+}
+```
+
+used like this:
+
+```csharp
+var add10 = Add(6)(4);    // Func<int,int>
+var num   = Add(6)(4)(5); // 15
+```
+
+</div><div class="code perl">
+
+```perl
+sub add($x) {
+    return sub($y) {
+        return sub($z) {
+            return $x + $y + $z;
+        }
+    }
+}
+```
+
+used like this:
+
+```perl
+my $add10 = add(6)->(4);    # sub
+my $num   = add(6)->(4)(5); # 15
+```
+
+</div><div class="code js">
+
+```js
+function add(x) {
+    return function(y) {
+        return function(z) {
+            return x + y + z;
+        }
+    }
+}
+```
+
+used like this:
+
+```js
+const add10 = add(6)(4);    // function
+const num   = add(6)(4)(5); // 15
+```
+
+</div><div class="code racket">
+
+```racket
+(define (add x)
+    (lambda (y)
+        (lambda (z)
+            (+ x y z)
+        )
+    )
+)
+```
+
+used like this:
+
+```racket
+(define add10 ((add 6) 4))    ; lambda
+(define num   ((add 6) 4) 5)) ; 15
+```
+
+</div><div class="code fsharp">
+
+```fsharp
+let add x y z = x + y + z
+```
+
+used like this.
+
+```fsharp
+let add10 = add 6 4         // int -> int
+let numa  = add 6 4 5       // 15
+let numb  = (((add 6) 4) 5) // 15
+```
+
+This is the reason why F# doesn't use parenthesis for the arguments **and** they
+are also not required like in Racket (or another LISP-like language).
+
+</div></div>
+
 </div>
 
 While being more usefull I guess you will still wonder why
@@ -375,7 +481,10 @@ let range start stop =
 ```csharp
 public delegate int? RangeDelegate();
 public static RangeDelegate Range(int start, int stop) {
+    // This is the state
     int? current = start;
+    // A function is returned and has has access to its
+    // own unique mutable current variable.
     return () => {
         if ( current <= stop ) {
             return current++;
@@ -427,18 +536,21 @@ function range(start, stop) {
 
 ```racket
 (define (range start stop)
-  ; This is the state
-  (define current start)
-  ; A function is returned and has has access to its
-  ; own unique mutable current variable.
-  (lambda ()
-    (cond
-      [(<= current stop)
-       (define tmp current)
-       (set! current (add1 current))
-       tmp
-       ]
-      [else #f])))
+    ; This is the state
+    (define current start)
+    ; A function is returned and has has access to its
+    ; own unique mutable current variable.
+    (lambda ()
+        (cond
+            [(<= current stop)
+                (define tmp current)
+                (set! current (add1 current))
+                tmp
+            ]
+            [else #f]
+        )
+    )
+)
 ```
 
 </div>
@@ -449,11 +561,9 @@ Every function created by `range` has its own copy of `current`. So whenever
 we call the function that is returned by `range`, it just iterates from `start`
 to `stop`.
 
-First we will create a higher-order function that iterates through an iterator
-that just passes every value to the user-passed function. This way we
+First we create a helper function to iterate through an iterator. This way we
 don't need to write the logic for iteration every single time. Even if the
 code is short for iteration we can easily make mistakes.
-
 
 <div class="code-toggle">
 <div class="buttons">
@@ -490,10 +600,11 @@ b |> iter (fun x -> printfn "%d" x) // prints 20 to 80
 </div><div class="code csharp">
 
 ```csharp
+public delegate int? RangeDelegate();
 public static void Iter(RangeDelegate i, Action<int> f) {
     var x = i();
     while ( x != null ) {
-        Console.WriteLine(x.Value);
+        f(x.Value);
         x = i();
     }
 }
@@ -506,8 +617,8 @@ through them.
 var a = Range( 1,10);
 var b = Range(20,80);
 
-Iter(a, x => Console.WriteLine(x));
-Iter(b, x => Console.WriteLine(x));
+Iter(a, x => Console.WriteLine(x)); // prints 1 to 10
+Iter(b, x => Console.WriteLine(x)); // prints 20 to 80
 ```
 
 </div><div class="code perl">
@@ -528,15 +639,8 @@ through them.
 my $a = range( 1, 10);
 my $b = range(20, 80);
 
-# prints 1 to 10
-iter($a, sub($x) {
-    printf "%d\n", $x;
-});
-
-# prints 20 to 80
-iter($b, sub($x) {
-    printf "%d\n", $x;
-});
+iter($a, sub($x) { say $x }); # prints 1 to 10
+iter($b, sub($x) { say $x }); # prints 20 to 80
 ```
 
 </div><div class="code js">
@@ -566,9 +670,11 @@ iter(b, x => console.log(x)); // prints 20 to 80
 
 ```racket
 (define (iter i f)
-  (define x (i))
-  (cond
-    [x (f x) (iter i f)]))
+    (define x (i))
+    (cond
+        [x (f x) (iter i f)]
+    )
+)
 ```
 
 With this function we can easily create multiple iterators and iterate
@@ -586,13 +692,45 @@ through them.
 </div>
 
 *Closures* are tied to *functional programming*. But let's assume you have an
-object-oriented language and want to achieve the same. How do *closures* translate
-to object-oriented programming?
+object-oriented language and want to achieve the same (without using its
+functional features). How do *closures* translate to object-oriented programming?
 
-Answer: They are just classes with fields. A closure is the same as an object
+**Answer:** They are just classes with fields. A closure is the same as an object
 that contains data with a single method you can call.
 
 This is how you implement `add10`.
+
+<div class="code-toggle">
+<div class="buttons">
+<button data-lang="fsharp">F#</button>
+<button data-lang="csharp">C#</button>
+<button data-lang="perl">Perl</button>
+<button data-lang="js">JavaScript</button>
+<button data-lang="racket">Racket</button>
+</div>
+
+<div class="code fsharp">
+
+```fsharp
+type Add10() =
+    let mutable x = 10
+
+    member this.Call y =
+        x + y
+```
+
+Now we can create `f` and `g` and both objects will have its own `x` field
+with the value of `10`; like the closure had.
+
+```fsharp
+let f = new Add10()
+let g = Add10()    // new is optional
+
+let a = f.Call(20) // 30
+let b = g.Call(20) // 30
+```
+
+</div><div class="code csharp">
 
 ```csharp
 public class Add10 {
@@ -601,13 +739,13 @@ public class Add10 {
         this.x = 10;
     }
     public int Call(int y) {
-        return x + this.x;
+        return this.x + y;
     }
 }
 ```
 
-In the class example we now have `f` and `g` and both objects will have its
-own `x` field with the value of `10` like the closure had.
+Now we can create `f` and `g` and both objects will have its own `x` field
+with the value of `10` like the closure had.
 
 ```csharp
 var f = new Add10();
@@ -617,7 +755,122 @@ var a = f.Call(20); // 30
 var b = f.Call(20); // 30
 ```
 
-We also can make `x` configurable by the user. This is `add`.
+</div><div class="code perl">
+
+```perl
+package Add10;
+use v5.36;
+
+sub new($class) {
+    bless {
+        x => 10,
+    }, $class;
+}
+
+sub call($self, $y) {
+    return $self->{x} + $y;
+}
+```
+
+Now we can create `f` and `g` and both objects will have its own `x` field
+with the value of `10` like the closure had.
+
+```perl
+my $f = Add10->new;
+my $g = Add10->new;
+
+my $a = $f->call(20); # 30
+my $b = $g->call(20); # 30
+```
+
+</div><div class="code js">
+
+```js
+function Add10() {
+    this.x = 10;
+}
+
+// I am using invoke because JavaScript already has a global call method
+Add10.prototype.invoke = function(y) {
+    return this.x + y;
+}
+```
+
+Now we can create `f` and `g` and both objects will have its own `x` field
+with the value of `10` like the closure had.
+
+```js
+const f = new Add10();
+const g = new Add10();
+
+const a = f.invoke();
+const b = f.invoke();
+```
+
+</div><div class="code racket">
+
+```racket
+(define Add10%
+  (class object%
+    (super-new)
+    (field [x 10])
+
+    (define/public (call y)
+      (+ x y)
+    )
+  )
+)
+```
+
+Now we can create `f` and `g` and both objects will have its own `x` field
+with the value of `10` like the closure had.
+
+```racket
+(define f (new Add10%))
+(define g (new Add10%))
+
+(define a (send f call 20))
+(define b (send f call 20))
+```
+
+</div></div>
+
+Like in the example with the closure it seems useless to have `x` as a field,
+but we can make it configurable by passing it to the constructor. This would
+be `add`.
+
+
+<div class="code-toggle">
+<div class="buttons">
+<button data-lang="fsharp">F#</button>
+<button data-lang="csharp">C#</button>
+<button data-lang="perl">Perl</button>
+<button data-lang="js">JavaScript</button>
+<button data-lang="racket">Racket</button>
+</div>
+
+<div class="code fsharp">
+
+```fsharp
+type Add(x) =
+    let mutable x = x
+
+    member this.Call y =
+        x + y
+```
+
+It doesn't really matter how that one-method is named. Use `Run`, `Execute`,
+`Invoke`, `Call` or any other synonyms for saying *function*.
+
+```fsharp
+let add1  = Add(1);
+let add10 = Add(10);
+
+let a = add1.Call(10);  // 11
+let b = add10.Call(10); // 20
+```
+
+</div><div class="code csharp">
 
 ```csharp
 public class Add {
@@ -631,9 +884,10 @@ public class Add {
 }
 ```
 
-It doesn't really matter how that one-method is named. Usually `Run`, `Execute`, `Invoke`, `Call` or other synonyms for saying *function* is used.
+It doesn't really matter how that one-method is named. Use `Run`, `Execute`,
+`Invoke`, `Call` or any other synonyms for saying *function*.
 
-```
+```csharp
 var add1  = new Add(1);
 var add10 = new Add(10);
 
@@ -641,7 +895,85 @@ var a = add1.Call(10);  // 11
 var b = add10.Call(10); // 20
 ```
 
-And finally `range`.
+</div><div class="code perl">
+
+```perl
+package Add;
+use v5.36;
+
+sub new($class, $x) {
+    return bless { x => $x }, $class;
+}
+
+sub call($self, $y) {
+    return $self->{x} + $y;
+}
+```
+
+It doesn't really matter how that one-method is named. Use `Run`, `Execute`,
+`Invoke`, `Call` or any other synonyms for saying *function*.
+
+```perl
+my $add1  = Add->new(1);
+my $add10 = Add->new(10);
+
+my $a = $add1->call(10);  # 11
+my $b = $add10->call(10); # 20
+```
+
+</div><div class="code js">
+
+```js
+function Add(x) {
+    this.x = x;
+}
+
+// I am using invoke because JavaScript already has a global call method
+Add.prototype.invoke = function(y) {
+    return this.x + y;
+}
+```
+
+It doesn't really matter how that one-method is named. Use `Run`, `Execute`,
+`Invoke`, `Call` or any other synonyms for saying *function*.
+
+```js
+var add1  = new Add(1);
+var add10 = new Add(10);
+
+var a = add1.invoke(10);  // 11
+var b = add10.invoke(10); // 20
+```
+
+</div><div class="code racket">
+
+```racket
+(define Add%
+  (class object%
+    (super-new)
+    (init-field x)
+
+    (define/public (call y)
+      (+ x y)
+    )
+  )
+)
+```
+
+It doesn't really matter how that one-method is named. Use `Run`, `Execute`,
+`Invoke`, `Call` or any other synonyms for saying *function*.
+
+```racket
+(define add1  (new Add% [x 1]))
+(define add10 (new Add% [x 10]))
+
+(define a (send add1  call 10)) ; 11
+(define b (send add10 call 10)) ; 20
+```
+
+</div></div>
+
+This would be the iterator `range`.
 
 <div class="code-toggle">
 <div class="buttons">
@@ -706,5 +1038,4 @@ while ( n != null ) {
 }
 ```
 
-</div>
-</div>
+</div></div>
