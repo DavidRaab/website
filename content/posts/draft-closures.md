@@ -986,56 +986,85 @@ This would be the iterator `range`.
 ```perl
 package Range;
 use v5.36;
+use Moo;
+use Types::Standard qw(Int);
+use namespace::clean;
 
-sub new($class, $start, $stop) {
-    return bless {
-        current => $start,
-        stop    => $stop,
-    }, $class;
+has 'start'   => ( is => 'ro', isa => Int, required => 1 );
+has 'stop'    => ( is => 'ro', isa => Int, required => 1 );
+has 'current' => ( is => 'rw', isa => Int, required => 0 );
+
+sub BUILD($self, $args) {
+    if ( not exists $args->{current} ) {
+        $self->current($self->start);
+    }
 }
 
 sub next($self) {
-    if ( $self->{current} <= $self->{stop} ) {
-        return $self->{current}++;
+    if ( $self->current <= $self->stop ) {
+        my $tmp = $self->current;
+        $self->current($tmp+1);
+        return $tmp;
     }
     return;
 }
 
-# how you use the class
-package main;
-my $r = Range->new(1,10);
-while ( defined(my $x = $r->next) ) {
-    say $x;
+sub iter($self, $f) {
+    while ( defined(my $x = $self->next) ) {
+        $f->($x);
+    }
+    return;
 }
+```
+
+In the object-oriented code the `iter` function becomes a method on the object,
+including all other iteration functions you will come up with. You finally
+use the `Range` class like this.
+
+```perl
+my $r1 = Range->new(start => 1, stop =>  5);
+my $r2 = Range->new(start => 6, stop => 10);
+
+$r1->iter(sub ($x) { say $x });
+$r2->iter(sub ($x) { say $x });
 ```
 
 </div><div class="code csharp">
 
 ```csharp
 public class Range {
-    private int? current;
-    private int stop
+    public int? Current { get; set; }
+    public int  Start   { get; }
+    public int  Stop    { get; }
 
-    public Range(int start, int stop) {
-        this.current = start;
-        this.stop    = stop;
+    public Range(int start, int stop, int? current = null) {
+        this.Start   = start;
+        this.Stop    = stop;
+        this.Current = current.HasValue ? current : start;
     }
 
-    public Next() {
-        if ( this.current <= this.stop ) {
-            return this.current++;
+    public int? Next() {
+        if ( this.Current <= this.Stop ) {
+            return this.Current++;
         }
         return null;
+    }
+
+    public void Iter(Action<int> f) {
+        var x = this.Next();
+        while ( x.HasValue ) {
+            f(x.Value);
+            x = this.Next();
+        }
     }
 }
 
 // Somewhere in your code
-var r = new Range(1,10);
-var n = r.Next();
-while ( n != null ) {
-    Console.WriteLine(n);
-    n = r.Next();
-}
+var a = new Range(1, 5);
+var b = new Range(6,10);
+
+a.Iter(x => Console.WriteLine(x));
+b.Iter(x => Console.WriteLine(x));
 ```
 
 </div></div>
