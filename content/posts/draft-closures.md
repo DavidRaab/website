@@ -977,11 +977,101 @@ This would be the iterator `range`.
 
 <div class="code-toggle">
 <div class="buttons">
-<button data-lang="perl">Perl</button>
+<button data-lang="fsharp">F#</button>
 <button data-lang="csharp">C#</button>
+<button data-lang="perl">Perl</button>
+<button data-lang="js">JavaScript</button>
 </div>
 
-<div class="code perl">
+<div class="code fsharp">
+
+```fsharp
+type Range(start, stop, ?current) =
+    let mutable current = defaultArg current start
+
+    // only get Properties
+    member val Start   = start
+    member val Stop    = stop
+    member val Current = current
+
+    member this.Next () =
+        if current <= stop then
+            let tmp = current
+            current <- current + 1
+            Some tmp
+        else
+            None
+
+    member this.Iter f =
+        let mutable x = this.Next ()
+        while Option.isSome x do
+            f (x.Value)
+            x <- this.Next ()
+```
+
+In the object-oriented code I make the `iter` function a method. The properties
+are not really needed but still shown for comparison. Like mentioned in the
+C# version it is possible to use an interface and extension methods. I also
+could have used a `Range` module and use functions again, but then the `current`
+field had to be `public`. I also could have created a record with a module instead
+but here I wanted to show a class.
+
+Now it becomes easy to define multiple ranges and iterate through them.
+
+```fsharp
+let a = Range(1, 5)
+let b = Range(6,10)
+
+a.Iter(fun x -> printfn "%d" x)
+b.Iter(fun x -> printfn "%d" x)
+```
+
+</div><div class="code csharp">
+
+```csharp
+public class Range {
+    public int  Start   { get; }
+    public int  Stop    { get; }
+    public int? Current { get; set; }
+
+    public Range(int start, int stop, int? current = null) {
+        this.Start   = start;
+        this.Stop    = stop;
+        this.Current = current.HasValue ? current : start;
+    }
+
+    public int? Next() {
+        if ( this.Current <= this.Stop ) {
+            return this.Current++;
+        }
+        return null;
+    }
+
+    public void Iter(Action<int> f) {
+        var x = this.Next();
+        while ( x.HasValue ) {
+            f(x.Value);
+            x = this.Next();
+        }
+    }
+}
+```
+
+In the object-oriented code i make the `iter` function a method. But I also
+cold have used an interface for the `Range` class and create Extensions Methods
+for additional functions. This is how LINQ is implemented.
+
+Now it becomes easy to define multiple ranges and iterate through them.
+
+```csharp
+var a = new Range(1, 5);
+var b = new Range(6,10);
+
+a.Iter(x => Console.WriteLine(x));
+b.Iter(x => Console.WriteLine(x));
+```
+
+</div><div class="code perl">
 
 ```perl
 package Range;
@@ -1017,9 +1107,8 @@ sub iter($self, $f) {
 }
 ```
 
-In the object-oriented code the `iter` function becomes a method on the object,
-including all other iteration functions you will come up with. You finally
-use the `Range` class like this.
+In the object-oriented code i make the `iter` function a method. Now it becomes
+easy to define multiple ranges and iterate through them.
 
 ```perl
 my $r1 = Range->new(start => 1, stop =>  5);
@@ -1029,42 +1118,10 @@ $r1->iter(sub ($x) { say $x });
 $r2->iter(sub ($x) { say $x });
 ```
 
-</div><div class="code csharp">
+</div><div class="code js">
 
-```csharp
-public class Range {
-    public int? Current { get; set; }
-    public int  Start   { get; }
-    public int  Stop    { get; }
+```js
 
-    public Range(int start, int stop, int? current = null) {
-        this.Start   = start;
-        this.Stop    = stop;
-        this.Current = current.HasValue ? current : start;
-    }
-
-    public int? Next() {
-        if ( this.Current <= this.Stop ) {
-            return this.Current++;
-        }
-        return null;
-    }
-
-    public void Iter(Action<int> f) {
-        var x = this.Next();
-        while ( x.HasValue ) {
-            f(x.Value);
-            x = this.Next();
-        }
-    }
-}
-
-// Somewhere in your code
-var a = new Range(1, 5);
-var b = new Range(6,10);
-
-a.Iter(x => Console.WriteLine(x));
-b.Iter(x => Console.WriteLine(x));
 ```
 
-</div></div>
+</div>
