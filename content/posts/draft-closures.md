@@ -1,7 +1,6 @@
 ---
-title: "Draft Closures"
-date: 2023-01-20T19:14:16+01:00
-draft: true
+title: "Closures in F#, C#, Perl, JavaScript and Racket"
+date: 2023-02-15
 tags: [fsharp,csharp,perl,js,racket,FPvsOO,closure,iterator]
 ---
 
@@ -90,7 +89,7 @@ let add10 () =
     fun y -> x + y
 ```
 
-Now we can create multiple functions by calling `add10`.
+Everytime `add10` is called a new function is created and returned.
 
 ```fsharp
 let f = add10 ()
@@ -109,7 +108,7 @@ public static Func<int,int> Add10() {
 }
 ```
 
-Now we can create multiple functions by calling `add10`.
+Everytime `add10` is called a new function is created and returned.
 
 ```csharp
 var f = add10();
@@ -128,7 +127,7 @@ sub add10() {
 }
 ```
 
-Now we can create multiple functions by calling `add10`.
+Everytime `add10` is called a new function is created and returned.
 
 ```perl
 my $f = add10();
@@ -147,7 +146,7 @@ function add10(x) {
 }
 ```
 
-Now we can create multiple functions by calling `add10`.
+Everytime `add10` is called a new function is created and returned.
 
 ```js
 const f = add10();
@@ -166,7 +165,7 @@ const b = g(20); // 30
 )
 ```
 
-Now we can create multiple functions by calling `add10`.
+Everytime `add10` is called a new function is created and returned.
 
 ```racket
 (define f (add10))
@@ -205,8 +204,8 @@ let add x   = fun y -> x + y
 ```
 
 Both definitions of `add` are the same in F# because of currying. Because
-`x` is now passed as an argument we can now create multiple different
-`add` functions where each function has access to a different `x`.
+`x` is now passed as an argument it is now possible to create multiple different
+`add` functions where each function has access to its own different `x`.
 
 ```fsharp
 let add1  = add 1
@@ -224,8 +223,8 @@ public static Func<int,int> Add(int x) {
 }
 ```
 
-Because `x` is now passed as an argument we can now create multiple different
-`add` functions where each function has access to a different `x`.
+Because `x` is now passed as an argument it is now possible to create multiple
+different `add` functions where each function has access to its own different `x`.
 
 ```csharp
 var add1  = add(1);
@@ -243,8 +242,8 @@ sub add($x) {
 }
 ```
 
-Because `x` is now passed as an argument we can now create multiple different
-`add` functions where each function has access to a different `x`.
+Because `x` is now passed as an argument it is now possible to create multiple
+different `add` functions where each function has access to its own different `x`.
 
 ```perl
 my $add1  = add(1);
@@ -262,8 +261,8 @@ function add(x) {
 }
 ```
 
-Because `x` is now passed as an argument we can now create multiple different
-`add` functions where each function has access to a different `x`.
+Because `x` is now passed as an argument it is now possible to create multiple
+different `add` functions where each function has access to its own different `x`.
 
 ```js
 const add1  = add(1);
@@ -281,8 +280,8 @@ const b = add10(10); // 20
 )
 ```
 
-Because `x` is now passed as an argument we can now create multiple different
-`add` functions where each function has access to a different `x`.
+Because `x` is now passed as an argument it is now possible to create multiple
+different `add` functions where each function has access to its own different `x`.
 
 ```racket
 (define add1  (add 1))
@@ -294,10 +293,6 @@ Because `x` is now passed as an argument we can now create multiple different
 
 </div>
 </div>
-
-Every time the `add` function is called, it returns a new function expecting
-`y` to be passed. But every of those functions have access to its own `x`
-that was passed to `add`. This way we can create multiple distinct `add` functions.
 
 <div class="info">
 This style is related to <strong>currying</strong>. We do <strong>currying</strong>
@@ -586,8 +581,7 @@ let rec iter f i =
         ()
 ```
 
-With this function we can easily create multiple iterators and iterate
-through them.
+It is now easy to create multiple iterators and iterate through them.
 
 ```fsharp
 let a = range  1 10
@@ -610,8 +604,7 @@ public static void Iter(RangeDelegate i, Action<int> f) {
 }
 ```
 
-With this function we can easily create multiple iterators and iterate
-through them.
+It is now easy to create multiple iterators and iterate through them.
 
 ```csharp
 var a = Range( 1,10);
@@ -632,8 +625,7 @@ sub iter($iter, $f) {
 }
 ```
 
-With this function we can easily create multiple iterators and iterate
-through them.
+It is now easy to create multiple iterators and iterate through them.
 
 ```perl
 my $a = range( 1, 10);
@@ -650,13 +642,12 @@ function iter(i, f) {
     let x = i();
     while ( x !== undefined ) {
         f(x);
-        x = r();
+        x = i();
     }
 }
 ```
 
-With this function we can easily create multiple iterators and iterate
-through them.
+It is now easy to create multiple iterators and iterate through them.
 
 ```js
 const a = range( 1,10);
@@ -677,8 +668,7 @@ iter(b, x => console.log(x)); // prints 20 to 80
 )
 ```
 
-With this function we can easily create multiple iterators and iterate
-through them.
+It is now easy to create multiple iterators and iterate through them.
 
 ```racket
 (define a (range  1 10))
@@ -719,8 +709,8 @@ type Add10() =
         x + y
 ```
 
-Now we can create `f` and `g` and both objects will have its own `x` field
-with the value of `10`; like the closure had.
+Like in the closure example it is now possible to create `f` and `g` and both
+objects will have its own `x` field.
 
 ```fsharp
 let f = new Add10()
@@ -744,8 +734,8 @@ public class Add10 {
 }
 ```
 
-Now we can create `f` and `g` and both objects will have its own `x` field
-with the value of `10` like the closure had.
+Like in the closure example it is now possible to create `f` and `g` and both
+objects will have its own `x` field.
 
 ```csharp
 var f = new Add10();
@@ -772,8 +762,8 @@ sub call($self, $y) {
 }
 ```
 
-Now we can create `f` and `g` and both objects will have its own `x` field
-with the value of `10` like the closure had.
+Like in the closure example it is now possible to create `f` and `g` and both
+objects will have its own `x` field.
 
 ```perl
 my $f = Add10->new;
@@ -796,8 +786,8 @@ Add10.prototype.invoke = function(y) {
 }
 ```
 
-Now we can create `f` and `g` and both objects will have its own `x` field
-with the value of `10` like the closure had.
+Like in the closure example it is now possible to create `f` and `g` and both
+objects will have its own `x` field.
 
 ```js
 const f = new Add10();
@@ -822,8 +812,8 @@ const b = f.invoke();
 )
 ```
 
-Now we can create `f` and `g` and both objects will have its own `x` field
-with the value of `10` like the closure had.
+Like in the closure example it is now possible to create `f` and `g` and both
+objects will have its own `x` field.
 
 ```racket
 (define f (new Add10%))
@@ -981,6 +971,7 @@ This would be the iterator `range`.
 <button data-lang="csharp">C#</button>
 <button data-lang="perl">Perl</button>
 <button data-lang="js">JavaScript</button>
+<button data-lang="racket">Racket</button>
 </div>
 
 <div class="code fsharp">
@@ -1121,7 +1112,77 @@ $r2->iter(sub ($x) { say $x });
 </div><div class="code js">
 
 ```js
+function Range(start, stop, current) {
+    this.start   = start;
+    this.stop    = stop;
+    this.current = current === undefined ? start : current;
+}
 
+Range.prototype.next = function() {
+    if ( this.current <= this.stop ) {
+        return this.current++;
+    }
+    return;
+}
+
+Range.prototype.iter = function(f) {
+    let x = this.next();
+    while ( x !== undefined ) {
+        f(x);
+        x = this.next();
+    }
+}
+```
+
+In the object-oriented code i make the `iter` function a method. Now it becomes
+easy to define multiple ranges and iterate through them.
+
+```js
+let a = new Range(1, 5);
+let b = new Range(6,10);
+
+a.iter(x => console.log(x));
+b.iter(x => console.log(x));
+```
+
+</div><div class="code racket">
+
+```racket
+(define Range%
+  (class object%
+    (super-new)
+    (init-field start stop)
+    (field [current start])
+
+    (define/public (next)
+      (cond
+        [(<= current stop)
+         (define tmp current)
+         (set! current (add1 current))
+         tmp]
+        [else #f]
+      )
+    )
+
+    (define/public (iter f)
+      (define x (send this next))
+      (cond
+        [x (f x) (send this iter f)]
+      )
+    )
+  )
+)
+```
+
+In the object-oriented code i make the `iter` function a method. Now it becomes
+easy to define multiple ranges and iterate through them.
+
+```racket
+(define a (new Range% [start 1] [stop  5]))
+(define b (new Range% [start 6] [stop 10]))
+
+(send a iter (lambda (x) (displayln x)))
+(send b iter (lambda (x) (displayln x)))
 ```
 
 </div>
