@@ -1,7 +1,10 @@
 ---
+layout: post
 title: "Closures in F#, C#, Perl, JavaScript and Racket"
+slug: closures-in-fsharp-csharp-perl-javascript-and-racket
 date: 2023-02-15
 tags: [fsharp,csharp,perl,js,racket,FPvsOO,closure,iterator]
+description: Explains the concept of closures in F#, C#, Perl, JavaScript and Racket
 ---
 
 Today, more and more languages supports functions as first-class values. This
