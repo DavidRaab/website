@@ -53,11 +53,12 @@ the following.
 
 ```bash
 perlbrew install-patchperl
-perlbrew install perl-5.36.0
+perlbrew install perl-5.36.0 -j 4
 ```
 
-This took around 10 minutes on my machine to compile Perl from source. After it
-is installed the new Perl version is installed but not used automatically. But
+The `-j 4` tells how many CPU cores should be used. This took around 4 minutes
+on my machine to compile Perl from source. After it is installed the new Perl
+version is installed but not used automatically. But
 you can now easily switch between Perl version with the `perlbrew` command.
 
 You can see all installed Perl version with
@@ -132,6 +133,11 @@ cpanm Chart::Clicker
 cpanm Curses
 cpanm File::Slurp
 cpanm IPC::Run
+cpanm Devel::Symdump   # PerlNavigator
+cpanm Sub::Util        # PerlNavigator
+cpanm App::perlimports # PerlNavigator
+cpanm PPI              # PerlNavigator
+cpanm Class::Inspector # PerlNavigator
 ```
 
 Don't forget to use the following shebang line in your scripts.
