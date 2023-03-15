@@ -323,7 +323,7 @@ That means. Whenever we see `3 + 5`, we also could replace that calculations wit
 we see `readFile "file.txt"` we could replace all calls to `readFile "file.txt"` by the value
 that the first function call would produce. This also explains better why a `readFile "file.txt"`
 would be impure. If we call `readFile` and some time later once again, we would assume that it
-returns the new current state of the file. It also could yield an error if the function in the
+returns the new current state of the file. It also could yield an error if the file in the
 mean time was deleted. The point is, we expect that the function can return something
 different every time we call it.
 
