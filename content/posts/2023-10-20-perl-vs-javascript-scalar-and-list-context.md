@@ -170,6 +170,8 @@ List.max [1;2;3;4]
 
 It also somehow makes sense that the `max` function is part as a `List` function, and not part of the `Math` package if you think about it. There also could be different `max` functions for different data-structures or not?
 
+In F#, you will never face the problem to pass a List to a *variable argument* function, because they don't exists. You don't need stuff like `apply`. You always pass an Array/List to a function or expect those when you write your own function. And even if you call a *variable argument* method defined in C#. F# allows you to pass an array instead. Because that is actually how C# implemented *variable arguments*.
+
 If everything only takes list, and returns list, then the language becomes much more simpler. As always, adding more features to a language just makes a language more complex.
 
 In F# it also allows another feature instead. *Partial application* in a language like F# is only possible because:
