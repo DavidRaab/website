@@ -3,7 +3,7 @@ layout: post
 title: "What is Dependency injection?"
 slug: what-is-dependency-injection
 date: 2023-01-11
-tags: [patterns,dependency-injection]
+tags: [design-pattern,dependency-injection]
 description: ""
 keywords: patterns, dependency injection
 ---

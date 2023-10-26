@@ -3,7 +3,7 @@ layout: post
 title: "Special values in Perl"
 slug: special-values-in-perl
 date: 2023-10-25
-tags: [perl,patterns,closure]
+tags: [perl,design-pattern,closure]
 description: How to create true special values in Perl using references.
 ---
 
