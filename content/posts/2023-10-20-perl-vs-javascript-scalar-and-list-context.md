@@ -162,7 +162,7 @@ There also can be other reasons why you want to use `apply`. For example it happ
 
 # My Opinion
 
-After working with different styles I think that languages should just ditch *variable arguments* at all. Instead languages should just work with arrays/lists. Let's pick F# as an example. [Sure it does support *variable arguments*]({{< ref 2017-03-13-variable-arguments.md >}}) because it is running on .Net and needs interoperability with other languages like C#. But this feature is restricted to the *Object-Oriented* part of the language. In the *functional* part of the language, you don't have variable arguments. For example `Math.max` becomes:
+After working with different styles I think that languages should just ditch *variable arguments* at all. Instead languages should just work with arrays/lists. Let's pick F# as an example. [Sure it does support *variable arguments*]({{< ref 2017-03-13-variable-arguments-in-fsharp.md >}}) because it is running on .Net and needs interoperability with other languages like C#. But this feature is restricted to the *Object-Oriented* part of the language. In the *functional* part of the language, you don't have variable arguments. For example `Math.max` becomes:
 
 ```fsharp
 List.max [1;2;3;4]
