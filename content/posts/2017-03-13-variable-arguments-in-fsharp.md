@@ -3,7 +3,7 @@ layout: post
 title: "Variable Arguments in F#"
 slug: variable-arguments-in-fsharp
 date: 2017-03-13
-tags: [FSharp]
+tags: [FSharp,varargs]
 description: "This article explains how you can create functions with variable arguments, and why you should avoid them."
 keywords: f#, fsharp, functions, variable arguments, paramarray
 ---
