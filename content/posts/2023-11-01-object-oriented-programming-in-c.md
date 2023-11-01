@@ -123,7 +123,7 @@ struct Vector2* vector2_new(int x, int y) {
 }
 ```
 
-`gcc` procudes the following warning.
+`gcc` produces the following warning.
 
 ```
 vector2.c: In function ‘vector2_new’:
@@ -172,7 +172,9 @@ X=1; Y=1
 X=4; Y=1
 ```
 
-But remember. C does not have *automatic memory-management*. It doesn't automatically free any memory. You must explicitly free memory calling the `free()` function. If you don't do this, you will have [Memory Leaks](https://en.wikipedia.org/wiki/Memory_leak) in your program. Also be aware if you `free()` memory and still try to access (Read/Write) to a pointer, bad things will happen.
+But remember. C does not have *automatic memory-management*. It doesn't automatically free any memory. You must explicitly free memory calling the `free()` function. This is an example I prefer to be implicit instead of being *explicit*.
+
+If you don't free the memory, you will have [Memory Leaks](https://en.wikipedia.org/wiki/Memory_leak) in your program. Also be aware if you `free()` memory and still try to access (Read/Write) to a pointer, bad things will happen.
 
 Here is a full example.
 
@@ -226,6 +228,9 @@ int main (int argc, char **argv) {
 
     // Prints: Length=3.162278
     printf("Length=%f\n", length);
+
+    // Free memory -- when v not needed anymore
+    free(v);
 
     return 0;
 }
