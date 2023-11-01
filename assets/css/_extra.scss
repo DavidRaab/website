@@ -29,8 +29,9 @@ code.language-csharp::before  { content: "C#"; }
 code.language-ocaml::before   { content: "OCaml"; }
 code.language-racket::before  { content: "Racket"; }
 code.language-js::before      { content: "JavaScript"; }
-code.language-perl::before    { content: "Perl"; }
 code.language-bash::before    { content: "Bash"; }
+code.language-perl::before    { content: "Perl"; }
+code.language-c::before       { content: "C"; }
 
 code::before {
   display: inline-block;
