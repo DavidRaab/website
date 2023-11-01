@@ -18,15 +18,15 @@ struct Vector2 {
 
 When you know C#, you are already familiar with a `struct`. A `struct` is a value-type in C. It always gets copied as a whole. In C# we have a class that is a *reference-type* but this doesn't exist in C. But, we can make one. In C we always can create a *Pointer* to any value. A *pointer* is like a *reference* you are used in more "modern" languages.
 
-In C we can do *pointer-arithemtic* and add, subtract or change a *pointer*, but here we will not do this.
+In C we can do *pointer-arithmetic* and add, subtract or change a *pointer*, but here we will not do this. On a *reference* this is forbidden. But still the concept behind it is the same.
 
-This is how you can define an instance of the `Vector2` struct.
+Creating an instance of `Vector2` becomes:
 
 ```c
 struct Vector2 v1 = { 3, 4 };
 ```
 
-First i want an easy way to just print an vector. This is how the method `vector2_show()` will look.
+Now I want to add an easy way to just print an vector. This is how the method `vector2_show()` will look.
 
 ```c
 void vector2_show(struct Vector2 v) {
@@ -76,14 +76,14 @@ X=3; Y=4
 
 The reason for this is as you guessed. Because `Vector2` is a *value-type* and not a reference type. So instead of directly passing a `Vector2` as a copy, we just want to pass it a *pointer* to a `Vector2` instead. A pointer-type in C are declared with an additional `*`.
 
-We can get a pointer to any variable by just adding a `&` before it. So we can do the following.
+We can get a pointer to any variable by just adding a `&` (*address-operator*) before it. So we can do the following.
 
 ```c
 struct Vector2   v1 = {3, 4};
 struct Vector2 *pv1 = &v1;
 ```
 
-Here `pv1` is now a pointer to `v1`. But we cannot pass a pointer to the `vector2_set_x()` or `vector2_show()` methods we implemented so far because `vector2_show()` expexted a `Vector2` not a *pointer* to a `Vector2`.
+Here `pv1` is now a pointer to `v1`. But we cannot pass a pointer to the `vector2_set_x()` or `vector2_show()` methods we implemented so far because `vector2_show()` expected a `Vector2` not a *pointer* to a `Vector2`.
 
 Additionaly when we pass a pointer, we need to *de-reference* the pointer to the actual value. How do we do this? Perl programmers are familiar with this. We *de-reference* a pointer with the arrow `->` operator.
 
@@ -247,16 +247,16 @@ For better or for worse. I think *object-orientation* made programming a lot mor
 
 *Object-orientation* is useful and has it purpose. It fits the time perfectly. When you have limited memory and computational resources, it makes sense to pass pointers instead of copying structs over and over again.
 
-And still, when you look to the C# community as an example, those programmers start to realize more and more the importance of allocating things on the Stack. Why it is important to also be able to allocate classes on the *Stack* instead of always
+And still, when you look to the C# community as an example, those programmers start to realize more and more the importance of allocating things on the Stack and why it is important to also be able to allocate classes on the *Stack* instead of always
 allocating them in the *Heap*. Bypassing the garbage collector for performance.
 
-C# started by making the distinction not be seen by a user. But still the distinction exists. Starting programmers **must** learn the distinction between *Value-Type* and a *Reference-type* in C#. Otherwise there will have a bad time.
+C# started by making the distinction not be seen by a user. But still the distinction exists. Starting programmers **must** learn the distinction between *Value-Type* and a *Reference-type* in C#. Otherwise there will have a really bad time.
 
 C# nowadays adds back a lot of the stuff to create a class on the stack. Returning reference on structs and so on. After they dismissed the features from `C`, decades later they started to re-implement then again. How ironic.
 
 Doesn't this make you think. Wasn't it better how `C` made it? I really think that making stuff *explicit* is at some cases better. Handling of pointers is such a case.
 
-It also shows you one of the most important aspect of what *object-orientied* programming really is.
+It also shows you one of the most important aspect of what *object-oriented* programming really is.
 
 **Object-oriented* programming is nothing more than passing a data-structure to a function and directly mutate the structure.
 
