@@ -257,13 +257,13 @@ allocating them in the *Heap*. Bypassing the garbage collector for performance.
 
 C# started by making the distinction not be seen by a user. But still the distinction exists. Starting programmers **must** learn the distinction between *Value-Type* and a *Reference-type* in C#. Otherwise there will have a really bad time.
 
-C# nowadays adds back a lot of the stuff to create a class on the stack. Returning reference on structs and so on. After they dismissed the features from `C`, decades later they started to re-implement then again. How ironic.
+C# nowadays adds back a lot of the stuff to create a class on the stack. Returning reference on structs and so on. After they dismissed the features from `C`, decades later they started to re-implement then again. [How ironic](https://www.youtube.com/watch?v=Jne9t8sHpUc).
 
 Doesn't this make you think. Wasn't it better how `C` made it? I really think that making stuff *explicit* is at some cases better. Handling of pointers is such a case.
 
 It also shows you one of the most important aspect of what *object-oriented* programming really is.
 
-**Object-oriented* programming is nothing more than passing a data-structure to a function and directly mutate the structure.
+**Object-oriented** programming is nothing more than passing a data-structure to a function and directly mutate the structure.
 
 "Modern" languages like C# just have a different syntax. Instead of
 
@@ -287,4 +287,4 @@ public static bool IsGreaterThan(this int i, int value) {
 }
 ```
 
-Now you probably understand why you write `this int i` as the first argument.
+Now you probably understand why you write `this int i` as the first argument. In C, you don't even **need** this *feature*.
