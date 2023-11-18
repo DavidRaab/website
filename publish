@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+use v5.36;
+use open ':std', ':encoding(UTF-8)';
+use Data::Printer;
+use Getopt::Long::Descriptive;
+
+my ($opt, $usage) = describe_options(
+    'Usage: %c %o',
+    ['message|m', 'Commit Message',  {required => 1}],
+    ['help|h', 'Print this message', {shortcircuit => 1}],
+);
+
+$usage->die if $opt->help;
+
+system('hugo');
+chdir('./public');
+system(qw/git add ./);
+system(qw/git commit -m/, $opt->message);
+system(qw/git push/);
