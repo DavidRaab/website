@@ -7,9 +7,17 @@ tags: [perl,linux,sequence]
 description: My programming so far.
 ---
 
-Hi there, I am developing a module for fun at the moment. Here is my 'Seq'
-module. I am showing hot it is used. Here are three ways of doing Fibonacci
-numbers. Snippets from Tests so far.
+Hi there, I am developing a new Perl module to bring a lazy Sequence to Perl.
+
+It should provide the functionaly you see in C# LINQ or Java 8 Stream. The
+origin of those interfaces comes from functional programming. Thus i decided
+to primarily pick the F# API and port it to Perl.
+
+I already implemented a useful set of functions. Here is an example of the
+module and what you can do with it. Source code of my [Seq Module](https://github.com/DavidRaab/Seq) can be
+found at GitHub so far.
+
+When i have written more functions and documentation i will release it to CPAN.
 
 # First solution
 
