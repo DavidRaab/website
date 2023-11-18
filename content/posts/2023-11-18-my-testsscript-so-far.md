@@ -7,6 +7,10 @@ tags: [perl,linux,sequence]
 description: My programming so far.
 ---
 
+Hi there, I am developing a module for fun at the moment. Here is my 'Seq'
+module. I am showing hot it is used. Here are three ways of doing Fibonacci
+numbers. Snippets from Tests so far.
+
 # First solution
 
 ```perl
