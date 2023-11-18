@@ -2,7 +2,7 @@
 layout: post
 title: "Assigning variables"
 slug: assigning-variables
-date: 2023-11-18
+date: 2023-11-18T02:00:00
 tags: [general-concepts]
 description: My programming so far.
 ---
