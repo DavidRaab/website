@@ -1,3 +1,4 @@
+
 ---
 title: "Implementing a lazy sequence in Perl"
 date: 2023-01-16T20:19:28+01:00
