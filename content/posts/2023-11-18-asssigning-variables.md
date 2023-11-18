@@ -11,6 +11,7 @@ This is how you assign a value from right to left.
 
 ```perl
 my $x = 1;
+...
 ```
 
 this is how you assign a value from left to right.
