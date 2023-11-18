@@ -24,13 +24,11 @@ do_something(12, sub ($x) { ... });
 # JavaScript
 
 ```js
-var x = 1;
 do_something(1, function(x) { ... })
 ```
 
 # F#
 
 ```fsharp
-let x = 1
 doSomething 1 (fun x -> ... )
 ```
