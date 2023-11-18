@@ -1,0 +1,36 @@
+---
+layout: post
+title: "Assigning variables"
+slug: assigning-variables
+date: 2023-11-18
+tags: [general-concepts]
+description: My programming so far.
+---
+
+This is how you assign a value from right to left.
+
+```perl
+my $x = 1;
+```
+
+this is how you assign a value from left to right.
+
+# Perl
+
+```perl
+do_something(12, sub ($x) { ... });
+```
+
+# JavaScript
+
+```js
+var x = 1;
+do_something(1, function(x) { ... })
+```
+
+# F#
+
+```fsharp
+let x = 1
+doSomething 1 (fun x -> ... )
+```
