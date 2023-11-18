@@ -4,8 +4,8 @@ title: "Lazy Sequence in Perl: Three ways of doing Fibonacci"
 slug: lazy-sequence-in-perl-three-ways-of-doing-fibonacci
 date:    2023-11-18T01:00:00
 lastmod: 2023-11-18T17:00:00
-tags: [perl,linux,sequence]
-description: My programming so far.
+tags: [perl,linux,sequence,perl-seq]
+description: First preview of my Perl lazy Sequence implementation
 ---
 
 Hi there, I am developing a new Perl module to bring a lazy Sequence to Perl.
