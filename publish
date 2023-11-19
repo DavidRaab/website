@@ -6,7 +6,7 @@ use Getopt::Long::Descriptive;
 
 my ($opt, $usage) = describe_options(
     'Usage: %c %o',
-    ['message|m', 'Commit Message',  {required => 1}],
+    ['message|m=s', 'Commit Message',  {required => 1}],
     ['help|h', 'Print this message', {shortcircuit => 1}],
 );
 
