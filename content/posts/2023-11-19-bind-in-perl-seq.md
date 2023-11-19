@@ -86,8 +86,8 @@ for my $x ( @$iter ) {
 ```
 
 consider `for` as a function. It binds one value of `@$iter` to `$x` and executes
-the function we pass with `{ ... }`. But it does in a non-lazy way. It computes
-all values at once. Even if you only want to acces the first value of it.
+the function we pass with `{ ... }`. But a *for-loop* does it in a non-lazy way.
+It computes all values at once. Even if you only want to acces the first value of it.
 
 `Seq->flatten` instead creates a new *sequence* without doing anything as long
 you never ask it to evaluate.
