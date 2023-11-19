@@ -28,7 +28,6 @@ my $flattened =
 This is how a non-lazy Perl implemenation would look like:
 
 ```perl
-# Implementation
 sub flatten($aoa) {
     my @flattened;
     for my $outer ( @$aoa ) {
@@ -38,12 +37,16 @@ sub flatten($aoa) {
     }
     return \@flattened;
 };
+```
 
-# Usage
-my $flattened = flatten([
-    [1,1],
-    [2,3,5,8,13],
-])
+Using it looks very similar.
+
+```perl
+my $flattened =
+    flatten([
+        [1,1],
+        [2,3,5,8,13],
+    ]);
 ```
 
 This is how `flatten` is implemented in `Seq`.
