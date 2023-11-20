@@ -36,8 +36,8 @@ Here is how it works.
 5. `wrap` finally knows about a value. He gives him the first one, and asks Do you want this?
 6. `map` looks at it. He says, yes i take all. Then he asks `choose` is this the *basename* you wanted?
 7. `choose` looks at it. He runs a regex on it to proof the correct format.
- 1. When it is the correct format, he gives `max` the requested file. (goto #8)
- 2. When it not the correct format, he throws it away, and asks `map` again for the next value. (goto #4)
+    1. When it is the correct format, he gives `max` the requested file. (goto #8)
+    2. When it not the correct format, he throws it away, and asks `map` again for the next value. (goto #4)
 8. `max` stores the first value as the maximum value. Then he ask again for the next value (goto 2).
     He continues as long `choose` returns an item itself. And `choose` continues as long he gets
     one from `map` and so on ...
