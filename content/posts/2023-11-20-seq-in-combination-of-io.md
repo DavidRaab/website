@@ -9,7 +9,7 @@ description: Fixing the multi-millard dollar bug
 
 In one of my scripts I am already using my module. I created a script
 to faster create new test-files. From all files in that directory
-i needed to pick the filename with the highest number so far.
+I needed to pick the filename with the highest number so far.
 
 So here is how i read all files from disk and only pick files matching pattern
 "%d-$title.t". Then i want the maximum.
@@ -49,24 +49,19 @@ There could be multiple different ways to optimze it by performance. But, you
 probably always will start with `wrap`.
 
 When you give `wrap` all items at once. It internally creates an array and serves
-all request from it. This is the operation that can block.
+all request from it. This is the operation that block. But only once, and at the
+very beginning.
 
-But there are different ways to start a Seq. `wrap` is maybe just the very good
-default you should use. As long you never experience peformance problems.
+Theoretically there is only way to fix it. You just give it a function
+that works like a sequence. You can pass it any function that returns another
+function.
 
-It is in the spirit of YAGNI to not optimize what doesn't need
-to be optimized.
+That is the internal. But there are multiple different helpers (Constructors)
+to help you create such an construct.
 
-How do you optimize? By creating just a single function. The only thing you
-must do is to create a single function that always return the next element
-when asked. It doesn't matter how you do that.
-
-When you return `undef`, the computation aborts.
-
-This way. `undef` works like an Optional.
-
-Or at least, i threat it this way. So `undef` technically disappers when
-you use `Seq`.
+Throughout the system, `undef` is used like an optional. When you return it,
+its considered the end of the iterator. So `undef` values basically disappear
+as long you use `Seq`.
 
 So i am basically fixing "The multi-millard dollar-bug". Everything as a Perl
 module to load.
