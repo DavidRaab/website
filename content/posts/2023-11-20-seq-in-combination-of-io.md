@@ -1,6 +1,6 @@
 ---
 layout:  post
-title:   "Seq in Combination with I/O"
+title:   "Perl Seq: Combination with I/O"
 slug:    seq-in-combination-with-io
 date:    2023-11-20T01:00:00
 lastmod: 2023-11-20T18:40:00

@@ -1,6 +1,6 @@
 ---
 layout:  post
-title:   "Perl Seq Module: bind & flatten"
+title:   "Perl Seq: bind & flatten"
 slug:    perl-seq-module-bind-flatten
 date:    2023-11-19T02:00:00
 lastmod: 2023-11-19T02:00:00
