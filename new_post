@@ -8,6 +8,7 @@ use Time::localtime;
 use Seq qw(assign);
 
 # TODO: Correct handling with folders
+# TODO: Create Updated Front-Matter from template
 
 my ($opt, $usage) = describe_options(
     'Usage: %c %o',
@@ -24,9 +25,11 @@ my $dest = assign {
         ($time->mon + 1),
         $time->mday;
     my $title = $opt->title;
-    $title =~ s/\A\s+//; # trim start
-    $title =~ s/\s+\z//; # trim end
-    $title =~ s/\s+/-/g; # replace whitespaces with -
+    $title =~ s/\A\s+//;            # trim start
+    $title =~ s/\s+\z//;            # trim end
+    $title =~ s/[^a-zA-Z0-9\s]+//g; # remove anything not whitespace and alphanumeric
+    $title =~ s/\s+/-/g;            # replace whitespaces with -
+    $title = lc $title;             # title always lower-case
     my $name = sprintf "%s-%s.md", $date, $title;
     path(content => posts => $name);
 };
