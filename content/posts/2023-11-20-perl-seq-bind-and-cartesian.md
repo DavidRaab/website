@@ -52,6 +52,7 @@ sub cartesian($seqA, $seqB) {
 This is how you can implement cartesian in a non-lazy way.
 
 ```perl
+# cartesian : Array<'a> -> Array<'b> -> Array<'a * 'b>
 sub cartesian($arrayA, $arrayB) {
     my @output;
     for my $a ( @$arrayA ) {
@@ -61,6 +62,16 @@ sub cartesian($arrayA, $arrayB) {
     }
     return \@output;
 }
+```
+
+and call it.
+
+```perl
+my $data =
+    cartesian(
+        [qw/clubs spades hearts diamond/],
+        [qw/7 8 9 10 B D K A/],
+    );
 ```
 
 ## Related Posts
