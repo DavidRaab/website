@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Lazy Sequence in Perl: Three ways of doing Fibonacci"
+title: "Perl Seq: Three ways of doing Fibonacci"
 slug: lazy-sequence-in-perl-three-ways-of-doing-fibonacci
 date:    2023-11-18T01:00:00
 lastmod: 2023-11-18T17:00:00
