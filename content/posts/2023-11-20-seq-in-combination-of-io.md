@@ -63,5 +63,11 @@ Throughout the system, `undef` is used like an optional. When you return it,
 its considered the end of the iterator. So `undef` values basically disappear
 as long you use `Seq`.
 
+Here a funny part. `Seq` can return `undef`. It's like talking with others.
+Inside `Seq` there is no `undef`. But it returns it, just like it keeps getting one
+from the outside itself.
+
 So i am basically fixing "The multi-millard dollar-bug". Everything as a Perl
 module to load.
+
+Or at least, an attempt.
