@@ -1,0 +1,54 @@
+#!/usr/bin/env perl
+use v5.36;
+use open ':std', ':encoding(UTF-8)';
+use Data::Printer;
+use Getopt::Long::Descriptive;
+use Path::Tiny;
+use Time::localtime;
+use Seq qw(assign);
+
+# TODO: Correct handling with folders
+
+my ($opt, $usage) = describe_options(
+    'Usage: %c %o',
+    ['title|t=s', 'title of file to create', {required     => 1}],
+    ['help|h',    'Print this message',      {shortcircuit => 1}],
+);
+$usage->die if $opt->help;
+
+# generate the file that should be created
+my $dest = assign {
+    my $time  = localtime();
+    my $date  = sprintf "%04d-%02d-%02d",
+        ($time->year + 1900),
+        ($time->mon + 1),
+        $time->mday;
+    my $title = $opt->title;
+    $title =~ s/\A\s+//; # trim start
+    $title =~ s/\s+\z//; # trim end
+    $title =~ s/\s+/-/g; # replace whitespaces with -
+    my $name = sprintf "%s-%s.md", $date, $title;
+    path(content => posts => $name);
+};
+
+# Abort when destination file exists
+die(sprintf("Error: file '%s' already exists. Use another title to fix.\n", $dest))
+    if $dest->exists;
+
+# get the newest published file
+my $date = qr/\A (\d\d\d\d-\d\d-\d\d)- .* \.md \z/xms;
+my $newest =
+    Seq
+    ->wrap( path(content => 'posts')->children )
+    ->choose(sub($x) { $x->basename =~ $date ? $x : undef })
+    ->max_str;
+
+# abort when newest file cannot be found
+die "Error: cannot find newest file. Folder empty?\n"
+    if !defined $newest;
+
+# copy newest file to new post
+printf "Copy %s -> %s\n", $newest, $dest;
+$newest->copy($dest);
+
+
