@@ -114,3 +114,15 @@ $always->take(10)->to_array
 to just get an array `[1,1,1,1,1,1,1,1,1,1]`. Don't forget the `take(10)`
 otherwise the sequence will run forever until all your computer memory
 is exhausted and your program or computer crashes.
+
+But you could do
+
+```perl
+$| = 1;
+$always->iter(sub($x) {
+    print '.';
+});
+```
+
+and it will run in an endless-loop, forever printing dots until you abort
+the program.
