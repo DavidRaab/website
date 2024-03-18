@@ -4,7 +4,7 @@ title:   "Insanity of Object-Oriented Programming"
 slug:    insanity-of-oo
 date:    2024-03-16T00:00:00
 lastmod: 2024-03-16T00:00:00
-tags:    [perl,oop,data]
+tags:    [perl,fsharp,oop,data]
 description: Describes why object-orientation is insanity.
 ---
 

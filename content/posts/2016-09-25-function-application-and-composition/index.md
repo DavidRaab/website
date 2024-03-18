@@ -3,7 +3,7 @@ layout: post
 title: "Function Application and Composition"
 slug: function-application-and-composition
 date: 2016-09-25
-tags: [FSharp,composition,piping,recursion,immutability]
+tags: [FSharp,composition,recursion,immutability]
 description: "Describes the various ways on how to call a function and how to use function composition"
 keywords: f#, fsharp, functional, programming, application, function application, composition, piping
 ---

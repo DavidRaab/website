@@ -3,7 +3,7 @@ layout: post
 title: "Map operates on functions!"
 slug: map-operates-on-functions
 date: 2022-10-27
-tags: [FSharp,map,generics,functor]
+tags: [FSharp,generics,functor]
 description: "map is for functions not for data-types."
 keywords: f#, fsharp, generics
 ---

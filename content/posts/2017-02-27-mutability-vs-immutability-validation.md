@@ -3,7 +3,7 @@ layout: post
 title:  "Mutability vs. Immutability: Valid objects"
 slug:   mutabaility-vs-immutability-validation
 date:   2017-02-27
-tags:   [FSharp,CSharp,immutability,comparison]
+tags:   [FSharp,CSharp,immutability]
 description: "At any time we want to maintain valid objects. In this article we compare how hard/easy it is with mutability and immutability."
 keywords:    f#, c#, fsharp, csharp, mutability, immutability, comparison
 ---

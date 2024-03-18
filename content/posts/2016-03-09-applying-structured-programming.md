@@ -2,7 +2,7 @@
 title: Applying Structured Programming
 slug: applying-structured-programming
 date: 2016-03-09
-tags: [FSharp,list,refactoring,immutability,structured]
+tags: [FSharp,list,refactoring,immutability,goto]
 description: "Shows how applying the idea of Structured Programming can improve the code"
 keywords: f#, fsharp, programming, functional, structured, looping, list
 draft: false

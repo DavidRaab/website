@@ -3,7 +3,7 @@ layout: post
 title: "Understanding bind"
 slug: understanding-bind
 date: 2016-04-03
-tags: [FSharp,functor,applicative,monad,option,cps]
+tags: [FSharp,functor,applicative,monad,option,cps,general-concepts]
 description: "Gives an introduction to the bind function"
 keywords: f#, fsharp, bind, monad, continuation, cps, option, maybe
 ---

@@ -3,7 +3,7 @@ layout: post
 title: "Applicative Functors"
 slug: applicative-functors
 date: 2016-03-31
-tags: [FSharp,functor,applicative,option]
+tags: [FSharp,functor,applicative,general-concepts]
 description: "Explains the apply Function (Applicative Functors) with the option type"
 keywords: f#, fsharp, functor, applicative, option, null, apply
 ---

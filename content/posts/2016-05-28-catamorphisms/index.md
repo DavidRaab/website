@@ -3,7 +3,7 @@ layout: post
 title: "Catamorphisms"
 slug: catamorphisms
 date: 2016-05-28
-tags: [FSharp,fold,list,data,types,recursion]
+tags: [FSharp,fold,list,data,types,recursion,general-concepts]
 description: "Explains Catamorphisms in F#. That means the purpose of fold and foldBack."
 keywords: f#, fsharp, functional, programming, catamorphisms, fold, foldback, foldleft, foldright
 ---

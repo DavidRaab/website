@@ -3,7 +3,7 @@ layout: post
 title: "Algebraic Data-Types"
 slug: algebraic-data-types
 date: 2016-04-26
-tags: [FSharp,types,data,units-of-measure]
+tags: [FSharp,types,data,general-concepts]
 description: An Introduction to algebraic data-types in F#
 keywords: f#, fsharp, algebraic, data, types, functional, programming
 ---

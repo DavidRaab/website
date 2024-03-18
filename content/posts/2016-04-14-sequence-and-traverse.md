@@ -3,7 +3,7 @@ layout: post
 title: "Sequence and Traverse"
 slug: sequence-and-traverse
 date: 2016-04-14
-tags: [FSharp,functor,applicative,list,option]
+tags: [FSharp,functor,applicative,general-concepts]
 description: Explains the sequence and traverse functions
 keywords: f#, fsharp, list, applicative, sequence, traverse, functional, programming
 ---

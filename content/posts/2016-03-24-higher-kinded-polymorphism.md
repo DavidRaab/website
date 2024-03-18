@@ -3,7 +3,7 @@ layout: post
 title: "Higher-kinded Polymorphism: What is it, why you want it"
 slug: higher-kinded-polymorphism
 date: 2016-03-24
-tags: [FSharp,polymorphism]
+tags: [FSharp,general-concepts]
 description: "Explains Higher-Kinded Polymorphism"
 keywords: f#, fsharp, type classes, polymorphism, higher-kinded
 ---

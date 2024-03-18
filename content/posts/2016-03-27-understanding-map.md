@@ -3,7 +3,7 @@ layout: post
 title: "Understanding map"
 slug: understanding-map
 date: 2016-03-27
-tags: [FSharp,functor,list,option]
+tags: [FSharp,functor,list,option,general-concepts]
 description: "Explains the map function and what a Functor is"
 keywords: f#, fsharp, programming, functional, functor, map
 ---
