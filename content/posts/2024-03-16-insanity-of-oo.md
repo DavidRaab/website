@@ -45,7 +45,7 @@ but also for work as database and web development. I worked around 10 years
 with Perl as a web developer. The importance of Perl is interesting for many reasons.
 
 First of, Perl was designed for C programmers, it still has a procedural background
-not an object-oriented on. 
+not an object-oriented on.
 
 Second, Perl is actually a high-level (functional) language. It has many concepts
 you will find in functional languages like LISP. Also automatic memory management
@@ -78,7 +78,7 @@ What does it represent? Sure the Michael Jackson Thriller Album. I guess even
 non-programmers can understand it. Back in the year 2003 this was awesome.
 Perl programming was really about reading/parsing data, turning it into a
 useful data-structure that you need, for whatever you are doing, and then
-working with it. 
+working with it.
 
 Working this way is easy, understandable and you can get a lot of stuff done pretty
 fast. It also works great for debugging and testing. There is nothing better than
@@ -206,7 +206,7 @@ In a Album/Tracks relationship you write `add_track`, `remove_track`, `track_by_
 In a Hospital/Patient relationship you write `add_patient`, `remove_patient`, `patient_by_index`, ...
 
 And don't let's talk about testing. In Perl I can easily test if two data-structures
-are the same. Testing functions provides this methods. But I cannot test if two
+are the same. Testing modules provide these functions. But I cannot test if two
 obects are the same. Not unless I implemented an equal method on that class.
 
 Readability and understand-ability is just worse. You cannot print or show a class.
@@ -222,15 +222,15 @@ why do you not use just data in the first place?
 
 Also creation of such objects is just worse. Data-structures are usually
 complex. Complex in the sense that they are nested. They can have hashes with
-field containing arrays containing hashes again. Perl, also JavaScript provides
-an easy language built-in to create and access such structures.
+field containing arrays containing hashes again. Perl, and many other languages,
+provide an easy language built-in to create and access such structures.
 
 But with classes you usually must create them *flat*. Like I showed above. You
 first create an `Album` and then add a single `Track` to it. The more complex
 your data-structure is, the worse it will get.
 
 It will even get more worse if you have immutable objects, because then you must
-them create inside-out. Meaning from the deepest level first. So you must
+create them inside-out. Meaning from the deepest level first. So you must
 create all *Tracks* before you can create the *Album* as the last step.
 
 # A way out
@@ -244,7 +244,7 @@ boilerplate code.
 
 But there is still one thing you can or should do. Consider functions that works
 on whole data-structures, not just part of it. For example, you could create
-a `album` and a `add_track` function like this.
+an `album` and a `add_track` function like this.
 
 ```perl
 sub album($artist, $name) {
@@ -263,7 +263,7 @@ sub add_track($album, $name, $duration) {
 
 This allows you to give you some type-safety. The function that create the
 data-structure creates it for you. In some sense it is still a lot comparable
-to the OO way. You can create the Album like this.
+to the OO way. You can create the same Album like this.
 
 ```perl
 my $album = album('Michael Jackson', 'Thriller');
@@ -289,7 +289,7 @@ must provide a method for basically any kind of primitive functionality.
 You also can just add an `is_album` function that checks for the validity
 of a data-structure of having all required fields. Something you maybe
 want to add anyway when your data comes from external sources like parsing
-from a file, JSON over a Socket and so on.
+from a file, JSON over a Socket, a database and so on.
 
 # Static Typed Languages
 
@@ -297,14 +297,14 @@ Good static typed language also can help here. For example in F# i would write.
 
 ```fsharp
 type Track = {
-    Name     : string 
+    Name     : string
     Duration : string
 }
 
 type Album = {
     Artist : string
     Title  : string
-    Tracks : List[Track]
+    Tracks : Track list
 }
 ```
 
@@ -315,14 +315,14 @@ let album = {
     Artist = "Michael Jackson"
     Title  = "Thriller"
     Tracks = [
-        { Name => 'Baby Be Mine',                Duration => '04:20' },
-        { Name => 'The Girl Is Mine',            Duration => '03:42' },
-        { Name => 'Thriller',                    Duration => '05:57' },
-        { Name => 'Beat It',                     Duration => '04:18' },
-        { Name => 'Billie Jean',                 Duration => '04:54' },
-        { Name => 'Human Nature',                Duration => '04:06' },
-        { Name => 'P.Y.T. (Pretty Young Thing)', Duration => '03:59' },
-        { Name => 'The Lady in My Life',         Duration => '05:00' },
+        { Name = 'Baby Be Mine';                Duration = '04:20' }
+        { Name = 'The Girl Is Mine';            Duration = '03:42' }
+        { Name = 'Thriller';                    Duration = '05:57' }
+        { Name = 'Beat It';                     Duration = '04:18' }
+        { Name = 'Billie Jean';                 Duration = '04:54' }
+        { Name = 'Human Nature';                Duration = '04:06' }
+        { Name = 'P.Y.T. (Pretty Young Thing)'; Duration = '03:59' }
+        { Name = 'The Lady in My Life';         Duration = '05:00' }
     ]
 }
 ```
@@ -332,5 +332,12 @@ differentiate between data and code. The above are records comparable to hashes
 (but immutable). Not objects that try to mix up data with all kind of methods
 on it or trying to hide data (private fields) from it.
 
-And that is the essence. Consider your data and code separated, and your code
-will start to get less insane.
+There are two things I would suggest.
+
+1. Consider your data and code seperated.
+2. Write functions that operates on complex-data as a whole. Do not dissect
+   data into thousand small pieces of classes.
+
+When you do that your code becomes less insane. But you maybe will lose
+your job as the *elite enterprise programmer*. They need at least another 10
+years to understand this.
