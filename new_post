@@ -5,7 +5,7 @@ use Data::Printer;
 use Getopt::Long::Descriptive;
 use Path::Tiny;
 use Time::localtime;
-use Seq qw(assign);
+use Sq;
 
 # TODO: Correct handling with folders
 # TODO: Create Updated Front-Matter from template
@@ -44,14 +44,17 @@ my $newest =
     Seq
     ->wrap( path(content => 'posts')->children )
     ->choose(sub($x) { $x->basename =~ $date ? $x : undef })
-    ->max_str;
+    ->max_str(undef);
 
 # abort when newest file cannot be found
 die "Error: cannot find newest file. Folder empty?\n"
     if !defined $newest;
 
 # copy newest file to new post
-printf "Copy %s -> %s\n", $newest, $dest;
-$newest->copy($dest);
-
-
+if ( defined $newest ) {
+    printf "Copy %s -> %s\n", $newest, $dest;
+    $newest->copy($dest);
+}
+else {
+    printf "Cannot copy latest post.\n";
+}
