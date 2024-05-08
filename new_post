@@ -5,6 +5,7 @@ use Data::Printer;
 use Getopt::Long::Descriptive;
 use Path::Tiny;
 use Time::localtime;
+use Template;
 use Sq;
 
 # TODO: Correct handling with folders
@@ -12,13 +13,14 @@ use Sq;
 
 my ($opt, $usage) = describe_options(
     'Usage: %c %o',
-    ['title|t=s', 'title of file to create', {required     => 1}],
-    ['help|h',    'Print this message',      {shortcircuit => 1}],
+    ['title|t=s', 'title of file to create', {required     => 1 }],
+    ['tags=s',    'comma separated tags',    {default      => ""}],
+    ['help|h',    'Print this message',      {shortcircuit => 1 }],
 );
 $usage->die if $opt->help;
 
-# generate the file that should be created
-my $dest = assign {
+# generate the filename (including path) that should be created
+my ($file, $slug) = assign {
     my $time  = localtime();
     my $date  = sprintf "%04d-%02d-%02d",
         ($time->year + 1900),
@@ -31,30 +33,44 @@ my $dest = assign {
     $title =~ s/\s+/-/g;            # replace whitespaces with -
     $title = lc $title;             # title always lower-case
     my $name = sprintf "%s-%s.md", $date, $title;
-    path(content => posts => $name);
+
+    path(content => posts => $name), $title;
 };
 
 # Abort when destination file exists
-die(sprintf("Error: file '%s' already exists. Use another title to fix.\n", $dest))
-    if $dest->exists;
+die(sprintf("Error: file '%s' already exists. Use another title to fix.\n", $file))
+    if $file->exists;
 
-# get the newest published file
-my $date = qr/\A (\d\d\d\d-\d\d-\d\d)- .* \.md \z/xms;
-my $newest =
-    Seq
-    ->wrap( path(content => 'posts')->children )
-    ->choose(sub($x) { $x->basename =~ $date ? $x : undef })
-    ->max_str(undef);
+# generate the file content
+my $output; {
+    my $time = localtime();
 
-# abort when newest file cannot be found
-die "Error: cannot find newest file. Folder empty?\n"
-    if !defined $newest;
-
-# copy newest file to new post
-if ( defined $newest ) {
-    printf "Copy %s -> %s\n", $newest, $dest;
-    $newest->copy($dest);
+    my $tt = Template->new(
+        STRICT   => 1,
+        ENCODING => 'utf8',
+    );
+    $tt->process(\*DATA, {
+        TITLE => $opt->title,
+        SLUG  => $slug,
+        DATE  => sprintf("%04d-%02d-%02dT00:00:00",
+            ($time->year + 1900),
+            ($time->mon + 1),
+            $time->mday
+        ),
+        TAGS => $opt->tags,
+    }, \$output) || die $tt->error(), "\n";
 }
-else {
-    printf "Cannot copy latest post.\n";
-}
+
+# write template output to file
+$file->spew_utf8([$output]);
+
+__DATA__
+---
+layout:  post
+title:   "[% TITLE | html %]"
+slug:    [% SLUG %]
+date:    [% DATE %]
+lastmod: [% DATE %]
+tags:    [% IF TAGS.empty ~%] [] [%~ ELSE ~%] [ [%~ TAGS ~%] ] [%~ END %]
+description:
+---
