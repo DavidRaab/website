@@ -3,10 +3,11 @@ theme           = "own"
 title           = 'David Raab'
 baseURL         = 'https://davidraab.github.io'
 languageCode    = 'en-us'
+paginate        = 100
 
 [params]
 author      = "David Raab"
-description = "My personal Blog. Writing about programming and other stuff."
+description = "Writing about programming (Perl, F#) and other stuff."
 avatar      = "avatar.jpg"
 menu_item_separator = " - "
 
