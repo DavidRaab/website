@@ -131,6 +131,10 @@ Btw. a typical procedural [qsort](https://stackoverflow.com/questions/1787996/c-
 from the stdlib in C also expects you to pass a function-pointer making it less
 painfully to use as early C#.
 
+# Related Posts
+
+* [Why map was not discovered in object-oriented programming]({{< ref 2024-06-05-why-map-was-not-discovered-in-objectoriented-programming.md >}})
+
 [Action]: https://learn.microsoft.com/en-us/dotnet/api/system.action
 [Func]: https://learn.microsoft.com/en-us/dotnet/api/system.func-1
 [SP]: https://en.wikipedia.org/wiki/Strategy_pattern
