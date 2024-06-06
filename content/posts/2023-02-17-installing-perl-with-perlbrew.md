@@ -53,13 +53,16 @@ the following.
 
 ```bash
 perlbrew install-patchperl
-perlbrew install perl-5.36.0 -j 4
+perlbrew install perl-5.36.0 --thread -j 10
 ```
 
-The `-j 4` tells how many CPU cores should be used. This took around 4 minutes
+The `-j 10` tells how many CPU cores should be used. This took around 4 minutes
 on my machine to compile Perl from source. After it is installed the new Perl
-version is installed but not used automatically. But
-you can now easily switch between Perl version with the `perlbrew` command.
+version is installed but not used automatically. But you can now easily switch
+between Perl version with the `perlbrew` command.
+
+`--thread` actives Perl newer [threading](https://perldoc.perl.org/perlthrtut)
+support.
 
 You can see all installed Perl version with
 
