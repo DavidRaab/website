@@ -3,7 +3,7 @@ layout:  post
 title:   "Why map was not discovered in Object-Oriented Programming"
 slug:    why-map-was-not-discovered-in-object-oriented-programming
 date:    2024-06-05T00:00:00
-lastmod: 2024-06-05T00:00:00
+lastmod: 2024-06-06T00:00:00
 tags:    [design,map]
 description:
 ---
