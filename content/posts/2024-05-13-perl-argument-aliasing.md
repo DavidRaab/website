@@ -185,5 +185,4 @@ my @increments = map { $_++ } @foo;
 also has the side-effect that not only a copy is created, but the values in `@foo`
 are once again incremented, because `$_` is also an alias.
 
-
 [Perl-OO]: {{< ref 2024-04-15-why-i-like-perls-oo.md >}}

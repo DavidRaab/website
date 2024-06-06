@@ -467,6 +467,12 @@ then you are *probably* doing something wrong! The same goes for every other typ
 Not only is it easier to just write a function that don't contain any list/looping/recursion
 logic. Such a function is even more reusable.
 
+# Related Posts
+
+* [Functions are interfaces]({{< ref 2024-05-30-functions-are-interfaces.md >}})
+* [Map operates on functions]({{< ref 2022-10-27-map-operates-on-functions.md >}})
+* [Why map was not discovers in OOP]({{< ref 2024-06-05-why-map-was-not-discovered-in-objectoriented-programming.md >}})
+
 # Further Reading
 
  * [Understanding map and apply](http://fsharpforfunandprofit.com/posts/elevated-world/)

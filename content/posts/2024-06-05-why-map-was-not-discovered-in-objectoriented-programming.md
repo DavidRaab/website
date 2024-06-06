@@ -263,6 +263,8 @@ Isn't passing a single function exactly and the best fullfilment of the object-o
 # Related Posts
 
 * [Functions are interfaces]({{< ref 2024-05-30-functions-are-interfaces.md >}})
+* [Map operates on functions]({{< ref 2022-10-27-map-operates-on-functions.md >}})
+* [Understaing map]({{< ref 2016-03-27-understanding-map.md >}})
 
 [Lambda]: https://en.wikipedia.org/wiki/Anonymous_function
 [Prototype]: https://perldoc.perl.org/perlsub#Prototypes

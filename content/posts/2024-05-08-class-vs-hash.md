@@ -382,3 +382,8 @@ everything not object-oriented must be bad.
 [C-OO]:     {{< ref 2023-11-01-object-oriented-programming-in-c.md >}}
 [insanity]: {{< ref 2024-03-16-insanity-of-oo.md >}}
 [meta-programming]: {{< ref 2023-10-26-meta-programming-in-perl.md >}}
+
+# Related Posts
+
+* [Why I Like Perl's OO]({{< ref 2024-04-15-why-i-like-perls-oo.md >}})
+* [Insanity of OO]({{< ref 2024-03-16-insanity-of-oo.md >}})

@@ -304,3 +304,9 @@ was a good decision?
 
 [VMT]: https://en.wikipedia.org/wiki/Virtual_method_table
 [OODP]: {{< ref 2023-11-01-object-oriented-programming-in-c.md >}}
+
+# Related Posts
+
+* [Why I Like Perl's OO]({{< ref 2024-04-15-why-i-like-perls-oo.md >}})
+* [Class vs. Hash]({{< ref content/posts/2024-05-08-class-vs-hash.md >}})
+* [Object-Oriented Programming in C]({{< ref 2023-11-01-object-oriented-programming-in-c.md >}})

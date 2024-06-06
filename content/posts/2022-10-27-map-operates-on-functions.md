@@ -225,3 +225,9 @@ But definitely never think of `map` as a function that iterates through every el
 is what you probably know because that's what all other languages usually provides. But you have to
 abondon this idea because its wrong and just stands in your way to really understand what `map` is all
 about.
+
+# Related Posts
+
+* [Functions are interfaces]({{< ref 2024-05-30-functions-are-interfaces.md >}})
+* [Understaing map]({{< ref 2016-03-27-understanding-map.md >}})
+* [Why map was not discovers in OOP]({{< ref 2024-06-05-why-map-was-not-discovered-in-objectoriented-programming.md >}})
