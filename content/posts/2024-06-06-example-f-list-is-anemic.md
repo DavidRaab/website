@@ -75,8 +75,8 @@ it becomes to complicated, but at least you should think more deeply
 about your data.
 
 <div class="info">
-In the YouTube video <a href="https://www.youtube.com/watch?v=v1CmGbOGb2I">Why Ocaml</a>
-this topic is discussed more deeply.
+In the YouTube video <a href="https://www.youtube.com/watch?v=-J8YyfrSwTk">Effective ML</a>
+this topic is discussed more deeply. Scott Wlaschin <a href="https://www.youtube.com/watch?v=2JB1_e5wZmU">Domain Modelling Made Functional</a> also is a good candidate.
 </div>
 
 But just having a List like above wouldn't be awesome, it would mean you have
