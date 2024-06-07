@@ -3,7 +3,7 @@ layout:  post
 title:   "Example: F# List is Anemic"
 slug:    example-f-list-is-anemic
 date:    2024-06-06T00:00:00
-lastmod: 2024-06-06T00:00:00
+lastmod: 2024-06-07T00:00:00
 tags:    [design,fsharp]
 description:
 ---
