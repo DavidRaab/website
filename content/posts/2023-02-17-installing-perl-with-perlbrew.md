@@ -3,6 +3,7 @@ layout: post
 title: "Installing perl with perlbrew"
 slug: installing-perl-with-perlbrew
 date: 2023-02-17
+lastmod: 2024-06-18
 tags: [perl,linux]
 description: Howto manage multiple Perl version in home directory with perlbrew.
 ---
