@@ -141,6 +141,7 @@ cpanm Sub::Util        # PerlNavigator
 cpanm App::perlimports # PerlNavigator
 cpanm PPI              # PerlNavigator
 cpanm Class::Inspector # PerlNavigator
+cpanm Module::Starter
 ```
 
 Don't forget to use the following shebang line in your scripts.
