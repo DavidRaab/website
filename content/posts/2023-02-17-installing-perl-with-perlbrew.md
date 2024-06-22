@@ -3,7 +3,7 @@ layout: post
 title: "Installing perl with perlbrew"
 slug: installing-perl-with-perlbrew
 date: 2023-02-17
-lastmod: 2024-06-18
+lastmod: 2024-06-22
 tags: [perl,linux]
 description: Howto manage multiple Perl version in home directory with perlbrew.
 ---
@@ -57,13 +57,10 @@ perlbrew install-patchperl
 perlbrew install perl-5.36.0 --thread -j 10
 ```
 
-The `-j 10` tells how many CPU cores should be used. This took around 4 minutes
-on my machine to compile Perl from source. After it is installed the new Perl
-version is installed but not used automatically. But you can now easily switch
-between Perl version with the `perlbrew` command.
-
-`--thread` actives Perl newer [threading](https://perldoc.perl.org/perlthrtut)
-support.
+The `-j 10` tells how many CPU cores should be used. And `--thread` activates Perl
+newer [*iThread* support](https://perldoc.perl.org/perlthrtut).
+This installs the new Perl version but don't use it as the default. You can now
+switch between Perl version with the `perlbrew` command.
 
 You can see all installed Perl version with
 
@@ -97,7 +94,17 @@ cpan App::cpanminus
 ```
 
 Its up to you to install additional libraries as you need/want, here is a
-complete set of useful ones I installed.
+complete set of useful ones I installed (on Debian). First I usually install some
+system dependencies for C/C++ compiler and some headers for some libraries.
+
+```bash
+apt install build-essential  # C and C++ compiler
+apt install libev4 libev-dev # AnyEvent
+apt install libgd-dev        # GD
+apt install libxml2-dev      # XML::LibXML
+```
+
+Then here some modules you maybe wanna try out.
 
 ```bash
 cpanm EV
