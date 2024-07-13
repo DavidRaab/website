@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Searching for a Linux Command"
+title: "Linux Tool: Searching for a Linux Command"
 slug: searching-for-a-linux-command
 date: 2023-11-04
 tags: [perl,linux,tool]
@@ -90,3 +90,7 @@ by default.
 
 =end text
 ```
+
+# Related
+
+* [Debian Tool: Purging config of removed packages]({{< ref 2024-07-13-linux-tool-purging-config-of-removed-packages >}})
