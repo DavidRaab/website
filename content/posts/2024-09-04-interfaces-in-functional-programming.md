@@ -107,7 +107,7 @@ let collider = obj.GetCollider()
 but wouldn't it be cool if we just could write
 
 ```fsharp
-let collider = getCollder obj
+let collider = getCollider obj
 ```
 
 in the functional approach? Well, we actually can exactly do that! But we
@@ -144,7 +144,7 @@ The next thing is an advantage and disadvnatage at the same time. We have to
 *static-typed* object-oriented language. An interface is only implemented
 if that silly *IDrageable* is added, but every object must explicitly add
 that interface. So even if you have an object that implements an `GetCollider`
-method with the correct interface, you cannot use it until you add `IDrageable`
+method with the correct function signature, you cannot use it until you add `IDrageable`
 to it. In that sense I think the language *Go* made it right with their interfaces
 as otherwise being a horrible language. But actually this is one of the reasons
 why in my opinion *object-orientation* should be *dynamic-typed*.
@@ -244,10 +244,24 @@ That's why I am expecting it to be passed as an argument. The advantage is also
 seen in the `Point` example above. I can make `Point` Drageable without that
 `Point` knows anything about draging. In fact, it doesn't even know anything about
 a Collider, but I can create one if needed. In object-orientation land this is
-also called *loose-coupling*. Something OOP people always try to achieve but
-are unable todo.
+also called *loose-coupling*. Something OOP people are crazy about, because
+they don't know how to achieve it.
 
-It also doesn't need to apply to some kind of naming-convention.
+So one advantage is that the functional approach doesn't need to apply to some
+kind of naming-convention. You can make things work independently on how
+methods are named.
+
+<div class="info">
+Assume you have a class that implements IXML, IJSon, IStorable, IDrawable,
+IMoveable, ICollision and maybe 10 more interfaces. Then your class must
+know about serializing to XML, JSON, have some general idea to store itself, needs
+to know how to draw itself (as an Image?, OpengL?), needs method so it can be
+moved and have information about Collider, so basically knows a little bit about
+physics. Sure with such an approach you are far away of having something looseliy
+coupled. You achive looseliy copling with an
+<a href="{{< ref 2024-06-04-anemic-domain-model-data-and-behaviour-should-be-separated.md >}}">
+Anemic Domain Model</a>
+</div>
 
 ### Naming Collisions
 
@@ -423,12 +437,21 @@ that just do too much.
 I mean you have one interface that defines a *Position* and a *Collider* and
 another interface defining a *Position* and a *Rotation*, in some other cases
 you need a *Rotation* and a *Position* and so on. The chance that you create
-hundreds of classes with all kinds permutation are in my opinion nearly zero.
+hundreds of interfaces with all kinds permutation are in my opinion nearly zero.
+
+It is annoying to create interfaces and has a little bit of a burden, so you likely
+stick to just add one method to an interface that fells okay. But in the functional
+approach its actually more easy to just add one or two single functions as arguments,
+so you very likely do this.
 
 What you likely do is maybe you have a *ITransform* (usually you also only
 have a single implementation) and maybe you add a `Collider` to that definition,
 because you are annoyed to create another new interface and it is so pleasent and easy
-to just add it to `ITransform`.
+to just add it to `ITransform`. And whenever you need acces to the Collider you anyway
+need acces to the Position. But this neglects the idea that not everything that
+has a Transform actually needs a Collider. Maybe you don't do that, who knows,
+the point is more that the typical interfaces approach leads to such a design
+because it is easier this way.
 
 So in the end you maybe end up with just very few interfaces in your code, but
 all interfaces contain like 20 methods. And because they contain so much methods
@@ -480,7 +503,21 @@ let whatever (xs:'a list) (getInfo:'a -> InfoNeeded) =
         ...
 ```
 
+Here is another idea you can think about. Can we get away with the `xs` argument?
+
+How about changing it to just?
+
+```fsharp
+let whatever (infos:InfoNeeded list) =
+    for info in infos do
+        printfn "Position is %A" info.Position
+        ...
+```
+
+When does this approach work, and when does it not work?
+
 # Further Reading
 
 * [OOP is Partial Application]({{< ref 2024-06-10-oop-is-partial-application.md >}})
 * [Functions are interfaces]({{< ref 2024-05-30-functions-are-interfaces.md >}})
+* [Anemic Domain Model]({{< ref 2024-09-04-interfaces-in-functional-programming.md >}})
