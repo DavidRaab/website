@@ -371,6 +371,14 @@ you expect that this function is passed as an argument. See my previous
 article about [interfaces in functional programming]({{< ref 2024-09-04-interfaces-in-functional-programming >}})
 about this topic.
 
+## A Claim
+
+Here is a small claim from me. Because *interfaces* and *dependency injection*
+is just a worse way on solving *the problem* (what was it again?) and we
+always can do better by just having pure data. I would say:
+
+*Dependency-injection is the worst design-pattern ever.*
+
 # Relative Topics
 
 * [interfaces in functional programming]({{< ref 2024-09-04-interfaces-in-functional-programming >}})
