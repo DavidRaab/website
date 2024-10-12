@@ -1,7 +1,7 @@
 ---
 layout:  post
 title:   "Algorithms: Filtering an Array (Benchmarks)"
-slug:    algorithms-filtering-an-array-part-2
+slug:    algorithms-filtering-an-array-benchmarks
 date:    2024-10-12T00:00:00
 lastmod: 2024-10-12T00:00:00
 tags:    [algorithms,data-structures,array]
