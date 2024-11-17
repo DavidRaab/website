@@ -57,10 +57,9 @@ perlbrew install-patchperl
 perlbrew install perl-5.36.0 --thread -j 10
 ```
 
-The `-j 10` tells how many CPU cores should be used. And `--thread` activates Perl
-newer [*iThread* support](https://perldoc.perl.org/perlthrtut).
-This installs the new Perl version but don't use it as the default. You can now
-switch between Perl version with the `perlbrew` command.
+The `-j 10` tells how many CPU cores should be used. This installs the new
+Perl version but don't use it as the default. You can now switch between Perl
+version with the `perlbrew` command.
 
 You can see all installed Perl version with
 
@@ -102,6 +101,7 @@ apt install build-essential  # C and C++ compiler
 apt install libev4 libev-dev # AnyEvent
 apt install libgd-dev        # GD
 apt install libxml2-dev      # XML::LibXML
+apt inszall libcairo2-dev    # Cairo / Chart::Clicker
 ```
 
 Then here some modules you maybe wanna try out.
