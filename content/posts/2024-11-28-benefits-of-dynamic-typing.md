@@ -275,7 +275,7 @@ with two fields, and that's it.
 
 You as a programmer have to remember if that is a point or not and if that
 value is valid or not. But also the function `point_x` and `point_y`
-are in some sense *sepcial* as they don't really check it's structure or check
+are in some sense *special* as they don't really check it's structure or check
 if they are valid points. They just expect an array and either return
 the first or second value. And that's what dynamic typing actually is about.
 
@@ -579,8 +579,8 @@ my $p6 = point_add(
     make_point(1,2),
     {x => 1, y => 2, z => 3},
 );
-my $p7 = point_add(make_point3(1,2,3), make_point3(3,2,1,));
-my $p8 = point_add(make_point(1,2),    make_point3(3,2,1,));
+my $p7 = point_add(make_point3(1,2,3), make_point3(3,2,1));
+my $p8 = point_add(make_point(1,2),    make_point3(3,2,1));
 
 printf "%s\n", point_str($p1); # 3D: 1.000000,2.000000,3.000000
 printf "%s\n", point_str($p2); # 3D: 3.000000,2.000000,1.000000
