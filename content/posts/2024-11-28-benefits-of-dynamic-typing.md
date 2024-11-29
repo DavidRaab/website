@@ -119,12 +119,13 @@ my $x = $point->{x};
 and here is setting a value.
 
 ```perl
-my $x = $point->x;
-my $x = $point->{x};
+$point->x(10);
+$point->{x} = 10;
 ```
 
-So all you get from those 10-20 lines class implementation is that you can
-omit those brace `{}` for either getting or setting a value?
+So all you get from those 10-20 lines class implementation is that you replace
+curly braces `{}` with parenthesis `()`! And in setting you save one character
+for typing `=`. Woosh! Awesome!
 
 Now there is the next problem. Did you ever Benchmarked how much performance
 you will lose using a class instead of directly using a Hash? Here is
