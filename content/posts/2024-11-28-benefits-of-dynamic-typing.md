@@ -133,21 +133,9 @@ a benchmark for initalization.
 
 ```perl
 cmpthese(-1, {
-    perl => sub {
-        for ( 1 .. 1_000 ) {
-            my $p = PointP->new(1, 2);
-        }
-    },
-    moose => sub {
-        for ( 1 .. 1_000 ) {
-            my $p = PointM->new(x => 1, y => 2);
-        }
-    },
-    hash => sub {
-        for ( 1 .. 1_000 ) {
-            my $h = { x => 1, y => 2 };
-        }
-    }
+    perl  => sub { for ( 1 .. 1_000 ) { my $p = PointP->new(1, 2)           } },
+    moose => sub { for ( 1 .. 1_000 ) { my $p = PointM->new(x => 1, y => 2) } },
+    hash  => sub { for ( 1 .. 1_000 ) { my $h = { x => 1, y => 2 }          } },
 });
 ```
 
@@ -172,40 +160,16 @@ my $h  = { x => 1, y => 2 };
 
 printf "get\n";
 cmpthese(-1, {
-    perl => sub {
-        for ( 1 .. 1_000 ) {
-            my $x = $pp->x;
-        }
-    },
-    moose => sub {
-        for ( 1 .. 1_000 ) {
-            my $x = $pm->x;
-        }
-    },
-    hash => sub {
-        for ( 1 .. 1_000 ) {
-            my $x = $h->{x};
-        }
-    }
+    perl  => sub { for ( 1 .. 1_000 ) { my $x = $pp->x  } },
+    moose => sub { for ( 1 .. 1_000 ) { my $x = $pm->x  } },
+    hash  => sub { for ( 1 .. 1_000 ) { my $x = $h->{x} } },
 });
 
 printf "set\n";
 cmpthese(-1, {
-    perl => sub {
-        for ( 1 .. 1_000 ) {
-            $pp->x(1);
-        }
-    },
-    moose => sub {
-        for ( 1 .. 1_000 ) {
-            $pm->x(1);
-        }
-    },
-    hash => sub {
-        for ( 1 .. 1_000 ) {
-            $h->{x} = 1;
-        }
-    }
+    perl  => sub { for ( 1 .. 1_000 ) { $pp->x(1)   } },
+    moose => sub { for ( 1 .. 1_000 ) { $pm->x(1)   } },
+    hash  => sub { for ( 1 .. 1_000 ) { $h->{x} = 1 } },
 });
 ```
 
@@ -290,9 +254,9 @@ sub point_set_x($point, $x) {
 # Scheme version
 my $p = make_point(1,2);
 cmpthese(-1, {
-    init => sub { my $p = make_point(1,2) },
-    get  => sub { my $x = point_x($p)     },
-    set  => sub { point_set_x($p)         },
+    init => sub { make_point(1,2) for 1 .. 1_000 },
+    get  => sub { point_x($p)     for 1 .. 1_000 },
+    set  => sub { point_set_x($p) for 1 .. 1_000 },
 });
 ```
 
@@ -303,10 +267,17 @@ set  10383/s  25%   -- -28%
 get  14491/s  75%  40%   --
 ```
 
-Here we can see that initalization is around the same, while getting/setting
-is actually faster. But most of those performance benefits are because we
-use an Array instead of an Hash. Let's look what happens when we change
-the implemention to a Hash (I omit the code here).
+Initialization is a little bit faster compared to initialization an pure perl
+object or mosse object. Mainly this is because it uses an Array and those
+can be created faster. But with `8296` calls per second it is still not fast
+enough as directly initialization of an hash that is around the `34000` calls
+per second. Here you can basically see just the overhead of a function call
+vs. directly initialization something. Calling functions aren't cheap!
+
+I changed the code and instead of using an Array I used a Hash so it is
+similar to all the objects we had so far. Here are the results for those.
+I omit the code here as changing to a hash should be obvious. The results
+are now.
 
 ```
         Rate init  set  get
@@ -315,14 +286,17 @@ set   9998/s  82%   -- -25%
 get  13398/s 144%  34%   --
 ```
 
-Everything at least goes up. Initialization is nearly two times faster
-compared to creating an object. But also getting/setting is faster. It's
-usually faster because calling functions is usually faster as calling methods
-on objects and dividing a getter/setter into two parts can make the code faster as
-they are no branching logic that decides what todo or always do both things.
+With `~5500 cps` we are slower than just initialize a hash `~7800 cps` but faster
+than using a perl class with `~3100 cps`.
+
+Otherwise getting or setting a field through a function is around twice as fast
+as the object-oriented versions. It's faster because calling functions is faster
+as calling methods on objects and dividing a getter/setter into two parts make
+the code faster as they are no branching logic that decides what todo or always
+do both things.
 
 So, here is the question. Why not stick to such a function based solution?
-It usually is by far more less code and it also is faster.
+It is by far more less code and it also is faster.
 
 But let's go a little bit deeper to see some more difference.
 
@@ -478,6 +452,9 @@ happen but causing you big performance hits for your code.
 And even when you change the internal representation maybe every 10 years,
 yeah you also must change `add`. That's not a big deal.
 
+So while there are advantages and disadvantages in both cases. The advantages
+you get by accessing every field trhough a function are practically not worth it.
+
 # Extending Point
 
 Object-orientation is often teached that you can use crappy inheritance
@@ -546,14 +523,16 @@ sub point_add($p1, $p2) {
 ```
 
 Now, let's look at it. Obviously `point_x` and `point_y` don't need to change
-anymore. Obviously because all they do is just return an `x` field from a
-hash. It works by passing any hash that has `x` field. Very reusable and obviously
+because all they do is just return an `x` field from a hash. Those functions
+work with any hash that has a `x` field. Very reusable and obviously
 not really needed at all. `$hash->{x}` does the same.
 
 We actually could create a `point3d_add` function and differentiate between
 `point_add` and `point3d_add` but, why? The whole purpose of dynamic typing
 is also to check for structures you pass in and depending on the structure
-you can decide different behaviour. Here `point_add` works with both.
+you can decide different behaviour. Here `point_add` works with both. It
+just calculates the `x/y` fields, and when both hashes provide a `z` field,
+they also calculate the `z` field.
 
 You can pass it 2D points and 3D points. You even can mix it and one
 can be a 2D point and the other being a 3D point. Not even that, it works
@@ -624,7 +603,7 @@ scheme  2461/s     38%      --
 that writing code this way offers you:
 
 1. Less code
-2. More flexible
+2. More flexibility
 3. Higher performance
 
 only leaves with one question open.
