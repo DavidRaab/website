@@ -25,3 +25,4 @@ Some Perl optimization.
 * Caching? (Memoization Fibonacci)
 * Order of if-statements 
 * using hash instead of if/elsif/switch
+* passing refs instead of varargs
