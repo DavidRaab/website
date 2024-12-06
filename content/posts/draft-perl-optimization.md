@@ -23,3 +23,5 @@ Some Perl optimization.
 * map/grep vs building array with foreach loop
 * Using Profiler (Hint: Advent of Code Array2D)
 * Caching? (Memoization Fibonacci)
+* Order of if-statements 
+* using hash instead of if/elsif/switch
