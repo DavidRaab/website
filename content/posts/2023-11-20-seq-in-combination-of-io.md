@@ -1,10 +1,10 @@
 ---
 layout:  post
-title:   "Perl Seq: Combination with I/O"
+title:   "Perl Sq: Combination with I/O"
 slug:    seq-in-combination-with-io
 date:    2023-11-20T01:00:00
 lastmod: 2023-11-20T18:40:00
-tags:    [perl,perl-seq]
+tags:    [perl,sq]
 description: Fixing the multi-millard dollar bug
 ---
 
@@ -23,10 +23,10 @@ its `Path::Tiny`.
 # get the maximum id from test-files so far
 my $maximum_id =
     Seq
-    ->wrap(   path('t')->children )
+    ->new(    path('t')->children )
     ->map(    sub($x) { $x->basename })
     ->choose( sub($x) { $x =~ m/\A(\d+) .* \.t\z/xms ? $1 : undef } )
-    ->max(0);
+    ->max->or(0);
 ```
 
 Here is how it works.
@@ -79,3 +79,7 @@ So I am basically fixing "The multi-millard dollar-bug". Everything as a Perl
 module to load.
 
 Or at least, an attempt.
+
+# References
+
+* [Sq on Github](https://github.com/DavidRaab/Sq)

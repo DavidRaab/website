@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Perl Seq: Three ways of doing Fibonacci"
+title: "Perl Sq: Three ways of doing Fibonacci"
 slug: lazy-sequence-in-perl-three-ways-of-doing-fibonacci
 date:    2023-11-18T01:00:00
 lastmod: 2023-11-18T17:00:00
-tags: [perl,linux,sequence,perl-seq]
+tags: [perl,linux,sq]
 description: First preview of my Perl lazy Sequence implementation
 ---
 
@@ -15,8 +15,7 @@ origin of those interfaces comes from functional programming. Thus i decided
 to primarily pick the F# API and port it to Perl.
 
 I already implemented a useful set of functions. Here is an example of the
-module and what you can do with it. Source code of my [Seq Module](https://github.com/DavidRaab/Seq) can be
-found at GitHub so far.
+module and what you can do with it. Source code of my [Sq Module](https://github.com/DavidRaab/Sq) can be found at GitHub so far.
 
 When i have written more functions and documentation i will release it to CPAN.
 
@@ -25,7 +24,7 @@ When i have written more functions and documentation i will release it to CPAN.
 ```perl
 my $fib =
     Seq->concat(
-        Seq->wrap(1,1),
+        Seq->new(1,1),
         Seq->unfold([1,1], sub($state) {
             my $next = $state->[0] + $state->[1];
             return $next, [$state->[1],$next];
@@ -47,7 +46,7 @@ is(
 {
     my $fib =
         Seq->concat(
-            Seq->wrap(1,1),
+            Seq->new(1,1),
             Seq->unfold([1,1], sub($state) {
                 my $next = $state->[0] + $state->[1];
                 $state->[0] = $state->[1];
@@ -70,7 +69,7 @@ is(
 {
     my $fib =
         Seq->concat(
-            Seq->wrap(1,1),
+            Seq->new(1,1),
             Seq->unfold({x => 1, y => 1}, sub($state) {
                 my $next = $state->{x} + $state->{y};
                 $state->{x} = $state->{y};
@@ -101,3 +100,7 @@ sub concat($class, @iters) {
     return reduce { append($a, $b) } @iters;
 }
 ```
+
+# References
+
+* [Sq on Github](https://github.com/DavidRaab/Sq)

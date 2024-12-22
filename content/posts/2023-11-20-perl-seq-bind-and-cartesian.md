@@ -4,7 +4,7 @@ title:   "Perl Seq: bind & cartesian"
 slug:    perl-seq-bind-and-cartesian
 date:    2023-11-20T20:00:00
 lastmod: 2023-11-20T20:00:00
-tags:    [perl,perl-seq]
+tags:    [perl,sq]
 description: How cartesian is implemented in Perl Seq
 ---
 
@@ -79,6 +79,9 @@ my $data =
 * [Shape of My Heart][3]
 * [Understanding bind][2]
 
+# References
+
+* [Sq on Github](https://github.com/DavidRaab/Sq)
 
 [1]: https://en.wikipedia.org/wiki/Cartesian_product
 [2]: {{< ref 2016-04-03-understanding-bind >}}

@@ -1,10 +1,10 @@
 ---
 layout:  post
-title:   "Perl Seq: bind & flatten"
+title:   "Perl Sq: bind & flatten"
 slug:    perl-seq-module-bind-flatten
 date:    2023-11-19T02:00:00
 lastmod: 2023-11-19T02:00:00
-tags:    [perl,perl-seq]
+tags:    [perl,sq]
 description: Code example with bind and flatten
 ---
 
@@ -105,5 +105,10 @@ sub bind($seq, $f) {
 }
 ```
 
-[1]: https://github.com/DavidRaab/Seq
+# References
+
+* [Sq on Github](https://github.com/DavidRaab/Sq)
+
+
+[1]: https://github.com/DavidRaab/Sq
 [2]: {{< ref 2023-11-18-asssigning-variables >}}

@@ -3,30 +3,33 @@ layout: post
 title: "Shape of my Heart"
 slug: shape-of-my-heart
 date: 2023-11-19
-tags: [perl,sequence,perl-seq]
+tags: [perl,sq]
 description: Shape of my Heart
 ---
 
 Here are two programs that produces the same result.
 
-This is something I would have written without my Seq module.
+This is something I would have written without my `Sq` module.
 
 ```perl
 [
-    (map { [clubs   => $_ ] } qw/7 8 9 10 B D K A/),
-    (map { [spades  => $_ ] } qw/7 8 9 10 B D K A/),
-    (map { [hearts  => $_ ] } qw/7 8 9 10 B D K A/),
-    (map { [diamond => $_ ] } qw/7 8 9 10 B D K A/),
+    (map { [clubs   => $_ ] } qw/7 8 9 10 J Q K A/),
+    (map { [spades  => $_ ] } qw/7 8 9 10 J Q K A/),
+    (map { [hearts  => $_ ] } qw/7 8 9 10 J Q K A/),
+    (map { [diamond => $_ ] } qw/7 8 9 10 J Q K A/),
 ]
 ```
 
 With my module, i now can write the same in this way.
 
 ```perl
-Seq::cartesian(
-    Seq->wrap(qw/clubs spades hearts diamond/),
-    Seq->wrap(qw/7 8 9 10 B D K A/),
-)
+use Sq;
+
+my $cards =
+    Seq::cartesian(
+        Seq->new(qw/clubs spades hearts diamond/),
+        Seq->new(qw/7 8 9 10 J Q K A/),
+    )
 ```
 
 This is the [Shape of my Heart](https://www.youtube.com/watch?v=QK-Z1K67uaA)
@@ -50,9 +53,10 @@ The module will allow LISP-style coding and OO-Chaining. As an example. You
 also could have written.
 
 ```perl
-Seq->wrap(qw/clubs spades hearts diamond/)->cartesian(
-    Seq->wrap(qw/7 8 9 10 B D K A/),
-)
+my $cards =
+    Seq->new(qw/clubs spades hearts diamond/)->cartesian(
+        Seq->new(qw/7 8 9 10 B D K A/),
+    );
 ```
 
 I prefer the first version *in this case*, in some other cases i prefer
@@ -77,3 +81,12 @@ I also think about writing my own **Discriminated Unions** and **Record**
 implementation in Perl. **Discriminated Unions** are such an awesome feature from F#,
 it makes it a pain to work in any other language that doesn't have this as
 a built-in language feature.
+
+# Update
+
+Development switched from a module that was just about a sequence `Seq` to
+a new name `Sq`. This new module contains a lot of other stuff that work together
+like wrappers arround `Array`, `Hash`, data-structures for `Option`, `Result`
+and at the moment a `Sq::Parser` and it's own typing system `Sq::Type`.
+
+[Sq on Github](https://github.com/DavidRaab/Sq)

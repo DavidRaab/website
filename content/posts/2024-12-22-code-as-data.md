@@ -68,7 +68,7 @@ at least in a dynamic-typed language it is that easy. In a static-typed OO langu
 like C#, Java you probably must cast all things to `object` to make a dynmaic-typed
 language out of it.
 
-One cou have that you can write a function that takes such an array/data and executes
+Once you have that you can write a function that takes such an array/data and executes
 it back again. In Perl it's easy.
 
 ```perl
@@ -87,7 +87,7 @@ run $data; # prints: "Hello, World!"
 ```
 
 But instead of calling the global installed functions that are installed
-in Perl, here `hello`, we also could change `run` to pass it a a so called
+in Perl, here `hello`, we also could change `run` to pass it a so called
 **Dispatch-Table**.
 
 ```perl

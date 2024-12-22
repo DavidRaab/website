@@ -4,7 +4,7 @@ title:   "Seq::Manual::FromSub"
 slug:    perl-seq-seq-manual-fromsub
 date:    2023-11-21T00:00:00
 lastmod: 2023-11-21T00:00:00
-tags:    [perl,perl-seq]
+tags:    [perl,sq]
 description: Seq::Manual::FromSub
 ---
 
