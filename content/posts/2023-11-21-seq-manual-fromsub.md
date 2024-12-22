@@ -126,3 +126,7 @@ $always->iter(sub($x) {
 
 and it will run in an endless-loop, forever printing dots until you abort
 the program.
+
+# Reference
+
+* [Sq on Github](https://github.com/DavidRaab/Sq)
