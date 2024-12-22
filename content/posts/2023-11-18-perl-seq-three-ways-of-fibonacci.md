@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Perl Sq: Three ways of doing Fibonacci"
-slug: lazy-sequence-in-perl-three-ways-of-doing-fibonacci
-date:    2023-11-18T01:00:00
+slug: sq-fibonacci-with-seq
+date: 2023-11-18T01:00:00
 lastmod: 2023-11-18T17:00:00
 tags: [perl,linux,sq]
 description: First preview of my Perl lazy Sequence implementation
