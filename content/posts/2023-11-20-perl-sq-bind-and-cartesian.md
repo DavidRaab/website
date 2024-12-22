@@ -1,7 +1,7 @@
 ---
 layout:  post
-title:   "Perl Seq: bind & cartesian"
-slug:    perl-seq-bind-and-cartesian
+title:   "Perl Sq: bind & cartesian"
+slug:    perl-sq-bind-and-cartesian
 date:    2023-11-20T20:00:00
 lastmod: 2023-11-20T20:00:00
 tags:    [perl,sq]
