@@ -5,10 +5,8 @@ use Sq -sig => 1;
 use Getopt::Long::Descriptive;
 use Path::Tiny;
 use Time::localtime;
-use Template;
 
-# TODO: Correct handling with folders
-# TODO: Create Updated Front-Matter from template
+# TODO: Correct handling with folders (when folders don't exists?)
 
 my ($opt, $usage) = describe_options(
     'Usage: %c %o',
@@ -25,12 +23,10 @@ my ($file, $slug) = assign {
         ($time->year + 1900),
         ($time->mon + 1),
         $time->mday;
-    my $title = $opt->title;
-    $title =~ s/\A\s+//;            # trim start
-    $title =~ s/\s+\z//;            # trim end
-    $title =~ s/[^a-zA-Z0-9\s]+//g; # remove anything not whitespace and alphanumeric
-    $title =~ s/\s+/-/g;            # replace whitespaces with -
-    $title = lc $title;             # title always lower-case
+    my $title = Str->trim($opt->title);
+    $title = lc $title;          # title always lower-case
+    $title =~ s/[^a-z0-9\s]+//g; # remove anything not whitespace and alphanumeric
+    $title =~ s/\s+/-/g;         # replace whitespaces with -
     my $name = sprintf "%s-%s.md", $date, $title;
 
     path(content => posts => $name), $title;
@@ -40,37 +36,50 @@ my ($file, $slug) = assign {
 die(sprintf("Error: file '%s' already exists. Use another title to fix.\n", $file))
     if $file->exists;
 
-# generate the file content
-my $output; {
-    my $time = localtime();
+# write template output to file
+Sq->fs->write_text($file, template({
+    title => $opt->title,
+    slug  => $slug,
+    tags  => [split /,/, $opt->tags],
+}));
+printf "Created: '%s'\n", $file;
 
-    my $tt = Template->new(
-        STRICT   => 1,
-        ENCODING => 'utf8',
-    );
-    $tt->process(\*DATA, {
-        TITLE => $opt->title,
-        SLUG  => $slug,
-        DATE  => sprintf("%04d-%02d-%02dT00:00:00",
+
+# Function to generate template output
+sub template($arg) {
+    state $input = type [hash =>
+        [keys =>
+            title => ['str'],
+            slug  => ['str'],
+        ],
+        [okeys =>
+            date => [match => qr/\d\d\d\d-\d\d-\d\d T \d\d:\d\d:\d\d/x],
+            tags => [array => [of => ['str']]],
+        ],
+    ];
+    Sq::Type::t_assert($input, $arg);
+    # Add blessings
+    sq($arg);
+
+    my $date = assign {
+        return $arg->{date} if defined $arg->{date};
+        my $time = localtime();
+        my $date = sprintf("%04d-%02d-%02dT00:00:00",
             ($time->year + 1900),
             ($time->mon + 1),
             $time->mday
-        ),
-        TAGS => $opt->tags,
-    }, \$output) || die $tt->error(), "\n";
+        );
+        return $date;
+    };
+    return [
+        '---',
+        'layout:  post',
+        'title:   "' . Str->escape_html($arg->{title}) . '"',
+        'slug:    ' . $arg->{slug},
+        'date:    ' . $date,
+        'lastmod: ' . $date,
+        'tags:    [' . $arg->{tags}->join(",") . ']',
+        'description:',
+        '---',
+    ];
 }
-
-# write template output to file
-$file->spew_utf8([$output]);
-printf "Created: '%s'\n", $file;
-
-__DATA__
----
-layout:  post
-title:   "[% TITLE | html %]"
-slug:    [% SLUG %]
-date:    [% DATE %]
-lastmod: [% DATE %]
-tags:    [% IF TAGS.empty ~%] [] [%~ ELSE ~%] [ [%~ TAGS ~%] ] [%~ END %]
-description:
----
