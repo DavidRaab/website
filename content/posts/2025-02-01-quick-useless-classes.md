@@ -49,4 +49,8 @@ my $res1 = one_method(%default, arg4 => { ... });
 my $res2 = one_method(%default, arg4 => { ... });
 ```
 
+# Related
+
+* [OOP is Partial Application]({{< ref "2024-06-10-oop-is-partial-application.md" >}})
+
 In that example, the hash `%default` basically acts as your *object*.
