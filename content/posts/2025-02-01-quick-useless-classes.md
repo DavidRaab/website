@@ -4,7 +4,7 @@ title:   "Quick: Useless Classes"
 slug:    quick-useless-classes
 date:    2025-02-01T00:00:00
 lastmod: 2025-02-01T00:00:00
-tags:    []
+tags:    [perl,quick]
 description:
 ---
 
