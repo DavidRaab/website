@@ -215,7 +215,7 @@ this.
 ```
 
 The idea was that you could still generate a full valid/visible HTML that could
-be opened by a designer just in the browser. Than a developer could enhance that
+be opened by a designer in the browser. Then a developer could enhance that
 template with it's statement to generate a dynamic page.
 
 ## HTML::Template
@@ -474,5 +474,69 @@ use functions/procedures for it. But it is important that a single function only
 does one thing. Means either it processes Input/Actions, updates the Model
 or generates a View out from a Model. It all can be in a single file,
 written in a single Programming language.
+
+# Summary
+
+There is still a lot more I can write about that whole stuff about Templating
+Systems and go more deeper for some details. But here is my first Summary.
+Why do I hate Templating Systems?
+
+Usually their are just an extremely bad copy of a full programming language,
+recreteaded to be embedded into another document. Alone this fact and that
+you have to constantly add Opening/Closing braces whenever you want to add
+Code is just a mess.
+
+Typically every/most? Templating Language is also just worse when it comes to write
+re-usable things. You don't have functions or any other way to organize things.
+
+Sometimes a Templating Language offers stuff that is easier todo as in your
+programming language. For example `Template` offers filters/VMethods, as most modern
+Templating Systems do, you can for example write.
+
+```
+<a href="[% page_url | url %]">
+```
+
+Here the variable `page_url` is escaped as an URL. But a normal function would
+do the same. How about.
+
+```perl
+url($page_url);
+```
+
+and it also offers Functions to filter, repeat, skip, search and do all other
+kind of stuff with Arrays/Hashes.
+
+For example [Template documentation](https://template-toolkit.org/docs/manual/VMethods.html)
+gives the following example.
+
+```
+[% ccard_no = "1234567824683579";
+   ccard_no.chunk(4).join
+%]
+```
+
+And this is also somehow the problem. Those Templating Languages usually
+provides better ways to work with data-structures as your programming language
+offers. That's why those languages are used.
+
+But in my opinion, instead of creating a whole new programming language, why
+not add those useful functions to your programming language?
+
+I am writing [Sq](https://github.com/DavidRaab/Sq) and I added those functions
+directly to the data-structures in Perl. So for example i just can write.
+
+```perl
+my $ccard_no = "1234567824683579";
+my $same     = Str->chunk($ccard_no, 3)->join();
+```
+
+and this is how every language should do it. You have a templating system
+that easily offers you to filter and manipulate arrays and hashes? Good, add
+those to your language instead of creating a Templating System with those features.
+
+Your language sucks so much that this isn't possible?
+
+Pick another programming language.
 
 [CGI]:https://metacpan.org/dist/CGI/view/lib/CGI.pod
