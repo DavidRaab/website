@@ -24,8 +24,10 @@ my ($file, $slug) = assign {
         ($time->mon + 1),
         $time->mday;
     my $title = Str->trim($opt->title);
-    $title = lc $title;          # title always lower-case
-    $title =~ s/[^a-z0-9\s]+//g; # remove anything not whitespace and alphanumeric
+    # file always only lower case
+    $title = lc $title;
+    # only keep alphanumeric, whitespace and -
+    $title = Str->keep($title, qr/(?: [a-zA-Z0-9] | \s | - ) /x);
     $title =~ s/\s+/-/g;         # replace whitespaces with -
     my $name = sprintf "%s-%s.md", $date, $title;
 
