@@ -54,10 +54,8 @@ sub template($arg) {
         [keys =>
             title => ['str'],
             slug  => ['str'],
-        ],
-        [okeys =>
-            date => [match => qr/\d\d\d\d-\d\d-\d\d T \d\d:\d\d:\d\d/x],
-            tags => [array => [of => ['str']]],
+            date  => [maybe => [match => qr/\d\d\d\d-\d\d-\d\d T \d\d:\d\d:\d\d/x]],
+            tags  => [maybe => [array => [of => ['str']]]],
         ],
     ];
     Sq::Type::t_assert($input, $arg);
